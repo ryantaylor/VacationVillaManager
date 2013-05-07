@@ -1,0 +1,8 @@
+[Bb]in
+[Oo]bj
+
+*.suo
+*.user
+
+packages/
+VacationVillaManager/App_Data
