@@ -169,7 +169,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\Cost.cs" />
+    <Compile Include="Models\House.cs" />
+    <Compile Include="Models\Inquiry.cs" />
+    <Compile Include="Models\ManagerContext.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\Special.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
