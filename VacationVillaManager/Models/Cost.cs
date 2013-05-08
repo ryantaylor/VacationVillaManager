@@ -15,6 +15,6 @@ namespace VacationVillaManager.Models
 
         public string Name { get; set; }
         public double Amount { get; set; }
-        public int HouseID { get; set; }
+        public House House { get; set; }
     }
 }

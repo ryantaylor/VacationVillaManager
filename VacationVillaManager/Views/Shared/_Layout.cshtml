@@ -25,16 +25,20 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Houses", "Index", "Houses")</li>
+                            <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
+                            <li>@Html.ActionLink("Inquiries", "Index", "Inquiries")</li>
+                            <li>@Html.ActionLink("Specials", "Index", "Specials")</li>
 
-                            @{
+                            <!--@{
                                 ManagerContext db = new ManagerContext();
                                 
                                 List<House> houses = db.Houses.ToList();
                                 
                                 foreach (House h in houses) {
-                                    <li>@Html.ActionLink(h.Name, "Details", "House", new { id = h.ID }, null)</li>   
+                                    <li>@Html.ActionLink(h.Name, "Details", "Houses", new { id = h.ID }, null)</li>   
                                 }
-                            }
+                            }-->
                         </ul>
                     </nav>
                 </div>

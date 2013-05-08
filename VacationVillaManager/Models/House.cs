@@ -33,7 +33,7 @@ namespace VacationVillaManager.Models
             get
             {
                 ManagerContext db = new ManagerContext();
-                return db.Costs.Where(r => r.HouseID == ID).ToList();
+                return db.Costs.Where(r => r.House.ID == ID).ToList();
             }
         }
     }
