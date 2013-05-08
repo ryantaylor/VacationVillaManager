@@ -10,6 +10,7 @@ namespace VacationVillaManager.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(VacationVillaManager.Models.ManagerContext context)
