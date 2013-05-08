@@ -1,0 +1,109 @@
+﻿@model VacationVillaManager.Models.House
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>House</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Region)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Region)
+            @Html.ValidationMessageFor(model => model.Region)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Country)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Country)
+            @Html.ValidationMessageFor(model => model.Country)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ZipPostalCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ZipPostalCode)
+            @Html.ValidationMessageFor(model => model.ZipPostalCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rate)
+            @Html.ValidationMessageFor(model => model.Rate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VirtualTour)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VirtualTour)
+            @Html.ValidationMessageFor(model => model.VirtualTour)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Flyer)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Flyer)
+            @Html.ValidationMessageFor(model => model.Flyer)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeAwayID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeAwayID)
+            @Html.ValidationMessageFor(model => model.HomeAwayID)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

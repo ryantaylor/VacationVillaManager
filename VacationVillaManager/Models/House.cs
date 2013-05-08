@@ -20,12 +20,20 @@ namespace VacationVillaManager.Models
         public string ZipPostalCode { get; set; }
 
         public double Rate { get; set; }
-        public LinkedList<Cost> Costs { get; set; }
         public string VirtualTour { get; set; }
-        public LinkedList<string> Photos { get; set; }
         public string Flyer { get; set; }
         public string Description { get; set; }
 
         public string HomeAwayID { get; set; }
+
+        public List<string> Photos { get; set; }
+        public List<Cost> Costs
+        {
+            get
+            {
+                ManagerContext db = new ManagerContext();
+                return db.Costs.Where(r => r.HouseID == ID).ToList();
+            }
+        }
     }
 }
