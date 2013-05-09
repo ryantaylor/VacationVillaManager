@@ -39,7 +39,7 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new House());
         }
 
         //

@@ -27,14 +27,13 @@ namespace VacationVillaManager.Models
 
         public string HomeAwayID { get; set; }
 
-        public List<string> Photos { get; set; }
-        public List<Cost> Costs
+        public List<Cost> Costs { get; set; }
+        public List<Photo> Photos { get; set; }
+
+        public House()
         {
-            get
-            {
-                ManagerContext db = new ManagerContext();
-                return db.Costs.Where(r => r.House.ID == ID).ToList();
-            }
+            Costs = new List<Cost>();
+            Photos = new List<Photo>();
         }
     }
 }

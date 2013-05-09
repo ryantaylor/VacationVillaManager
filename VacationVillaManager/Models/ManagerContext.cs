@@ -21,6 +21,7 @@ namespace VacationVillaManager.Models
         public DbSet<Report> Reports { get; set; }
         public DbSet<Special> Specials { get; set; }
         public DbSet<Cost> Costs { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

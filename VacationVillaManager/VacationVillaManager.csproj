@@ -180,6 +180,7 @@
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Inquiry.cs" />
     <Compile Include="Models\ManagerContext.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Special.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -315,6 +316,7 @@
     <Content Include="Views\Specials\Create.cshtml" />
     <Content Include="Views\Specials\Edit.cshtml" />
     <Content Include="Views\Specials\Delete.cshtml" />
+    <Content Include="Views\Houses\EditorTemplates\Cost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

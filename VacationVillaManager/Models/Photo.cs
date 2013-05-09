@@ -7,16 +7,14 @@ using System.Web;
 
 namespace VacationVillaManager.Models
 {
-    public class Special
+    public class Photo
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        public string Name { get; set; }
+        public string URL { get; set; }
         public House House { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public double Rate { get; set; }
-        public List<Cost> Costs { get; set; }
     }
 }
