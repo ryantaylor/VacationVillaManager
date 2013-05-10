@@ -317,6 +317,7 @@
     <Content Include="Views\Specials\Edit.cshtml" />
     <Content Include="Views\Specials\Delete.cshtml" />
     <Content Include="Views\Houses\EditorTemplates\Cost.cshtml" />
+    <Content Include="Views\Houses\CostEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,12 +50,28 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach (Cost c in house.Costs)
+                {
+                    if (c.Name.Equals(null))
+                        house.Costs.Remove(c);
+                }
+
                 db.Houses.Add(house);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
             return View(house);
+        }
+
+        //
+        // PARTIAL: /Houses/CostEditor
+
+        public PartialViewResult CostEditor(int id = 0)
+        {
+            ViewBag.CostID = id;
+            return PartialView();
         }
 
         //

@@ -69,11 +69,11 @@
             @Html.ValidationMessageFor(model => model.Rate)
         </div>
 
-        @{
-            Model.Costs.Add(new Cost());   
-        }
+        <div class="costEditor">
+            <!-- Generated cost editors go here -->
+        </div>
 
-        @Html.EditorFor(model => model.Costs[0])
+        <a href="javascript:void()" class="addNewCost" onclick="@{Model.Costs.Add(new Cost());}">Add</a>
 
         <p>
             <input type="submit" value="Create" />
@@ -87,4 +87,31 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery-1.7.1.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive.ajax.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var id = 0;
+
+            $('.addNewCost').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Houses/CostEditor/" + id,
+                    success: function ($result) {
+                        var toInject = $result;
+                        $('.costEditor').append(toInject);
+                        id++;
+                    }
+                });
+            });
+
+            $("a.deleteRow").live("click", function () {
+                //$(this).parents("div.costEditorRow:first").remove();
+                var id = $(this).closest('div').attr('id');
+                $('#' + id + ' input').val('');
+                $(this).parents("div.costEditorRow:first").hide();
+                return false;
+            });
+        });
+    </script>
 }

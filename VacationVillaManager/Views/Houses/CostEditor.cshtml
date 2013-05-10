@@ -1,0 +1,10 @@
+﻿@model VacationVillaManager.Models.House
+@using VacationVillaManager.Models
+
+@{
+    int id = (int)ViewBag.CostID;
+}
+
+<div class="costEditorRow" id="@id">
+    @Html.EditorFor(model => model.Costs[id])
+</div>
