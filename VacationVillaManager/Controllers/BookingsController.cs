@@ -39,7 +39,7 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Create()
         {
-            ViewData["ClientsList"] = Client.BuildHousesDropdownList();
+            ViewData["ClientsList"] = Client.BuildClientsDropdownList();
             return View();
         }
 
