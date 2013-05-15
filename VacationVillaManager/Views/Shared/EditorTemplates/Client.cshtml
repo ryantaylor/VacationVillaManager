@@ -1,0 +1,22 @@
+﻿@model VacationVillaManager.Models.Client
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(model => model.Name)</td>
+        <td>@Html.EditorFor(model => model.Name)</td>
+        <td>@Html.ValidationMessageFor(model => model.Name)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.PhoneNumber)</td>
+        <td>@Html.EditorFor(model => model.PhoneNumber)</td>
+        <td>@Html.ValidationMessageFor(model => model.PhoneNumber)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Email)</td>
+        <td>@Html.EditorFor(model => model.Email)</td>
+        <td>@Html.ValidationMessageFor(model => model.Email)</td>
+    </tr>
+
+    @Html.EditorFor(model => model.Location)
+
+</table>

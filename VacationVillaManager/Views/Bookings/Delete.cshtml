@@ -11,31 +11,17 @@
     <legend>Booking</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+         @Html.DisplayNameFor(model => model.NumAdults)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(model => model.NumAdults)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.PhoneNumber)
+         @Html.DisplayNameFor(model => model.NumChildren)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.PhoneNumber)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Occupants)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Occupants)
+        @Html.DisplayFor(model => model.NumChildren)
     </div>
 
     <div class="display-label">
@@ -60,6 +46,7 @@
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
     <p>
         <input type="submit" value="Delete" /> |
         @Html.ActionLink("Back to List", "Index")

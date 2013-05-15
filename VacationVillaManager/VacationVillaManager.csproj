@@ -175,10 +175,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\Cost.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Inquiry.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManagerContext.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Report.cs" />
@@ -301,11 +303,6 @@
     <Content Include="Views\Houses\Create.cshtml" />
     <Content Include="Views\Houses\Edit.cshtml" />
     <Content Include="Views\Houses\Delete.cshtml" />
-    <Content Include="Views\Bookings\Index.cshtml" />
-    <Content Include="Views\Bookings\Details.cshtml" />
-    <Content Include="Views\Bookings\Create.cshtml" />
-    <Content Include="Views\Bookings\Edit.cshtml" />
-    <Content Include="Views\Bookings\Delete.cshtml" />
     <Content Include="Views\Inquiries\Index.cshtml" />
     <Content Include="Views\Inquiries\Details.cshtml" />
     <Content Include="Views\Inquiries\Create.cshtml" />
@@ -316,11 +313,20 @@
     <Content Include="Views\Specials\Create.cshtml" />
     <Content Include="Views\Specials\Edit.cshtml" />
     <Content Include="Views\Specials\Delete.cshtml" />
-    <Content Include="Views\Houses\EditorTemplates\Cost.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Cost.cshtml" />
     <Content Include="Views\Houses\CostEditor.cshtml" />
+    <Content Include="Views\Bookings\Index.cshtml" />
+    <Content Include="Views\Bookings\Details.cshtml" />
+    <Content Include="Views\Bookings\Create.cshtml" />
+    <Content Include="Views\Bookings\Edit.cshtml" />
+    <Content Include="Views\Bookings\Delete.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Client.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Location.cshtml" />
+    <Content Include="Views\Bookings\ClientEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

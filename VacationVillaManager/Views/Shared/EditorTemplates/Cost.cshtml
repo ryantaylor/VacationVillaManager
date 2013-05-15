@@ -1,0 +1,16 @@
+﻿@model VacationVillaManager.Models.Cost
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(model => model.Name)</td>
+        <td>@Html.EditorFor(model => model.Name)</td>
+        <td>@Html.ValidationMessageFor(model => model.Name)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Amount)</td>
+        <td>@Html.EditorFor(model => model.Amount)</td>
+        <td>@Html.ValidationMessageFor(model => model.Amount)</td>
+    </tr>
+</table>
+
+<a href="#" class="deleteRow">delete</a>

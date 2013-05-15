@@ -1,0 +1,29 @@
+﻿@model VacationVillaManager.Models.Location
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(model => model.Address)</td>
+        <td>@Html.EditorFor(model => model.Address)</td>
+        <td>@Html.ValidationMessageFor(model => model.Address)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.City)</td>
+        <td>@Html.EditorFor(model => model.City)</td>
+        <td>@Html.ValidationMessageFor(model => model.City)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Region)</td>
+        <td>@Html.EditorFor(model => model.Region)</td>
+        <td>@Html.ValidationMessageFor(model => model.Region)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Country)</td>
+        <td>@Html.EditorFor(model => model.Country)</td>
+        <td>@Html.ValidationMessageFor(model => model.Country)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.ZipPostalCode)</td>
+        <td>@Html.EditorFor(model => model.ZipPostalCode)</td>
+        <td>@Html.ValidationMessageFor(model => model.ZipPostalCode)</td>
+    </tr>
+</table>

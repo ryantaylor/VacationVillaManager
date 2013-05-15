@@ -13,15 +13,19 @@ namespace VacationVillaManager.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public int Occupants { get; set; }
+        public Client Client { get; set; }
+        public int NumAdults { get; set; }
+        public int NumChildren { get; set; }
 
         public House House { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public double Rate { get; set; }
         public Dictionary<string, double> Costs { get; set; }
+
+        public Booking()
+        {
+            Client = new Client();
+        }
     }
 }

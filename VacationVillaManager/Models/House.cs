@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace VacationVillaManager.Models
 {
@@ -14,11 +15,7 @@ namespace VacationVillaManager.Models
         public int ID { get; set; }
 
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Region { get; set; }
-        public string Country { get; set; }
-        public string ZipPostalCode { get; set; }
+        public Location Location { get; set; }
 
         public double Rate { get; set; }
         public string VirtualTour { get; set; }
@@ -34,6 +31,32 @@ namespace VacationVillaManager.Models
         {
             Costs = new List<Cost>();
             Photos = new List<Photo>();
+            Location = new Location();
+        }
+
+        public static IEnumerable<SelectListItem> BuildHousesDropdownList()
+        {
+            ManagerContext db = new ManagerContext();
+
+            List<SelectListItem> housesList = new List<SelectListItem>();
+            List<House> houses = db.Houses.ToList();
+
+            housesList.Add(new SelectListItem
+            {
+                Value = "",
+                Text = "Select One",
+            });
+
+            foreach (House h in houses)
+            {
+                housesList.Add(new SelectListItem
+                {
+                    Value = h.ID.ToString(),
+                    Text = h.Name,
+                });
+            }
+
+            return housesList;
         }
     }
 }

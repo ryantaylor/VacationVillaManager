@@ -7,66 +7,58 @@
 <h2>Create</h2>
 
 @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
+
         <legend>Booking</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
+        <h2>Client Info</h2>
+
+        <table>
+            <tr>
+                <td>@Html.RadioButton("clientSelect", 0, true, new { id = "radioReturnClient" }) Returning Client</td>
+                <td>@Html.DropDownList("clientList", (IEnumerable<SelectListItem>)ViewData["ClientsList"])</td>
+            </tr>
+            <tr>
+                <td>@Html.RadioButton("clientSelect", 1, false, new { id = "radioNewClient" }) New Client</td>
+            </tr>
+        </table>
+
+        <div class="clientInfo">
+            <!-- Generated client editor goes here -->
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PhoneNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PhoneNumber)
-            @Html.ValidationMessageFor(model => model.PhoneNumber)
-        </div>
+        <h2>Booking Info</h2>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Occupants)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Occupants)
-            @Html.ValidationMessageFor(model => model.Occupants)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.StartDate)
-            @Html.ValidationMessageFor(model => model.StartDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EndDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EndDate)
-            @Html.ValidationMessageFor(model => model.EndDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Rate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Rate)
-            @Html.ValidationMessageFor(model => model.Rate)
-        </div>
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.StartDate)</td>
+                <td>@Html.EditorFor(model => model.StartDate)</td>
+                <td>@Html.ValidationMessageFor(model => model.StartDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.EndDate)</td>
+                <td>@Html.EditorFor(model => model.EndDate)</td>
+                <td>@Html.ValidationMessageFor(model => model.EndDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.NumAdults)</td>
+                <td>@Html.EditorFor(model => model.NumAdults)</td>
+                <td>@Html.ValidationMessageFor(model => model.NumAdults)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.NumChildren)</td>
+                <td>@Html.EditorFor(model => model.NumChildren)</td>
+                <td>@Html.ValidationMessageFor(model => model.NumChildren)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Rate)</td>
+                <td>@Html.EditorFor(model => model.Rate)</td>
+                <td>@Html.ValidationMessageFor(model => model.Rate)</td>
+            </tr>
+        </table>
 
         <p>
             <input type="submit" value="Create" />
@@ -80,4 +72,26 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery-1.7.1.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive.ajax.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#radioReturnClient').click(function () {
+                $('div').remove('.clientInfoEditor');
+            });
+
+            $('#radioNewClient').click(function () {
+                $('div').remove('.clientInfoEditor');
+                $.ajax({
+                    type: "GET",
+                    url: "/Bookings/ClientEditor/0",
+                    success: function ($result) {
+                        var toInject = $result;
+                        $('.clientInfo').append(toInject);
+                    }
+                });
+            });
+        });
+    </script>
 }

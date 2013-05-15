@@ -19,7 +19,8 @@ namespace VacationVillaManager.Models
         public string Email { get; set; }
 
         public House House { get; set; }
-        public int Occupants { get; set; }
+        public int NumAdults { get; set; }
+        public int NumChildren { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Questions { get; set; }

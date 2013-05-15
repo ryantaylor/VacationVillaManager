@@ -14,7 +14,7 @@ namespace VacationVillaManager.Controllers
         private ManagerContext db = new ManagerContext();
 
         //
-        // GET: /Booking/
+        // GET: /Bookings/
 
         public ActionResult Index()
         {
@@ -22,7 +22,7 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // GET: /Booking/Details/5
+        // GET: /Bookings/Details/5
 
         public ActionResult Details(int id = 0)
         {
@@ -35,17 +35,19 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // GET: /Booking/Create
+        // GET: /Bookings/Create
 
         public ActionResult Create()
         {
+            ViewData["ClientsList"] = Client.BuildHousesDropdownList();
             return View();
         }
 
         //
-        // POST: /Booking/Create
+        // POST: /Bookings/Create
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Booking booking)
         {
             if (ModelState.IsValid)
@@ -59,7 +61,18 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // GET: /Booking/Edit/5
+        // PARTIAL: /Bookings/ClientEditor
+
+        public PartialViewResult ClientEditor(int id = 0)
+        {
+            if (id == 0)
+                return PartialView(new Client());
+
+            return PartialView(db.Clients.Single(m => m.ID == id));
+        }
+
+        //
+        // GET: /Bookings/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -72,9 +85,10 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // POST: /Booking/Edit/5
+        // POST: /Bookings/Edit/5
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Booking booking)
         {
             if (ModelState.IsValid)
@@ -87,7 +101,7 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // GET: /Booking/Delete/5
+        // GET: /Bookings/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
@@ -100,9 +114,10 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // POST: /Booking/Delete/5
+        // POST: /Bookings/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Booking booking = db.Bookings.Find(id);
