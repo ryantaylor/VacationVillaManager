@@ -26,6 +26,7 @@ namespace VacationVillaManager.Models
         public Booking()
         {
             Client = new Client();
+            Costs = new Dictionary<string, double>();
         }
     }
 }

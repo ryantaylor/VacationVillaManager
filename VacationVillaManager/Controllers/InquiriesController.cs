@@ -50,6 +50,7 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                inquiry.House = db.Houses.Include("Location").Single(m => m.ID == inquiry.House.ID);
                 db.Inquiries.Add(inquiry);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -21,8 +21,8 @@ namespace VacationVillaManager.Models
         public House House { get; set; }
         public int NumAdults { get; set; }
         public int NumChildren { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Questions { get; set; }
     }
 }

@@ -1,0 +1,18 @@
+﻿@{
+    int id = (int)ViewBag.CostID;
+}
+
+<div class="costEditorRow">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>@Html.TextBox("booking.Costs[" + id + "].Key")</td>
+        </tr>
+        <tr>
+            <td>Rate</td>
+            <td>@Html.TextBox("booking.Costs[" + id + "].Value")</td>
+        </tr>
+    </table>
+</div>
+
+<a href="#" class="deleteRow">delete</a>

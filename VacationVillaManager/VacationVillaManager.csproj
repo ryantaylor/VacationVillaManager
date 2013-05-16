@@ -323,6 +323,8 @@
     <Content Include="Views\Shared\EditorTemplates\Client.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Location.cshtml" />
     <Content Include="Views\Bookings\ClientEditor.cshtml" />
+    <Content Include="Views\Bookings\CostEditor.cshtml" />
+    <Content Include="Views\Houses\SendInquiry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,7 +37,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.House)</td>
                 <!--<td>@Html.DropDownList("housesList", (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>-->
-                <td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"])</td>
+                <td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>
                 <td>@Html.ValidationMessageFor(model => model.House.ID)</td>
             </tr>
             <tr>
@@ -62,10 +62,20 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.Rate)</td>
-                <td>@Html.EditorFor(model => model.Rate)</td>
+                <td>@Html.TextBoxFor(model => model.Rate, new { id = "rateBox" })</td>
                 <td>@Html.ValidationMessageFor(model => model.Rate)</td>
             </tr>
         </table>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Costs)
+        </div>
+
+        <div class="costEditor">
+            <!-- Generated cost editors go here -->
+        </div>
+
+        <a href="javascript:void()" class="addNewCost" >Add</a>
 
         <p>
             <input type="submit" value="Create" />
@@ -84,8 +94,40 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            var id = 0;
+
+            /*$('.addNewCost').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Bookings/CostEditor/" + id,
+                    success: function ($result) {
+                        var toInject = $result;
+                        $('.costEditor').append(toInject);
+                        id++;
+                    }
+                });
+            });*/
+
+            /*$('.addNewCost').click(function () {
+                var key = "booking.Cost[" + id + "].Key";
+                var value = "booking.Cost[" + id + "].Value";
+
+                $('.costEditor').append('Name: <input type="text" name="' + key + '" /><br />');
+                $('.costEditor').append('Rate: <input type="text" name="' + value + '" /><br />');
+                id++;
+            });
+
+            $("a.deleteRow").live("click", function () {
+                //$(this).parents("div.costEditorRow:first").remove();
+                var divId = $(this).closest('div').attr('id');
+                $('#' + divId + ' input').val('');
+                $(this).parents("div.costEditorRow:first").hide();
+                return false;
+            });*/
+
             $('#radioReturnClient').click(function () {
                 $('div').remove('.clientInfoEditor');
+                $('#clientList').removeAttr('disabled');
                 var clientID = $('#clientList').val();
                 if (clientID != "") {
                     $.ajax({
@@ -101,6 +143,7 @@
 
             $('#radioNewClient').click(function () {
                 $('div').remove('.clientInfoEditor');
+                $('#clientList').attr('disabled', 'disabled');
                 $.ajax({
                     type: "GET",
                     url: "/Bookings/ClientEditor/0",
@@ -123,6 +166,22 @@
                             $('.clientInfo').append(toInject);
                         }
                     });
+                }
+            });
+
+            $('#housesList').change(function () {
+                var houseID = $('#housesList').val();
+                if (houseID != "") {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetRate/" + houseID,
+                        success: function ($result) {
+                            $('#rateBox').val($result);
+                        }
+                    });
+                }
+                else {
+                    $('#rateBox').val('');
                 }
             });
         });

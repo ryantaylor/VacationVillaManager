@@ -5,6 +5,7 @@
     @if (!(bool)ViewBag.NewClient)
     {
         @Html.HiddenFor(model => model.Client.ID)
+        @Html.HiddenFor(model => model.Client.Location.ID)
     }
 
     @Html.EditorFor(model => model.Client)

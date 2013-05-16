@@ -41,7 +41,7 @@ namespace VacationVillaManager.Controllers
         {
             ViewData["ClientsList"] = Client.BuildClientsDropdownList();
             ViewData["HousesList"] = House.BuildHousesDropdownList();
-            return View();
+            return View(new Booking());
         }
 
         //
@@ -54,6 +54,14 @@ namespace VacationVillaManager.Controllers
             if (ModelState.IsValid)
             {
                 booking.House = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
+
+                if (booking.Client.ID != 0)
+                {
+                    Client client = booking.Client;
+                    db.Entry(client).State = EntityState.Modified;
+                    booking.Client = db.Clients.Include("Location").Single(m => m.ID == client.ID);
+                }
+
                 db.Bookings.Add(booking);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -63,7 +71,7 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // PARTIAL: /Bookings/ClientEditor
+        // PARTIAL: /Bookings/ClientEditor/5
 
         public PartialViewResult ClientEditor(int id = 0)
         {
@@ -76,6 +84,28 @@ namespace VacationVillaManager.Controllers
             ViewBag.NewClient = false;
 
             return PartialView(booking);
+        }
+
+        //
+        // PARTIAL: /Bookings/CostEditor/5
+
+        public PartialViewResult CostEditor(int id = 0)
+        {
+            ViewBag.CostID = id;
+            return PartialView();
+        }
+
+        //
+        // AJAX: /Bookings/GetRate/5
+
+        public double GetRate(int id = 0)
+        {
+            if (id > 0)
+            {
+                return db.Houses.Single(m => m.ID == id).Rate;
+            }
+
+            return 0;
         }
 
         //

@@ -27,6 +27,8 @@ namespace VacationVillaManager.Controllers
         public ActionResult Details(int id = 0)
         {
             House house = db.Houses.Find(id);
+            ViewBag.HouseID = id;
+            ViewData["HousesList"] = House.BuildHousesDropdownList();
             if (house == null)
             {
                 return HttpNotFound();

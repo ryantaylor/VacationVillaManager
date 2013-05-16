@@ -1,4 +1,5 @@
 ﻿@model VacationVillaManager.Models.House
+@using VacationVillaManager.Models
 
 @{
     ViewBag.Title = "Details";
@@ -8,8 +9,13 @@
 
 <fieldset>
     <legend>House</legend>
+    @Html.LabelFor(model => model.Name)
+    @Html.DisplayFor(model => model.Name)
 
+    
 </fieldset>
+
+@Html.Partial("SendInquiry", new Inquiry())
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
