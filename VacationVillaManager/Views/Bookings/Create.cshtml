@@ -19,7 +19,7 @@
         <table>
             <tr>
                 <td>@Html.RadioButton("clientSelect", 0, true, new { id = "radioReturnClient" }) Returning Client</td>
-                <td>@Html.DropDownList("clientList", (IEnumerable<SelectListItem>)ViewData["ClientsList"])</td>
+                <td>@Html.DropDownList("clientList", (IEnumerable<SelectListItem>)ViewData["ClientsList"], new { id = "clientList" })</td>
             </tr>
             <tr>
                 <td>@Html.RadioButton("clientSelect", 1, false, new { id = "radioNewClient" }) New Client</td>
@@ -33,6 +33,13 @@
         <h2>Booking Info</h2>
 
         <table>
+            @Html.HiddenFor(model => model.House.Location)
+            <tr>
+                <td>@Html.LabelFor(model => model.House)</td>
+                <!--<td>@Html.DropDownList("housesList", (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>-->
+                <td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"])</td>
+                <td>@Html.ValidationMessageFor(model => model.House.ID)</td>
+            </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.StartDate)</td>
                 <td>@Html.EditorFor(model => model.StartDate)</td>
@@ -79,6 +86,17 @@
 
             $('#radioReturnClient').click(function () {
                 $('div').remove('.clientInfoEditor');
+                var clientID = $('#clientList').val();
+                if (clientID != "") {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/ClientEditor/" + clientID,
+                        success: function ($result) {
+                            var toInject = $result;
+                            $('.clientInfo').append(toInject);
+                        }
+                    });
+                }
             });
 
             $('#radioNewClient').click(function () {
@@ -91,6 +109,21 @@
                         $('.clientInfo').append(toInject);
                     }
                 });
+            });
+
+            $('#clientList').change(function () {
+                $('div').remove('.clientInfoEditor');
+                var clientID = $('#clientList').val();
+                if (clientID != "") {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/ClientEditor/" + clientID,
+                        success: function ($result) {
+                            var toInject = $result;
+                            $('.clientInfo').append(toInject);
+                        }
+                    });
+                }
             });
         });
     </script>

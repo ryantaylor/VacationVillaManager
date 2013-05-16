@@ -1,5 +1,11 @@
-﻿@model VacationVillaManager.Models.Client
+﻿@model VacationVillaManager.Models.Booking
 
 <div class="clientInfoEditor">
-    @Html.EditorFor(model => Model)
+
+    @if (!(bool)ViewBag.NewClient)
+    {
+        @Html.HiddenFor(model => model.Client.ID)
+    }
+
+    @Html.EditorFor(model => model.Client)
 </div>

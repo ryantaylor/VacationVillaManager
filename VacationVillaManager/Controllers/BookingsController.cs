@@ -40,6 +40,7 @@ namespace VacationVillaManager.Controllers
         public ActionResult Create()
         {
             ViewData["ClientsList"] = Client.BuildClientsDropdownList();
+            ViewData["HousesList"] = House.BuildHousesDropdownList();
             return View();
         }
 
@@ -52,6 +53,7 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                booking.House = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
                 db.Bookings.Add(booking);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,10 +67,15 @@ namespace VacationVillaManager.Controllers
 
         public PartialViewResult ClientEditor(int id = 0)
         {
+            ViewBag.NewClient = true;
             if (id == 0)
-                return PartialView(new Client());
+                return PartialView();
 
-            return PartialView(db.Clients.Single(m => m.ID == id));
+            Booking booking = new Booking();
+            booking.Client = db.Clients.Include("Location").Single(m => m.ID == id);
+            ViewBag.NewClient = false;
+
+            return PartialView(booking);
         }
 
         //
