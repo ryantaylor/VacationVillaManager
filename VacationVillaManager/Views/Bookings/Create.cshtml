@@ -94,45 +94,18 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var id = 0;
+            $('.addNewCost').hide();
 
-            /*$('.addNewCost').click(function () {
-                $.ajax({
-                    type: "GET",
-                    url: "/Bookings/CostEditor/" + id,
-                    success: function ($result) {
-                        var toInject = $result;
-                        $('.costEditor').append(toInject);
-                        id++;
-                    }
-                });
-            });*/
-
-            /*$('.addNewCost').click(function () {
-                var key = "booking.Cost[" + id + "].Key";
-                var value = "booking.Cost[" + id + "].Value";
-
-                $('.costEditor').append('Name: <input type="text" name="' + key + '" /><br />');
-                $('.costEditor').append('Rate: <input type="text" name="' + value + '" /><br />');
-                id++;
-            });
-
-            $("a.deleteRow").live("click", function () {
-                //$(this).parents("div.costEditorRow:first").remove();
-                var divId = $(this).closest('div').attr('id');
-                $('#' + divId + ' input').val('');
-                $(this).parents("div.costEditorRow:first").hide();
-                return false;
-            });*/
+            var id = -1;
 
             $('.addNewCost').click(function () {
+                id++;
                 $.ajax({
                     type: "GET",
                     url: "/Houses/CostEditor/" + id,
                     success: function ($result) {
                         var toInject = $result;
                         $('.costEditor').append(toInject);
-                        id++;
                     }
                 });
             });
@@ -190,13 +163,49 @@
             });
 
             $('#housesList').change(function () {
+
+                $('.addNewCost').hide();
+                $('div').remove('.costEditorRow');
+
                 var houseID = $('#housesList').val();
                 if (houseID != "") {
+                    
+
                     $.ajax({
                         type: "GET",
                         url: "/Bookings/GetRate/" + houseID,
                         success: function ($result) {
                             $('#rateBox').val($result);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetCosts/" + houseID,
+                        success: function ($result) {
+
+                            var currentPos = id;
+                            var endPos = id + $result.Costs.length;
+                            $.each($result.Costs, function (index, cost) {
+                                id++;
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/Houses/CostEditor/" + id,
+                                    success: function ($result2) {
+                                        var toInject = $result2;
+                                        $('.costEditor').append(toInject);
+
+                                        currentPos++;
+
+                                        $('#' + currentPos + ' .costName').val(cost.Name);
+                                        $('#' + currentPos + ' .costAmount').val(cost.Amount);
+
+                                        if (currentPos >= endPos) {
+                                            $('.addNewCost').show();
+                                        }
+                                    }
+                                });
+                            });
                         }
                     });
                 }

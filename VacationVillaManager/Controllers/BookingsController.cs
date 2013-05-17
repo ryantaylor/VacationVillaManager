@@ -115,6 +115,15 @@ namespace VacationVillaManager.Controllers
         }
 
         //
+        // AJAX: /Bookings/GetCosts/5
+
+        public ActionResult GetCosts(int id = 0)
+        {
+            List<Cost> costs = db.Costs.Where(m => m.House.ID == id).ToList();
+            return Json(new { Costs = costs }, JsonRequestBehavior.AllowGet);
+        }
+
+        //
         // GET: /Bookings/Edit/5
 
         public ActionResult Edit(int id = 0)
