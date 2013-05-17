@@ -18,8 +18,13 @@ namespace VacationVillaManager.Models
         public int NumChildren { get; set; }
 
         public House House { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
+
         public double Rate { get; set; }
         public List<Cost> Costs { get; set; }
 

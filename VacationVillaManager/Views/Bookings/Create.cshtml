@@ -42,12 +42,12 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.StartDate)</td>
-                <td>@Html.EditorFor(model => model.StartDate)</td>
+                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date" })</td>
                 <td>@Html.ValidationMessageFor(model => model.StartDate)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.EndDate)</td>
-                <td>@Html.EditorFor(model => model.EndDate)</td>
+                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date" })</td>
                 <td>@Html.ValidationMessageFor(model => model.EndDate)</td>
             </tr>
             <tr>
@@ -89,10 +89,18 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/jquery-1.7.1.js")
-    @Scripts.Render("~/Scripts/jquery.unobtrusive.ajax.js")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $.datepicker.setDefaults({
+                dateFormat: "M dd yy",
+                showOn: "focus"
+            });
+
+            $('.date').datepicker();
 
             $('.addNewCost').hide();
 
@@ -165,7 +173,8 @@
             $('#housesList').change(function () {
 
                 $('.addNewCost').hide();
-                $('div').remove('.costEditorRow');
+                $('.costEditorRow input').val('');
+                $('div[class="costEditorRow"]').hide();
 
                 var houseID = $('#housesList').val();
                 if (houseID != "") {
@@ -191,6 +200,7 @@
                                 $.ajax({
                                     type: "GET",
                                     url: "/Houses/CostEditor/" + id,
+                                    async: false,
                                     success: function ($result2) {
                                         var toInject = $result2;
                                         $('.costEditor').append(toInject);
@@ -210,7 +220,7 @@
                     });
                 }
                 else {
-                    $('#rateBox').val('');
+                    $('#rateBox').val('0');
                 }
             });
         });
