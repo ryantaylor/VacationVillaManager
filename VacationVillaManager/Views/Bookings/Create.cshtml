@@ -125,6 +125,26 @@
                 return false;
             });*/
 
+            $('.addNewCost').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Houses/CostEditor/" + id,
+                    success: function ($result) {
+                        var toInject = $result;
+                        $('.costEditor').append(toInject);
+                        id++;
+                    }
+                });
+            });
+
+            $("a.deleteRow").live("click", function () {
+                //$(this).parents("div.costEditorRow:first").remove();
+                var divId = $(this).closest('div').attr('id');
+                $('#' + divId + ' input').val('');
+                $(this).parents("div.costEditorRow:first").hide();
+                return false;
+            });
+
             $('#radioReturnClient').click(function () {
                 $('div').remove('.clientInfoEditor');
                 $('#clientList').removeAttr('disabled');

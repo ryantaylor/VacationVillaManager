@@ -55,6 +55,12 @@ namespace VacationVillaManager.Controllers
             {
                 booking.House = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
 
+                foreach (Cost c in booking.Costs)
+                {
+                    if (c.Name.Equals(null))
+                        booking.Costs.Remove(c);
+                }
+
                 if (booking.Client.ID != 0)
                 {
                     Client client = booking.Client;

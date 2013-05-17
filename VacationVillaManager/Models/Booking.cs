@@ -21,12 +21,12 @@ namespace VacationVillaManager.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public double Rate { get; set; }
-        public Dictionary<string, double> Costs { get; set; }
+        public List<Cost> Costs { get; set; }
 
         public Booking()
         {
             Client = new Client();
-            Costs = new Dictionary<string, double>();
+            Costs = new List<Cost>();
         }
     }
 }
