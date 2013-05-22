@@ -1,5 +1,7 @@
 ﻿@model VacationVillaManager.Models.Cost
 
+@Html.HiddenFor(model => model.ID)
+
 <table>
     <tr>
         <td>@Html.LabelFor(model => model.Name)</td>

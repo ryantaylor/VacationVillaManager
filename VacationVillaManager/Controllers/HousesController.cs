@@ -70,7 +70,16 @@ namespace VacationVillaManager.Controllers
         //
         // PARTIAL: /Houses/CostEditor
 
-        public PartialViewResult CostEditor(int id = 0)
+        public PartialViewResult _CostEditor(int id = 0)
+        {
+            ViewBag.CostID = id;
+            return PartialView();
+        }
+
+        //
+        // PARTIAL: /Houses/CostEditorWithID
+
+        public PartialViewResult _CostEditorWithID(int id = 0)
         {
             ViewBag.CostID = id;
             return PartialView();
@@ -81,7 +90,8 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            House house = db.Houses.Find(id);
+            House house = db.Houses.Include("Location").Single(m => m.ID == id);
+            ViewBag.CostsLength = house.Costs.Count;
             if (house == null)
             {
                 return HttpNotFound();
@@ -98,6 +108,7 @@ namespace VacationVillaManager.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(house).State = EntityState.Modified;
+                db.Entry(house.Location).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

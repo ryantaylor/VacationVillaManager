@@ -36,7 +36,6 @@
             @Html.HiddenFor(model => model.House.Location)
             <tr>
                 <td>@Html.LabelFor(model => model.House)</td>
-                <!--<td>@Html.DropDownList("housesList", (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>-->
                 <td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>
                 <td>@Html.ValidationMessageFor(model => model.House.ID)</td>
             </tr>
@@ -110,7 +109,7 @@
                 id++;
                 $.ajax({
                     type: "GET",
-                    url: "/Houses/CostEditor/" + id,
+                    url: "/Houses/_CostEditor/" + id,
                     success: function ($result) {
                         var toInject = $result;
                         $('.costEditor').append(toInject);
@@ -133,10 +132,10 @@
                 if (clientID != "") {
                     $.ajax({
                         type: "GET",
-                        url: "/Bookings/ClientEditor/" + clientID,
+                        url: "/Bookings/_ClientEditor/" + clientID,
                         success: function ($result) {
                             var toInject = $result;
-                            $('.clientInfo').append(toInject);
+                            $('.clientInfo').hide().append(toInject).slideDown();
                         }
                     });
                 }
@@ -147,10 +146,10 @@
                 $('#clientList').attr('disabled', 'disabled');
                 $.ajax({
                     type: "GET",
-                    url: "/Bookings/ClientEditor/0",
+                    url: "/Bookings/_ClientEditor/0",
                     success: function ($result) {
                         var toInject = $result;
-                        $('.clientInfo').append(toInject);
+                        $('.clientInfo').hide().append(toInject).slideDown();
                     }
                 });
             });
@@ -161,10 +160,10 @@
                 if (clientID != "") {
                     $.ajax({
                         type: "GET",
-                        url: "/Bookings/ClientEditor/" + clientID,
+                        url: "/Bookings/_ClientEditor/" + clientID,
                         success: function ($result) {
                             var toInject = $result;
-                            $('.clientInfo').append(toInject);
+                            $('.clientInfo').hide().append(toInject).slideDown();
                         }
                     });
                 }
@@ -178,7 +177,6 @@
 
                 var houseID = $('#housesList').val();
                 if (houseID != "") {
-                    
 
                     $.ajax({
                         type: "GET",
@@ -199,11 +197,11 @@
                                 id++;
                                 $.ajax({
                                     type: "GET",
-                                    url: "/Houses/CostEditor/" + id,
+                                    url: "/Houses/_CostEditor/" + id,
                                     async: false,
                                     success: function ($result2) {
                                         var toInject = $result2;
-                                        $('.costEditor').append(toInject);
+                                        $('.costEditor').hide().append(toInject).slideDown();
 
                                         currentPos++;
 

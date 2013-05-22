@@ -1,4 +1,5 @@
 ﻿@model VacationVillaManager.Models.House
+@using VacationVillaManager.Models;
 
 @{
     ViewBag.Title = "Edit";
@@ -12,7 +13,37 @@
     <fieldset>
         <legend>House</legend>
 
-        @Html.HiddenFor(model => model.ID)
+        @ViewBag.CostsLength
+
+        @Html.HiddenFor(model => model.ID, new { id = "houseID" })
+
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.Name)</td>
+                <td>@Html.EditorFor(model => model.Name)</td>
+                <td>@Html.ValidationMessageFor(model => model.Name)</td>
+            </tr>
+
+            @Html.HiddenFor(model => model.Location.ID)
+            
+            @Html.EditorFor(model => model.Location)
+
+            <tr>
+                <td>@Html.LabelFor(model => model.Rate)</td>
+                <td>@Html.EditorFor(model => model.Rate)</td>
+                <td>@Html.ValidationMessageFor(model => model.Rate)</td>
+            </tr>
+        </table>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Costs)
+        </div>
+
+        <div class="costEditor">
+            <!-- Generated cost editors go here -->
+        </div>
+
+        <a href="javascript:void()" class="addNewCost" onclick="@{Model.Costs.Add(new Cost());}">Add</a>
 
         <p>
             <input type="submit" value="Save" />
@@ -26,4 +57,58 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var id = 0;
+            var houseID = $('#houseID').val();
+
+            $.ajax({
+                type: "GET",
+                url: "/Bookings/GetCosts/" + houseID,
+                success: function ($result) {
+
+                    var currentPos = id;
+                    $.each($result.Costs, function (index, cost) {
+                        id++;
+                        $.ajax({
+                            type: "GET",
+                            url: "/Houses/_CostEditorWithID/" + id,
+                            async: false,
+                            success: function ($result2) {
+                                var toInject = $result2;
+                                $('.costEditor').append(toInject);
+
+                                currentPos++;
+
+                                $('#' + currentPos + ' .costName').val(cost.Name);
+                                $('#' + currentPos + ' .costAmount').val(cost.Amount);
+                            }
+                        });
+                    });
+                }
+            });
+
+            $('.addNewCost').click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Houses/_CostEditor/" + id,
+                    success: function ($result) {
+                        var toInject = $result;
+                        $('.costEditor').append(toInject);
+                        id++;
+                    }
+                });
+            });
+
+            $("a.deleteRow").live("click", function () {
+                //$(this).parents("div.costEditorRow:first").remove();
+                var divId = $(this).closest('div').attr('id');
+                $('#' + divId + ' input').val('');
+                $(this).parents("div.costEditorRow:first").hide();
+                return false;
+            });
+        });
+    </script>
 }

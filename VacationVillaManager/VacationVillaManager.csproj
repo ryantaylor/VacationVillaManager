@@ -314,7 +314,7 @@
     <Content Include="Views\Specials\Edit.cshtml" />
     <Content Include="Views\Specials\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Cost.cshtml" />
-    <Content Include="Views\Houses\CostEditor.cshtml" />
+    <Content Include="Views\Houses\_CostEditor.cshtml" />
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Bookings\Details.cshtml" />
     <Content Include="Views\Bookings\Create.cshtml" />
@@ -322,9 +322,10 @@
     <Content Include="Views\Bookings\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Client.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Location.cshtml" />
-    <Content Include="Views\Bookings\ClientEditor.cshtml" />
-    <Content Include="Views\Bookings\CostEditor.cshtml" />
-    <Content Include="Views\Houses\SendInquiry.cshtml" />
+    <Content Include="Views\Bookings\_ClientEditor.cshtml" />
+    <Content Include="Views\Bookings\_CostEditor.cshtml" />
+    <Content Include="Views\Houses\_SendInquiry.cshtml" />
+    <Content Include="Views\Houses\_CostEditorWithID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

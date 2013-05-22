@@ -15,7 +15,7 @@
     
 </fieldset>
 
-@Html.Partial("SendInquiry", new Inquiry())
+@Html.Partial("_SendInquiry", new Inquiry())
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

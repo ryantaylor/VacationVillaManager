@@ -79,7 +79,7 @@ namespace VacationVillaManager.Controllers
         //
         // PARTIAL: /Bookings/ClientEditor/5
 
-        public PartialViewResult ClientEditor(int id = 0)
+        public PartialViewResult _ClientEditor(int id = 0)
         {
             ViewBag.NewClient = true;
             if (id == 0)
@@ -95,7 +95,7 @@ namespace VacationVillaManager.Controllers
         //
         // PARTIAL: /Bookings/CostEditor/5
 
-        public PartialViewResult CostEditor(int id = 0)
+        public PartialViewResult _CostEditor(int id = 0)
         {
             ViewBag.CostID = id;
             return PartialView();
