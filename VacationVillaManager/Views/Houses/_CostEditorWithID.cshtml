@@ -5,6 +5,6 @@
 }
 
 <div class="costEditorRow" id="@id">
-    @Html.HiddenFor(model => model.Costs[id].ID)
+    @Html.HiddenFor(model => model.Costs[id].ID, new { @class = "costID" })
     @Html.EditorFor(model => model.Costs[id])
 </div>

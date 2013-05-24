@@ -13,8 +13,6 @@
     <fieldset>
         <legend>House</legend>
 
-        @ViewBag.CostsLength
-
         @Html.HiddenFor(model => model.ID, new { id = "houseID" })
 
         <table>
@@ -61,7 +59,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var id = 0;
+            var id = -1;
             var houseID = $('#houseID').val();
 
             $.ajax({
@@ -84,6 +82,7 @@
 
                                 $('#' + currentPos + ' .costName').val(cost.Name);
                                 $('#' + currentPos + ' .costAmount').val(cost.Amount);
+                                $('#' + currentPos + ' .costID').val(cost.ID);
                             }
                         });
                     });

@@ -91,7 +91,7 @@ namespace VacationVillaManager.Controllers
         public ActionResult Edit(int id = 0)
         {
             House house = db.Houses.Include("Location").Single(m => m.ID == id);
-            ViewBag.CostsLength = house.Costs.Count;
+            house.Costs = db.Costs.Where(m => m.House.ID == id).ToList();
             if (house == null)
             {
                 return HttpNotFound();

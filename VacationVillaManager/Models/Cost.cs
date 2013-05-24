@@ -17,5 +17,6 @@ namespace VacationVillaManager.Models
         public double? Amount { get; set; }
         public House House { get; set; }
         public Booking Booking { get; set; }
+        public Special Special { get; set; }
     }
 }

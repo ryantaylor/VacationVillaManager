@@ -100,7 +100,7 @@
                                 id++;
                                 $.ajax({
                                     type: "GET",
-                                    url: "/Houses/_CostEditor/" + id,
+                                    url: "/Houses/_CostEditorWithID/" + id,
                                     async: false,
                                     success: function ($result2) {
                                         var toInject = $result2;
@@ -110,7 +110,8 @@
 
                                         $('#' + currentPos + ' .costName').val(cost.Name);
                                         $('#' + currentPos + ' .costAmount').val(cost.Amount);
-                                        $('.costName').attr('disabled', 'disabled');
+                                        $('#' + currentPos + ' .costID').val(cost.ID);
+                                        $('.costName').attr('readonly', true);
                                         $('.deleteRow').remove();
                                     }
                                 });
