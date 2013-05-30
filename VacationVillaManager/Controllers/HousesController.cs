@@ -91,7 +91,6 @@ namespace VacationVillaManager.Controllers
         public ActionResult Edit(int id = 0)
         {
             House house = db.Houses.Include("Location").Single(m => m.ID == id);
-            house.Costs = db.Costs.Where(m => m.House.ID == id).ToList();
             if (house == null)
             {
                 return HttpNotFound();
@@ -109,6 +108,27 @@ namespace VacationVillaManager.Controllers
             {
                 db.Entry(house).State = EntityState.Modified;
                 db.Entry(house.Location).State = EntityState.Modified;
+
+                List<Cost> newCosts = house.Costs;
+
+                for (int i = 0; i < newCosts.Count; i ++)
+                {
+                    Cost c = newCosts.ElementAt(i);
+                    if (c.ID > 0)
+                    {
+                        if (c.Name == null)
+                            //db.Costs.Remove(c);
+                            db.Entry(c).State = EntityState.Deleted;
+                        else
+                            db.Entry(c).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        if (c.Name != null)
+                            db.Entry(c).State = EntityState.Added;
+                    }
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

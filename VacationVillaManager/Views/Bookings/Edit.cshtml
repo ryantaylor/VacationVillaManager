@@ -13,47 +13,55 @@
     <fieldset>
         <legend>Booking</legend>
 
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.ID, new { id = "bookingID" })
+
+        @Html.HiddenFor(model => model.Client.ID)
+        @Html.HiddenFor(model => model.Client.Location.ID)
+        @Html.EditorFor(model => model.Client)
+
+        <table>
+            
+            <tr>
+                <td>@Html.LabelFor(model => model.House)</td>
+                <td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>
+                <td>@Html.ValidationMessageFor(model => model.House.ID)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.StartDate)</td>
+                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date" })</td>
+                <td>@Html.ValidationMessageFor(model => model.StartDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.EndDate)</td>
+                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date" })</td>
+                <td>@Html.ValidationMessageFor(model => model.EndDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.NumAdults)</td>
+                <td>@Html.EditorFor(model => model.NumAdults)</td>
+                <td>@Html.ValidationMessageFor(model => model.NumAdults)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.NumChildren)</td>
+                <td>@Html.EditorFor(model => model.NumChildren)</td>
+                <td>@Html.ValidationMessageFor(model => model.NumChildren)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Rate)</td>
+                <td>@Html.TextBoxFor(model => model.Rate, new { id = "rateBox" })</td>
+                <td>@Html.ValidationMessageFor(model => model.Rate)</td>
+            </tr>
+        </table>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.NumAdults)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NumAdults)
-            @Html.ValidationMessageFor(model => model.NumAdults)
+            @Html.LabelFor(model => model.Costs)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NumChildren)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NumChildren)
-            @Html.ValidationMessageFor(model => model.NumChildren)
+        <div class="costEditor">
+            <!-- Generated cost editors go here -->
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.StartDate)
-            @Html.ValidationMessageFor(model => model.StartDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EndDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EndDate)
-            @Html.ValidationMessageFor(model => model.EndDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Rate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Rate)
-            @Html.ValidationMessageFor(model => model.Rate)
-        </div>
+        <a href="javascript:void()" class="addNewCost" >Add</a>
 
         <p>
             <input type="submit" value="Save" />
@@ -67,4 +75,109 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var id = -1;
+            var houseID = $('#housesList').val();
+            var bookingID = $('#bookingID').val();
+
+            $.datepicker.setDefaults({
+                dateFormat: "M dd yy",
+                showOn: "focus"
+            });
+
+            $('.date').datepicker();
+
+            $.ajax({
+                type: "GET",
+                url: "/Bookings/GetBookingCosts/" + bookingID,
+                success: function ($result) {
+
+                    var currentPos = id;
+                    var endPos = id + $result.Costs.length;
+                    $.each($result.Costs, function (index, cost) {
+                        id++;
+                        $.ajax({
+                            type: "GET",
+                            url: "/Bookings/_CostEditorWithID/" + id,
+                            async: false,
+                            success: function ($result2) {
+                                var toInject = $result2;
+                                $('.costEditor').hide().append(toInject).slideDown();
+
+                                currentPos++;
+
+                                $('#' + currentPos + ' .costName').val(cost.Name);
+                                $('#' + currentPos + ' .costAmount').val(cost.Amount);
+                                $('#' + currentPos + ' .costID').val(cost.ID);
+
+                                if (currentPos >= endPos) {
+                                    $('.addNewCost').show();
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+
+            $('#housesList').change(function () {
+
+                $('.addNewCost').hide();
+                $('.costName').val('');
+                $('.costAmount').val('');
+                $('div[class="costEditorRow"]').hide();
+
+                var houseID = $('#housesList').val();
+                if (houseID != "") {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetRate/" + houseID,
+                        success: function ($result) {
+                            $('#rateBox').val($result);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetCosts/" + houseID,
+                        success: function ($result) {
+
+                            var currentPos = id;
+                            var endPos = id + $result.Costs.length;
+                            $.each($result.Costs, function (index, cost) {
+                                id++;
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/Houses/_CostEditorWithID/" + id,
+                                    async: false,
+                                    success: function ($result2) {
+                                        var toInject = $result2;
+                                        $('.costEditor').hide().append(toInject).slideDown();
+
+                                        currentPos++;
+
+                                        $('#' + currentPos + ' .costName').val(cost.Name);
+                                        $('#' + currentPos + ' .costAmount').val(cost.Amount);
+                                        $('#' + currentPos + ' .costID').val(0);
+
+                                        if (currentPos >= endPos) {
+                                            $('.addNewCost').show();
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+                else {
+                    $('#rateBox').val('0');
+                }
+            });
+        });
+    </script>
 }

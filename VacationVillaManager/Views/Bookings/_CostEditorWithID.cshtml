@@ -1,0 +1,10 @@
+﻿@model VacationVillaManager.Models.Booking
+
+@{
+    int id = (int)ViewBag.CostID;
+}
+
+<div class="costEditorRow" id="@id">
+    @Html.HiddenFor(model => model.Costs[id].ID, new { @class = "costID" })
+    @Html.EditorFor(model => model.Costs[id])
+</div>

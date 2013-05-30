@@ -326,6 +326,7 @@
     <Content Include="Views\Bookings\_CostEditor.cshtml" />
     <Content Include="Views\Houses\_SendInquiry.cshtml" />
     <Content Include="Views\Houses\_CostEditorWithID.cshtml" />
+    <Content Include="Views\Bookings\_CostEditorWithID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

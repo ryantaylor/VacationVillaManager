@@ -102,6 +102,15 @@ namespace VacationVillaManager.Controllers
         }
 
         //
+        // PARTIAL: /Bookings/CostEditorWithID/5
+
+        public PartialViewResult _CostEditorWithID(int id = 0)
+        {
+            ViewBag.CostID = id;
+            return PartialView();
+        }
+
+        //
         // AJAX: /Bookings/GetRate/5
 
         public double GetRate(int id = 0)
@@ -124,11 +133,24 @@ namespace VacationVillaManager.Controllers
         }
 
         //
+        // AJAX: /Bookings/GetBookingCosts/5
+
+        public ActionResult GetBookingCosts(int id = 0)
+        {
+            List<Cost> costs = db.Costs.Where(m => m.Booking.ID == id).ToList();
+            return Json(new { Costs = costs }, JsonRequestBehavior.AllowGet);
+        }
+
+        //
         // GET: /Bookings/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Booking booking = db.Bookings.Find(id);
+            Booking booking = db.Bookings.Include("Client")
+                                         .Include("Client.Location")
+                                         .Include("House")
+                                         .Single(m => m.ID == id);
+            ViewData["HousesList"] = House.BuildHousesDropdownList();
             if (booking == null)
             {
                 return HttpNotFound();
@@ -145,7 +167,12 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(booking).State = EntityState.Modified;
+                House temp = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
+                db.Entry(temp).CurrentValues.SetValues(booking.House);
+                //db.Entry(booking).State = EntityState.Modified;
+                //db.Entry(booking).CurrentValues.SetValues(booking);
+                db.Entry(booking.Client).State = EntityState.Modified;
+                db.Entry(booking.Client.Location).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

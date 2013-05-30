@@ -197,7 +197,7 @@
                                 id++;
                                 $.ajax({
                                     type: "GET",
-                                    url: "/Houses/_CostEditor/" + id,
+                                    url: "/Houses/_CostEditorWithID/" + id,
                                     async: false,
                                     success: function ($result2) {
                                         var toInject = $result2;
@@ -207,6 +207,7 @@
 
                                         $('#' + currentPos + ' .costName').val(cost.Name);
                                         $('#' + currentPos + ' .costAmount').val(cost.Amount);
+                                        $('#' + currentPos + ' .costID').val(0);
 
                                         if (currentPos >= endPos) {
                                             $('.addNewCost').show();
