@@ -27,6 +27,8 @@ namespace VacationVillaManager.Models
         public List<Cost> Costs { get; set; }
         public List<Photo> Photos { get; set; }
 
+        public Boolean Active { get; set; }
+
         public House()
         {
             Costs = new List<Cost>();

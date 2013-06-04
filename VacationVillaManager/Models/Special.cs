@@ -14,9 +14,11 @@ namespace VacationVillaManager.Models
         public int ID { get; set; }
 
         public House House { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public double Rate { get; set; }
         public List<Cost> Costs { get; set; }
+
+        public Boolean Active { get; set; }
     }
 }

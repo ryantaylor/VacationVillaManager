@@ -51,6 +51,7 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                special.House = db.Houses.Include("Location").Single(m => m.ID == special.House.ID);
                 db.Specials.Add(special);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -64,7 +65,7 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Special special = db.Specials.Find(id);
+            Special special = db.Specials.Include("House").Single(m => m.ID == id);
             if (special == null)
             {
                 return HttpNotFound();
@@ -81,10 +82,21 @@ namespace VacationVillaManager.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(special).State = EntityState.Modified;
+                foreach (Cost c in special.Costs)
+                    db.Entry(c).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(special);
+        }
+
+        //
+        // AJAX: /Specials/GetCosts/5
+
+        public ActionResult GetCosts(int id = 0)
+        {
+            List<Cost> costs = db.Costs.Where(m => m.Special.ID == id).ToList();
+            return Json(new { Costs = costs }, JsonRequestBehavior.AllowGet);
         }
 
         //

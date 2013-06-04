@@ -28,12 +28,12 @@
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.StartDate)</td>
-                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date" })</td>
+                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date", @Value = Model.StartDate.ToString("dd MMM yyyy") })</td>
                 <td>@Html.ValidationMessageFor(model => model.StartDate)</td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.EndDate)</td>
-                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date" })</td>
+                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date", @Value = Model.EndDate.ToString("dd MMM yyyy") })</td>
                 <td>@Html.ValidationMessageFor(model => model.EndDate)</td>
             </tr>
             <tr>
@@ -86,7 +86,7 @@
             var bookingID = $('#bookingID').val();
 
             $.datepicker.setDefaults({
-                dateFormat: "M dd yy",
+                dateFormat: "dd M yy",
                 showOn: "focus"
             });
 

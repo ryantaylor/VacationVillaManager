@@ -7,6 +7,12 @@ using System.Web;
 
 namespace VacationVillaManager.Models
 {
+    public enum InquiryState
+    {
+        Pending = "Pending",
+        Resolved = "Resolved"
+    }
+
     public class Inquiry
     {
         [Key]
@@ -24,5 +30,9 @@ namespace VacationVillaManager.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string Questions { get; set; }
+
+        public string Status { get; set; }
+
+        
     }
 }

@@ -51,7 +51,10 @@ namespace VacationVillaManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Booking booking)
         {
-            if (ModelState.IsValid)
+            ViewData["ClientsList"] = Client.BuildClientsDropdownList();
+            ViewData["HousesList"] = House.BuildHousesDropdownList();
+
+            if (ModelState.IsValid && IsAvailableInRange(booking.StartDate, booking.EndDate, booking.House.ID))
             {
                 booking.House = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
 
@@ -149,6 +152,7 @@ namespace VacationVillaManager.Controllers
             Booking booking = db.Bookings.Include("Client")
                                          .Include("Client.Location")
                                          .Include("House")
+                                         .Include("House.Location")
                                          .Single(m => m.ID == id);
             ViewData["HousesList"] = House.BuildHousesDropdownList();
             if (booking == null)
@@ -167,9 +171,10 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                House temp = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
-                db.Entry(temp).CurrentValues.SetValues(booking.House);
-                //db.Entry(booking).State = EntityState.Modified;
+                //House temp = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
+                //db.Entry(temp).CurrentValues.SetValues(booking.House);
+                //db.Entry(temp).CurrentValues.SetValues(booking.House);
+                db.Entry(booking.House).State = EntityState.Modified;
                 //db.Entry(booking).CurrentValues.SetValues(booking);
                 db.Entry(booking.Client).State = EntityState.Modified;
                 db.Entry(booking.Client.Location).State = EntityState.Modified;
@@ -203,6 +208,20 @@ namespace VacationVillaManager.Controllers
             db.Bookings.Remove(booking);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private Boolean IsAvailableInRange(DateTime start, DateTime end, int houseID)
+        {
+            if (start > end)
+                return false;
+
+            List<Booking> bookings = db.Bookings.Where(m => m.House.ID == houseID).ToList();
+            foreach (Booking b in bookings)
+            {
+                if ((start >= b.StartDate && start < b.EndDate) || (end > b.StartDate && end <= b.EndDate))
+                    return false;
+            }
+            return true;
         }
 
         protected override void Dispose(bool disposing)

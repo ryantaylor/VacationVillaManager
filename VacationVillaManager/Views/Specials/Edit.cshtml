@@ -1,4 +1,5 @@
 ﻿@model VacationVillaManager.Models.Special
+@using VacationVillaManager.Models
 
 @{
     ViewBag.Title = "Edit";
@@ -12,30 +13,36 @@
     <fieldset>
         <legend>Special</legend>
 
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.ID, new { @class = "specialID" })
+        @Html.HiddenFor(model => model.House.ID)
+
+        @Html.LabelFor(model => model.House.Name)
+        @Html.DisplayTextFor(model => model.House.Name)
+
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.StartDate)</td>
+                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date", @Value = Model.StartDate.ToString("dd MMM yyyy") })</td>
+                <td>@Html.ValidationMessageFor(model => model.StartDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.EndDate)</td>
+                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date", @Value = Model.EndDate.ToString("dd MMM yyyy") })</td>
+                <td>@Html.ValidationMessageFor(model => model.EndDate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Rate)</td>
+                <td>@Html.TextBoxFor(model => model.Rate, new { id = "rateBox" })</td>
+                <td>@Html.ValidationMessageFor(model => model.Rate)</td>
+            </tr>
+        </table>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.StartDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.StartDate)
-            @Html.ValidationMessageFor(model => model.StartDate)
+            @Html.LabelFor(model => model.Costs)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EndDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EndDate)
-            @Html.ValidationMessageFor(model => model.EndDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Rate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Rate)
-            @Html.ValidationMessageFor(model => model.Rate)
+        <div class="costEditor">
+            <!-- Generated cost editors go here -->
         </div>
 
         <p>
@@ -50,4 +57,50 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var specialID = $('.specialID').val();
+            var id = -1;
+
+            $.datepicker.setDefaults({
+                dateFormat: "dd M yy",
+                showOn: "focus"
+            });
+
+            $('.date').datepicker();
+
+            $.ajax({
+                type: "GET",
+                url: "/Specials/GetCosts/" + specialID,
+                success: function ($result) {
+
+                    var currentPos = id;
+                    $.each($result.Costs, function (index, cost) {
+                        id++;
+                        $.ajax({
+                            type: "GET",
+                            url: "/Houses/_CostEditorWithID/" + id,
+                            async: false,
+                            success: function ($result2) {
+                                var toInject = $result2;
+                                $('.costEditor').append(toInject);
+
+                                currentPos++;
+
+                                $('#' + currentPos + ' .costName').val(cost.Name);
+                                $('#' + currentPos + ' .costAmount').val(cost.Amount);
+                                $('#' + currentPos + ' .costID').val(cost.ID);
+                                $('.costName').attr('readonly', true);
+                                $('.deleteRow').remove();
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
 }
