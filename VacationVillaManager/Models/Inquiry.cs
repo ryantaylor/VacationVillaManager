@@ -7,12 +7,6 @@ using System.Web;
 
 namespace VacationVillaManager.Models
 {
-    public enum InquiryState
-    {
-        Pending = "Pending",
-        Resolved = "Resolved"
-    }
-
     public class Inquiry
     {
         [Key]

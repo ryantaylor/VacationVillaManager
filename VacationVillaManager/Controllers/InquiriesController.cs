@@ -51,7 +51,7 @@ namespace VacationVillaManager.Controllers
             if (ModelState.IsValid)
             {
                 inquiry.House = db.Houses.Include("Location").Single(m => m.ID == inquiry.House.ID);
-                inquiry.Status = InquiryState.Pending;
+                inquiry.Status = "Pending";
                 db.Inquiries.Add(inquiry);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -1,0 +1,9 @@
+﻿@model VacationVillaManager.Models.ReportModels.ReportEmailModel
+
+@Html.DisplayTextFor(model => model.NumberOfEmails) client emails available.
+
+@using (Html.BeginForm("GenerateEmailReport", "Reports", FormMethod.Post)) {
+    <p>
+        <input type="submit" value="Generate" />
+    </p>
+}

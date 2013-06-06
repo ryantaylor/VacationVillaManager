@@ -41,6 +41,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="DocumentFormat.OpenXml.Extensions, Version=2.1.3842.36318, Culture=neutral, PublicKeyToken=bebd372c505097f2, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -168,6 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousesController.cs" />
     <Compile Include="Controllers\InquiriesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SpecialsController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -184,6 +187,10 @@
     <Compile Include="Models\ManagerContext.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\ReportModels\ReportComeGoModel.cs" />
+    <Compile Include="Models\ReportModels\ReportEmailModel.cs" />
+    <Compile Include="Models\ReportModels\ReportFreeHousesModel.cs" />
+    <Compile Include="Models\ReportModels\ReportTaxesModel.cs" />
     <Compile Include="Models\Special.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -327,6 +334,12 @@
     <Content Include="Views\Houses\_SendInquiry.cshtml" />
     <Content Include="Views\Houses\_CostEditorWithID.cshtml" />
     <Content Include="Views\Bookings\_CostEditorWithID.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Reports\Details.cshtml" />
+    <Content Include="Views\Reports\Create.cshtml" />
+    <Content Include="Views\Reports\Edit.cshtml" />
+    <Content Include="Views\Reports\Delete.cshtml" />
+    <Content Include="Views\Reports\_ReportEmailEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

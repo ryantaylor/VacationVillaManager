@@ -1,0 +1,48 @@
+﻿@model VacationVillaManager.Models.Report
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@Html.DropDownList("reportType", (IEnumerable<SelectListItem>)ViewData["TypesList"])
+
+<div class="reportInfo">
+    <!-- Generated report partial view goes here -->
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#reportType').change(function () {
+                updatePage($('#reportType').val());
+            });
+
+            function updatePage(reportType) {
+                if (reportType == 0) {
+                    $('.reportPane').slideUp('slow', function () {
+                        $('div').remove('.reportPane');
+                    });
+                }
+
+                else if (reportType == 1) {
+                    //$('.reportPane').slideUp('slow', function () {
+                    //$('div').remove('.reportPane');
+                        $.ajax({
+                            type: "GET",
+                            url: "/Reports/GenerateReportEditor/" + reportType,
+                            success: function ($result) {
+                                var toInject = $result;
+                                $('.reportInfo').hide().append(toInject).slideDown();
+                            }
+                        });
+                    //});
+                }
+            }
+        });
+    </script>
+}
