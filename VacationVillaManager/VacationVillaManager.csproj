@@ -254,6 +254,7 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery.ui.monthpicker.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
@@ -340,6 +341,9 @@
     <Content Include="Views\Reports\Edit.cshtml" />
     <Content Include="Views\Reports\Delete.cshtml" />
     <Content Include="Views\Reports\_ReportEmailEditor.cshtml" />
+    <Content Include="Views\Reports\_ReportTaxesEditor.cshtml" />
+    <Content Include="Views\Reports\_ReportFreeHousesEditor.cshtml" />
+    <Content Include="Views\Reports\_ReportComeGoEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

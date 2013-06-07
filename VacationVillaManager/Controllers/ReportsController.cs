@@ -66,10 +66,24 @@ namespace VacationVillaManager.Controllers
 
         public PartialViewResult GenerateReportEditor(int id = 0)
         {
-            if (id == 1)
+            switch (id)
             {
-                return PartialView("_ReportEmailEditor", new ReportEmailModel());
+                case 1:
+                    return PartialView("_ReportEmailEditor", new ReportEmailModel());
+
+                case 2:
+                    return PartialView("_ReportTaxesEditor", new ReportTaxesModel());
+
+                case 3:
+                    return PartialView("_ReportFreeHousesEditor", new ReportFreeHousesModel());
+
+                case 4:
+                    return PartialView("_ReportComeGoEditor", new ReportComeGoModel());
+
+                default:
+                    break;
             }
+
             return PartialView();
         }
 
@@ -77,6 +91,30 @@ namespace VacationVillaManager.Controllers
         // POST: /Reports/GenerateEmailReport
 
         public ActionResult GenerateEmailReport(ReportEmailModel model)
+        {
+            return View();
+        }
+
+        //
+        // POST: /Reports/GenerateTaxesReport
+
+        public ActionResult GenerateTaxesReport(ReportTaxesModel model)
+        {
+            return View();
+        }
+
+        //
+        // POST: /Reports/GenerateFreeHousesReport
+
+        public ActionResult GenerateFreeHousesReport(ReportFreeHousesModel model)
+        {
+            return View();
+        }
+
+        //
+        // POST: /Reports/GenerateFreeHousesReport
+
+        public ActionResult GenerateComeGoReport(ReportComeGoModel model)
         {
             return View();
         }

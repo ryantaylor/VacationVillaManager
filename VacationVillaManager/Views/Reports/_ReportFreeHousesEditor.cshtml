@@ -1,0 +1,20 @@
+﻿@model VacationVillaManager.Models.ReportModels.ReportFreeHousesModel
+
+<div class="reportPane">
+    @using (Html.BeginForm("GenerateFreeHousesReport", "Reports", FormMethod.Post)) {
+        
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.StartDate)</td>
+                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date", @Value = "" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.EndDate)</td>
+                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date", @Value = "" })</td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" value="Generate" />
+        </p>
+    }
+</div>

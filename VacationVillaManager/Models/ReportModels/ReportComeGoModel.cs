@@ -9,6 +9,6 @@ namespace VacationVillaManager.Models.ReportModels
 {
     public class ReportComeGoModel
     {
-
+        public DateTime Month { get; set; }
     }
 }

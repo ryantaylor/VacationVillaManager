@@ -14,33 +14,47 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/Scripts/jquery.ui.monthpicker.js")
 
     <script type="text/javascript">
         $(document).ready(function () {
 
             $('#reportType').change(function () {
-                updatePage($('#reportType').val());
+                if ($('.reportPane').length) {
+                    $('.reportPane').slideUp('slow', function () {
+                        $('div').remove('.reportPane');
+                        updatePage($('#reportType').val());
+                    });
+                }
+                else {
+                    updatePage($('#reportType').val());
+                }
             });
 
             function updatePage(reportType) {
                 if (reportType == 0) {
-                    $('.reportPane').slideUp('slow', function () {
-                        $('div').remove('.reportPane');
-                    });
+                    // do nothing
                 }
 
-                else if (reportType == 1) {
-                    //$('.reportPane').slideUp('slow', function () {
-                    //$('div').remove('.reportPane');
-                        $.ajax({
-                            type: "GET",
-                            url: "/Reports/GenerateReportEditor/" + reportType,
-                            success: function ($result) {
-                                var toInject = $result;
-                                $('.reportInfo').hide().append(toInject).slideDown();
+                else {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Reports/GenerateReportEditor/" + reportType,
+                        success: function ($result) {
+                            var toInject = $result;
+                            $('.reportInfo').hide().append(toInject).slideDown();
+                            if (reportType == 2 || reportType == 4) {
+                                $('.month').monthpicker({
+                                    dateFormat: "MM yy"
+                                });
                             }
-                        });
-                    //});
+                            else if (reportType == 3) {
+                                $('.date').datepicker({
+                                    dateFormat: "M dd yy"
+                                });
+                            }
+                        }
+                    });
                 }
             }
         });
