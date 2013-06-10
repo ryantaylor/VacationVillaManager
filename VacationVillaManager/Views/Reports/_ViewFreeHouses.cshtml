@@ -1,0 +1,18 @@
+﻿@model VacationVillaManager.Models.ReportModels.ReportFreeHousesModel
+
+<div class="viewPane">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Rate</th>
+        </tr>
+
+        @foreach (var h in Model.Houses)
+        {
+            <tr>
+                <td>@Html.DisplayTextFor(modelItem => h.Name)</td>
+                <td>@Html.DisplayTextFor(modelItem => h.Rate)</td>
+            </tr>
+        }
+    </table>
+</div>

@@ -10,6 +10,10 @@
     <!-- Generated report partial view goes here -->
 </div>
 
+<div class="reportView">
+    <!-- Generated report information goes here -->
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
@@ -20,6 +24,7 @@
         $(document).ready(function () {
 
             $('#reportType').change(function () {
+                $('.viewPane').remove();
                 if ($('.reportPane').length) {
                     $('.reportPane').slideUp('slow', function () {
                         $('div').remove('.reportPane');
@@ -28,6 +33,59 @@
                 }
                 else {
                     updatePage($('#reportType').val());
+                }
+            });
+
+            $('.reportInfo').on('click', '.generate', function () {
+                $('.viewPane').remove();
+                switch ($('#reportType').val()) {
+                    case "1":
+                        $.ajax({
+                            type: "GET",
+                            url: "/Reports/GenerateEmailReport",
+                            success: function ($result) {
+                                var toInject = $result;
+                                $('.reportView').hide().append(toInject).slideDown();
+                            }
+                        });
+                        break;
+
+                    case "3":
+                        var start = $('.start').val();
+                        var end = $('.end').val();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Reports/GenerateFreeHousesReport",
+                            data: {
+                                StartDate: start,
+                                EndDate: end
+                            },
+                            success: function ($result) {
+                                var toInject = $result;
+                                $('.reportView').hide().append(toInject).slideDown();
+                            }
+                        });
+                        break;
+
+                    case "4":
+                        var month = $('.month').val();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Reports/GenerateComeGoReport",
+                            data: {
+                                Month: month
+                            },
+                            success: function ($result) {
+                                var toInject = $result;
+                                $('.reportView').hide().append(toInject).slideDown();
+                            }
+                        });
+                        break;
+
+                    default:
+                        break;
                 }
             });
 

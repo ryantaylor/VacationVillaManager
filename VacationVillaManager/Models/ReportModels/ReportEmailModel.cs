@@ -10,6 +10,7 @@ namespace VacationVillaManager.Models.ReportModels
     public class ReportEmailModel
     {
         public int NumberOfEmails { get; set; }
+        public IEnumerable<Client> Clients { get; set; }
 
         public ReportEmailModel()
         {

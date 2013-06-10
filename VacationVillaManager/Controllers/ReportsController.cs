@@ -90,9 +90,11 @@ namespace VacationVillaManager.Controllers
         //
         // POST: /Reports/GenerateEmailReport
 
-        public ActionResult GenerateEmailReport(ReportEmailModel model)
+        public PartialViewResult GenerateEmailReport()
         {
-            return View();
+            ReportEmailModel model = new ReportEmailModel();
+            model.Clients = db.Clients.Where(m => m.Email != null);
+            return PartialView("_ViewEmail", model);
         }
 
         //
@@ -106,17 +108,44 @@ namespace VacationVillaManager.Controllers
         //
         // POST: /Reports/GenerateFreeHousesReport
 
-        public ActionResult GenerateFreeHousesReport(ReportFreeHousesModel model)
+        public PartialViewResult GenerateFreeHousesReport(ReportFreeHousesModel model)
         {
-            return View();
+            List<House> allHouses = db.Houses.ToList();
+            List<House> freeHouses = new List<House>();
+
+            foreach (House h in allHouses)
+            {
+                if (House.IsAvailableInRange(model.StartDate, model.EndDate, h.ID))
+                    freeHouses.Add(h);
+            }
+            model.Houses = freeHouses;
+            return PartialView("_ViewFreeHouses", model);
         }
 
         //
         // POST: /Reports/GenerateFreeHousesReport
 
-        public ActionResult GenerateComeGoReport(ReportComeGoModel model)
+        public PartialViewResult GenerateComeGoReport(ReportComeGoModel model)
         {
-            return View();
+            List<Booking> relevantBookings = db.Bookings.Include("Client").Where(m => m.StartDate.Month == model.Month.Month || m.EndDate.Month == model.Month.Month).ToList();
+            List<House> houses = db.Houses.ToList();
+
+            model.HouseBookings = new Dictionary<string, List<Booking>>();
+
+            foreach (House h in houses)
+            {
+                List<Booking> connectedBookings = new List<Booking>();
+
+                foreach (Booking b in relevantBookings)
+                {
+                    if (h.ID == b.House.ID)
+                        connectedBookings.Add(b);
+                }
+
+                model.HouseBookings.Add(h.Name, connectedBookings);
+            }
+
+            return PartialView("_ViewComeGo", model);
         }
 
         //

@@ -344,6 +344,9 @@
     <Content Include="Views\Reports\_ReportTaxesEditor.cshtml" />
     <Content Include="Views\Reports\_ReportFreeHousesEditor.cshtml" />
     <Content Include="Views\Reports\_ReportComeGoEditor.cshtml" />
+    <Content Include="Views\Reports\_ViewEmail.cshtml" />
+    <Content Include="Views\Reports\_ViewFreeHouses.cshtml" />
+    <Content Include="Views\Reports\_ViewComeGo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

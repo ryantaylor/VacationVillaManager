@@ -33,6 +33,6 @@ namespace VacationVillaManager.Models
         {
             Client = new Client();
             Costs = new List<Cost>();
-        }
+        }    
     }
 }

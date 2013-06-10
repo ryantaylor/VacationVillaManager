@@ -54,7 +54,7 @@ namespace VacationVillaManager.Controllers
             ViewData["ClientsList"] = Client.BuildClientsDropdownList();
             ViewData["HousesList"] = House.BuildHousesDropdownList();
 
-            if (ModelState.IsValid && IsAvailableInRange(booking.StartDate, booking.EndDate, booking.House.ID))
+            if (ModelState.IsValid && House.IsAvailableInRange(booking.StartDate, booking.EndDate, booking.House.ID))
             {
                 booking.House = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
 
@@ -210,19 +210,7 @@ namespace VacationVillaManager.Controllers
             return RedirectToAction("Index");
         }
 
-        private Boolean IsAvailableInRange(DateTime start, DateTime end, int houseID)
-        {
-            if (start > end)
-                return false;
-
-            List<Booking> bookings = db.Bookings.Where(m => m.House.ID == houseID).ToList();
-            foreach (Booking b in bookings)
-            {
-                if ((start >= b.StartDate && start < b.EndDate) || (end > b.StartDate && end <= b.EndDate))
-                    return false;
-            }
-            return true;
-        }
+        
 
         protected override void Dispose(bool disposing)
         {

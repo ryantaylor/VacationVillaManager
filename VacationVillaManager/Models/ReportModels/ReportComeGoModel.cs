@@ -10,5 +10,6 @@ namespace VacationVillaManager.Models.ReportModels
     public class ReportComeGoModel
     {
         public DateTime Month { get; set; }
+        public Dictionary<string, List<Booking>> HouseBookings { get; set; }
     }
 }

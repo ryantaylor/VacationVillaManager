@@ -60,5 +60,21 @@ namespace VacationVillaManager.Models
 
             return housesList;
         }
+
+        public static Boolean IsAvailableInRange(DateTime start, DateTime end, int houseID)
+        {
+            if (start > end)
+                return false;
+
+            ManagerContext db = new ManagerContext();
+
+            List<Booking> bookings = db.Bookings.Where(m => m.House.ID == houseID).ToList();
+            foreach (Booking b in bookings)
+            {
+                if ((start >= b.StartDate && start < b.EndDate) || (end > b.StartDate && end <= b.EndDate) || (start < b.StartDate && end > b.EndDate))
+                    return false;
+            }
+            return true;
+        }
     }
 }

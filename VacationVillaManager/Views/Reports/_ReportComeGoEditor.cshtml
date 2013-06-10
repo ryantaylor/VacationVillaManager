@@ -1,16 +1,12 @@
 ﻿@model VacationVillaManager.Models.ReportModels.ReportComeGoModel
 
 <div class="reportPane">
-    @using (Html.BeginForm("GenerateComeGoReport", "Reports", FormMethod.Post)) {
-        
-        <table>
-            <tr>
-                <td>@Html.LabelFor(model => model.Month)</td>
-                <td>@Html.TextBoxFor(model => model.Month, new { @class = "month", @Value = "" })</td>
-            </tr>
-        </table>
-        <p>
-            <input type="submit" value="Generate" />
-        </p>
-    }
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.Month)</td>
+            <td>@Html.TextBoxFor(model => model.Month, new { @class = "month", @Value = "" })</td>
+        </tr>
+    </table>
+
+    <button class="generate">Generate!</button>
 </div>

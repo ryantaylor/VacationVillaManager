@@ -1,0 +1,18 @@
+﻿@model VacationVillaManager.Models.ReportModels.ReportEmailModel
+
+<div class="viewPane">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+
+        @foreach (var c in Model.Clients)
+        {
+            <tr>
+                <td>@Html.DisplayTextFor(modelItem => c.Name)</td>
+                <td>@Html.DisplayTextFor(modelItem => c.Email)</td>
+            </tr>
+        }
+    </table>
+</div>
