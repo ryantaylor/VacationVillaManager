@@ -124,6 +124,28 @@
                 }
             });
 
+            $('.addNewCost').click(function () {
+                id++;
+                $.ajax({
+                    type: "GET",
+                    url: "/Bookings/_CostEditorWithID/" + id,
+                    success: function ($result) {
+                        var toInject = $result;
+                        $('.costEditor').append(toInject);
+                        $('#' + id + ' .costID').val(0);
+                    }
+                });
+            });
+
+            $("a.deleteRow").live("click", function () {
+                //$(this).parents("div.costEditorRow:first").remove();
+                var divId = $(this).closest('div').attr('id');
+                $('#' + divId + ' .costName').val('');
+                $('#' + divId + ' .costAmount').val('');
+                $(this).parents("div.costEditorRow:first").hide();
+                return false;
+            });
+
             $('#housesList').change(function () {
 
                 $('.addNewCost').hide();

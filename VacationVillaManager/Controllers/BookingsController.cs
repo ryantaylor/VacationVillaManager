@@ -177,10 +177,59 @@ namespace VacationVillaManager.Controllers
                 //House temp = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
                 //db.Entry(temp).CurrentValues.SetValues(booking.House);
                 //db.Entry(temp).CurrentValues.SetValues(booking.House);
-                db.Entry(booking.House).State = EntityState.Modified;
+                db.Entry(booking).State = EntityState.Modified;
+                //db.Entry(booking.House).State = EntityState.Modified;
                 //db.Entry(booking).CurrentValues.SetValues(booking);
                 db.Entry(booking.Client).State = EntityState.Modified;
                 db.Entry(booking.Client.Location).State = EntityState.Modified;
+
+                List<Cost> newCosts = booking.Costs;
+
+                for (int i = 0; i < newCosts.Count; i++)
+                {
+                    Cost c = newCosts.ElementAt(i);
+                    if (c.ID > 0)
+                    {
+                        if (c.Name == null)
+                        {
+                            db.Entry(c).State = EntityState.Deleted;
+                            i--;
+                        }
+                        else
+                            db.Entry(c).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        if (c.Name != null)
+                        {
+                            //c.Booking = new Booking();
+                            //c.Booking.ID = booking.ID;
+                            db.Entry(c).State = EntityState.Added;
+                        }
+                    }
+                }
+
+                /*for (int i = 0; i < booking.Costs.Count; i++)
+                {
+                    //Cost c = newCosts.ElementAt(i);
+                    if (booking.Costs[i].ID > 0)
+                    {
+                        if (booking.Costs[i].Name == null)
+                            //db.Costs.Remove(c);
+                            db.Entry(booking.Costs[i]).State = EntityState.Deleted;
+                        else
+                            db.Entry(booking.Costs[i]).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        if (booking.Costs[i].Name != null)
+                        {
+                            //booking.Costs[i].Booking = booking;
+                            db.Entry(booking.Costs[i]).State = EntityState.Added;
+                        }
+                    }
+                }*/
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

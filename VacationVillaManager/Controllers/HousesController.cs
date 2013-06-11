@@ -117,8 +117,10 @@ namespace VacationVillaManager.Controllers
                     if (c.ID > 0)
                     {
                         if (c.Name == null)
-                            //db.Costs.Remove(c);
+                        {
                             db.Entry(c).State = EntityState.Deleted;
+                            i--;
+                        }
                         else
                             db.Entry(c).State = EntityState.Modified;
                     }
