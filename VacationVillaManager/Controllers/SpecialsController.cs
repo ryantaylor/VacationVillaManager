@@ -52,6 +52,15 @@ namespace VacationVillaManager.Controllers
             if (ModelState.IsValid)
             {
                 special.House = db.Houses.Include("Location").Single(m => m.ID == special.House.ID);
+                List<Cost> costs = new List<Cost>();
+
+                foreach (Cost c in special.Costs)
+                {
+                    if (c.Name != null)
+                        costs.Add(c);
+                }
+
+                special.Costs = costs;
                 db.Specials.Add(special);
                 db.SaveChanges();
                 return RedirectToAction("Index");

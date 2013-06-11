@@ -57,12 +57,15 @@ namespace VacationVillaManager.Controllers
             if (ModelState.IsValid && House.IsAvailableInRange(booking.StartDate, booking.EndDate, booking.House.ID))
             {
                 booking.House = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
+                List<Cost> costs = new List<Cost>();
 
                 foreach (Cost c in booking.Costs)
                 {
-                    if (c.Name.Equals(null))
-                        booking.Costs.Remove(c);
+                    if (c.Name != null)
+                        costs.Add(c);
                 }
+
+                booking.Costs = costs;
 
                 if (booking.Client.ID != 0)
                 {

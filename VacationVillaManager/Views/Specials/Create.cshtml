@@ -76,6 +76,7 @@
             $('#housesList').change(function () {
 
                 $('.costEditorRow input').val('');
+                $('.costEditorRow .costID').val(0);
                 $('div[class="costEditorRow"]').hide();
 
                 var houseID = $('#housesList').val();
@@ -110,7 +111,7 @@
 
                                         $('#' + currentPos + ' .costName').val(cost.Name);
                                         $('#' + currentPos + ' .costAmount').val(cost.Amount);
-                                        $('#' + currentPos + ' .costID').val(cost.ID);
+                                        $('#' + currentPos + ' .costID').val(0);
                                         $('.costName').attr('readonly', true);
                                         $('.deleteRow').remove();
                                     }
