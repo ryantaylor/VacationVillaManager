@@ -9,6 +9,7 @@ using VacationVillaManager.Models;
 
 namespace VacationVillaManager.Controllers
 {
+    [Authorize]
     public class InquiriesController : Controller
     {
         private ManagerContext db = new ManagerContext();

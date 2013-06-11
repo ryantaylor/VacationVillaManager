@@ -10,6 +10,7 @@ using VacationVillaManager.Models.ReportModels;
 
 namespace VacationVillaManager.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
         private ManagerContext db = new ManagerContext();
