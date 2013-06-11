@@ -109,10 +109,11 @@
                 id++;
                 $.ajax({
                     type: "GET",
-                    url: "/Houses/_CostEditor/" + id,
+                    url: "/Houses/_CostEditorWithID/" + id,
                     success: function ($result) {
                         var toInject = $result;
                         $('.costEditor').append(toInject);
+                        $('#' + id + ' .costID').val(0);
                     }
                 });
             });
