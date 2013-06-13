@@ -267,6 +267,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\uploader\fileuploader.css" />
+    <Content Include="Scripts\uploader\fileuploader.js" />
+    <Content Include="Scripts\uploader\loading.gif" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -347,9 +350,10 @@
     <Content Include="Views\Reports\_ViewEmail.cshtml" />
     <Content Include="Views\Reports\_ViewFreeHouses.cshtml" />
     <Content Include="Views\Reports\_ViewComeGo.cshtml" />
+    <Content Include="Views\Bookings\PhotoUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
     <Folder Include="Images\Upload\" />
   </ItemGroup>
   <ItemGroup>

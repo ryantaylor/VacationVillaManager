@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -263,7 +264,50 @@ namespace VacationVillaManager.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        //
+        // GET: /Bookings/PhotoUpload
+
+        public ActionResult PhotoUpload()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Bookings/PhotoUpload
+
+        [HttpPost]
+        public ActionResult PhotoUpload(string qqfile, string param1)
+        {
+            var path = "/Data/Applications/Cygwin/home/Ryan/VacationVillaManager/VacationVillaManager/App_Data/uploads/";
+            var file = string.Empty;
+
+            try
+            {
+                var stream = Request.InputStream;
+                if (String.IsNullOrEmpty(Request["qqfile"]))
+                {
+                    // IE
+                    HttpPostedFileBase postedFile = Request.Files[0];
+                    stream = postedFile.InputStream;
+                    file = Path.Combine(path, System.IO.Path.GetFileName(Request.Files[0].FileName));
+                }
+                else
+                {
+                    //Webkit, Mozilla
+                    file = Path.Combine(path, qqfile);
+                }
+
+                var buffer = new byte[stream.Length];
+                stream.Read(buffer, 0, buffer.Length);
+                System.IO.File.WriteAllBytes(file, buffer);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, "application/json");
+            }
+
+            return Json(new { success = true }, "text/html");
+        }
 
         protected override void Dispose(bool disposing)
         {
