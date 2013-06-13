@@ -11,6 +11,8 @@
 </noscript>         
 </div>
 
+@Html.TextBox("Percent", null, new { id = "progress" })
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/uploader/fileuploader.js")
@@ -22,6 +24,12 @@
             var uploader = new qq.FileUploader({
                 element: document.getElementById('file-uploader'),
                 action: '@Url.Action("PhotoUpload", "Bookings")',
+                onProgress: function(id, filename, loaded, total) {
+                    $('#progress').val(loaded / total);
+                },
+                onComplete: function(id, filename, responseJSON) {
+                    alert("complete");
+                },
                 params: {
                     param1: 'test'
                 }

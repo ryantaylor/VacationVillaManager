@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudinaryDotNet;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -278,6 +279,10 @@ namespace VacationVillaManager.Controllers
         [HttpPost]
         public ActionResult PhotoUpload(string qqfile, string param1)
         {
+            // change based on image hosting solution
+            Account account = new Account("hmnrrn3zr", "422391321397551", "aKXsVxkoax0wxFp71NU_m8QtHBk");
+            Cloudinary cloudinary = new Cloudinary(account);
+
             var path = "/Data/Applications/Cygwin/home/Ryan/VacationVillaManager/VacationVillaManager/App_Data/uploads/";
             var file = string.Empty;
 
@@ -297,9 +302,18 @@ namespace VacationVillaManager.Controllers
                     file = Path.Combine(path, qqfile);
                 }
 
-                var buffer = new byte[stream.Length];
-                stream.Read(buffer, 0, buffer.Length);
-                System.IO.File.WriteAllBytes(file, buffer);
+                //var buffer = new byte[stream.Length];
+                //stream.Read(buffer, 0, buffer.Length);
+                CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
+                {
+                    File = new CloudinaryDotNet.Actions.FileDescription("testimage", stream)
+                };
+
+                CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
+
+                string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
+
+                //System.IO.File.WriteAllBytes(file, buffer);
             }
             catch (Exception ex)
             {
