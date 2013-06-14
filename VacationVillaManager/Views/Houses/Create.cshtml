@@ -30,6 +30,17 @@
         </table>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.Photos)
+        </div>
+
+        <div id="file-uploader">       
+            <noscript>          
+                <p>Please enable JavaScript to use file uploader.</p>
+                <!-- or put a simple form for upload here -->
+            </noscript>         
+        </div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.Costs)
         </div>
 
@@ -51,11 +62,32 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/uploader/fileuploader.js")
+    @Styles.Render("~/Scripts/uploader/fileuploader.css")
 
     <script type="text/javascript">
         $(document).ready(function () {
 
             var id = 0;
+            var photoID = 0;
+
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('file-uploader'),
+                action: '@Url.Action("PhotoUpload", "Bookings")',
+                onComplete: function (id, filename, responseJSON) {
+                    @{Model.Photos.Add(new Photo());}
+                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].ID" value="0" />';
+                    $('#file-uploader').append(toAppend);
+                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URL" value="' + responseJSON.path + '" />';
+                    $('#file-uploader').append(toAppend);
+                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
+                    $('#file-uploader').append(toAppend);
+                    photoID++;
+                },
+                params: {
+                    houseID: '0'
+                }
+            });
 
             $('.addNewCost').click(function () {
                 $.ajax({

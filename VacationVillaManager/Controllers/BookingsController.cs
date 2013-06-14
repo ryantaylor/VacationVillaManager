@@ -277,7 +277,7 @@ namespace VacationVillaManager.Controllers
         // POST: /Bookings/PhotoUpload
 
         [HttpPost]
-        public ActionResult PhotoUpload(string qqfile, string param1)
+        public ActionResult PhotoUpload(string qqfile, string houseID)
         {
             // change based on image hosting solution
             Account account = new Account("hmnrrn3zr", "422391321397551", "aKXsVxkoax0wxFp71NU_m8QtHBk");
@@ -306,12 +306,14 @@ namespace VacationVillaManager.Controllers
                 //stream.Read(buffer, 0, buffer.Length);
                 CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
                 {
-                    File = new CloudinaryDotNet.Actions.FileDescription("testimage", stream)
+                    File = new CloudinaryDotNet.Actions.FileDescription(qqfile, stream)
                 };
 
                 CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
 
                 string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
+
+                return Json(new { success = true, path = url, name = qqfile }, "text/html");
 
                 //System.IO.File.WriteAllBytes(file, buffer);
             }
@@ -319,8 +321,6 @@ namespace VacationVillaManager.Controllers
             {
                 return Json(new { success = false, message = ex.Message }, "application/json");
             }
-
-            return Json(new { success = true }, "text/html");
         }
 
         protected override void Dispose(bool disposing)

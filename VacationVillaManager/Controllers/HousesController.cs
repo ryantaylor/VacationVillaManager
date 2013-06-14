@@ -53,11 +53,24 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<Cost> costs = new List<Cost>();
+
                 foreach (Cost c in house.Costs)
                 {
-                    if (c.Name.Equals(null))
-                        house.Costs.Remove(c);
+                    if (c.Name != null)
+                        costs.Add(c);
                 }
+
+                List<Photo> photos = new List<Photo>();
+
+                foreach (Photo p in house.Photos)
+                {
+                    if (p.URL != null)
+                        photos.Add(p);
+                }
+
+                house.Costs = costs;
+                house.Photos = photos;
 
                 db.Houses.Add(house);
                 db.SaveChanges();
