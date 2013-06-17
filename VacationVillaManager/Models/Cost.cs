@@ -18,5 +18,11 @@ namespace VacationVillaManager.Models
         public House House { get; set; }
         public Booking Booking { get; set; }
         public Special Special { get; set; }
+        public bool CalculateDaily { get; set; }
+
+        public Cost()
+        {
+            CalculateDaily = false;
+        }
     }
 }

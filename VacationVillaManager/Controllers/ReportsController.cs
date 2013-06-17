@@ -11,7 +11,7 @@ using VacationVillaManager.Models.ReportModels;
 namespace VacationVillaManager.Controllers
 {
     [Authorize]
-    public class ReportsController : Controller
+    public class ReportsController : BootstrapBaseController
     {
         private ManagerContext db = new ManagerContext();
 

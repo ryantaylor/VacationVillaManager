@@ -12,7 +12,7 @@ using VacationVillaManager.Models;
 namespace VacationVillaManager.Controllers
 {
     [Authorize]
-    public class BookingsController : Controller
+    public class BookingsController : BootstrapBaseController
     {
         private ManagerContext db = new ManagerContext();
 
