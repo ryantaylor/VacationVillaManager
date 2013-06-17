@@ -312,8 +312,9 @@ namespace VacationVillaManager.Controllers
                 CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
 
                 string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
+                string thumb = cloudinary.Api.UrlImgUp.Transform(new CloudinaryDotNet.Transformation().Width(200).Height(200).Crop("thumb")).BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
 
-                return Json(new { success = true, path = url, name = qqfile }, "text/html");
+                return Json(new { success = true, path = url, thumb = thumb, name = qqfile }, "text/html");
 
                 //System.IO.File.WriteAllBytes(file, buffer);
             }

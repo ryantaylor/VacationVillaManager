@@ -40,6 +40,10 @@
             </noscript>         
         </div>
 
+        <div id="thumbs">
+            <!-- Uploaded image thumbnails go here -->
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Costs)
         </div>
@@ -80,8 +84,13 @@
                     $('#file-uploader').append(toAppend);
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URL" value="' + responseJSON.path + '" />';
                     $('#file-uploader').append(toAppend);
+                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumb" value="' + responseJSON.thumb + '" />';
+                    $('#file-uploader').append(toAppend);
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
                     $('#file-uploader').append(toAppend);
+
+                    var thumbAppend = '<img src="' + responseJSON.thumb + '" /> ' + responseJSON.name + '<br />';
+                    $('#thumbs').append(thumbAppend);
                     photoID++;
                 },
                 params: {
