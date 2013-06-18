@@ -1,0 +1,46 @@
+﻿.well > :last-child {
+  margin-bottom: 0;
+  > :last-child {
+    margin-bottom: 0;
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.well {
+    background-color: aliceblue;
+}
+
+.span5-reduced {
+    margin-left:10px;
+}
+
+.center {
+    text-align:center;
+}
+
+.center form {
+    display:inline-block;
+}
+
+input {
+    text-align: left;
+}
+
+.add-button {
+    color: green;
+}
+
+a.add-button {
+    color: forestgreen;
+    text-decoration: none;
+}
+
+a.add-button:hover {
+    color: darkgreen;
+}
+
+a.back-button {
+    text-decoration: none;
+}

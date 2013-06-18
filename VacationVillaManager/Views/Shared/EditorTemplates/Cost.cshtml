@@ -2,17 +2,14 @@
 
 @Html.HiddenFor(model => model.ID)
 
-<table>
-    <tr>
-        <td>@Html.LabelFor(model => model.Name)</td>
-        <td>@Html.TextBoxFor(model => model.Name, new { @class = "costName" })</td>
-        <td>@Html.ValidationMessageFor(model => model.Name)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(model => model.Amount)</td>
-        <td>@Html.TextBoxFor(model => model.Amount, new { @class = "costAmount" })</td>
-        <td>@Html.ValidationMessageFor(model => model.Amount)</td>
-    </tr>
-</table>
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-tag"></i></span>
+    @Html.TextBoxFor(model => model.Name, new { placeholder = "Name" })
+</div><br />
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-usd"></i></span>
+    @Html.TextBoxFor(model => model.Amount, new { placeholder = "Amount" })
+</div><br />
 
 <a href="#" class="deleteRow">delete</a>

@@ -1,29 +1,26 @@
 ﻿@model VacationVillaManager.Models.Location
 
-<table>
-    <tr>
-        <td>@Html.LabelFor(model => model.Address)</td>
-        <td>@Html.EditorFor(model => model.Address)</td>
-        <td>@Html.ValidationMessageFor(model => model.Address)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(model => model.City)</td>
-        <td>@Html.EditorFor(model => model.City)</td>
-        <td>@Html.ValidationMessageFor(model => model.City)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(model => model.Region)</td>
-        <td>@Html.EditorFor(model => model.Region)</td>
-        <td>@Html.ValidationMessageFor(model => model.Region)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(model => model.Country)</td>
-        <td>@Html.EditorFor(model => model.Country)</td>
-        <td>@Html.ValidationMessageFor(model => model.Country)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(model => model.ZipPostalCode)</td>
-        <td>@Html.EditorFor(model => model.ZipPostalCode)</td>
-        <td>@Html.ValidationMessageFor(model => model.ZipPostalCode)</td>
-    </tr>
-</table>
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-map-marker"></i></span>
+    @Html.TextBoxFor(model => model.Address, new { placeholder = "Address" })
+</div><br />
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-building"></i></span>
+    @Html.TextBoxFor(model => model.City, new { placeholder = "City" })
+</div><br />
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-road"></i></span>
+    @Html.TextBoxFor(model => model.Region, new { placeholder = "State/Province" })
+</div><br />
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-flag"></i></span>
+    @Html.TextBoxFor(model => model.Country, new { placeholder = "Country" })
+</div><br />
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-plane"></i></span>
+    @Html.TextBoxFor(model => model.ZipPostalCode, new { placeholder = "ZIP/Postal Code" })
+</div>
