@@ -325,6 +325,13 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\slideshow\css\bootstrap-image-gallery.css" />
+    <Content Include="Scripts\slideshow\css\bootstrap-image-gallery.min.css" />
+    <Content Include="Scripts\slideshow\css\style.css" />
+    <Content Include="Scripts\slideshow\img\loading.gif" />
+    <Content Include="Scripts\slideshow\js\bootstrap-image-gallery.js" />
+    <Content Include="Scripts\slideshow\js\bootstrap-image-gallery.min.js" />
+    <Content Include="Scripts\slideshow\js\main.js" />
     <Content Include="Scripts\uploader\fileuploader.css" />
     <Content Include="Scripts\uploader\fileuploader.js" />
     <Content Include="Scripts\uploader\loading.gif" />
