@@ -41,7 +41,7 @@ namespace VacationVillaManager
 
             // Bootstrap bundles
 
-            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+            bundles.Add(new ScriptBundle("~/bundles/scripts-bootstrap").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-migrate-{version}.js",
                 "~/Scripts/bootstrap.js",
