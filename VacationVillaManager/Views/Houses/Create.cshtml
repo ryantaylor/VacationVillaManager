@@ -134,7 +134,7 @@
                 });
             });
 
-            $("a.deleteRow").live("click", function () {
+            $('body').on('click', 'a.deleteRow', function () {
                 //$(this).parents("div.costEditorRow:first").remove();
                 var divId = $(this).closest('div').attr('id');
                 $('#' + divId + ' input').val('');
