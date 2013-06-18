@@ -44,8 +44,6 @@
     <Reference Include="CloudinaryDotNet">
       <HintPath>..\packages\CloudinaryDotNet.1.0.5\lib\net35\CloudinaryDotNet.dll</HintPath>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="DocumentFormat.OpenXml.Extensions, Version=2.1.3842.36318, Culture=neutral, PublicKeyToken=bebd372c505097f2, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>

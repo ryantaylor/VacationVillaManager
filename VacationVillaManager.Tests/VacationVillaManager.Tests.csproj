@@ -114,11 +114,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BootstrapBundleConfig.cs" />
-    <Compile Include="App_Start\ExampleLayoutsRouteConfig.cs" />
-    <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
-    <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
-    <Compile Include="Controllers\BootstrapBaseController.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
     <Compile Include="NavigationRoutes\NavigationExtensions.cs" />
@@ -129,16 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
-    <Content Include="Content\body.css" />
-    <Content Include="Content\bootstrap-mvc-validation.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\html5shiv.js" />
     <Content Include="scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="scripts\jquery-1.9.1.js" />
@@ -150,23 +135,13 @@
     <Content Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive-custom-for-bootstrap.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="scripts\jquery-1.9.1.min.map" />
-    <None Include="views\shared\Create.cshtml" />
-    <None Include="views\shared\Details.cshtml" />
-    <None Include="views\shared\Index.cshtml" />
-    <None Include="views\shared\_alerts.cshtml" />
-    <None Include="views\shared\_BootstrapLayout.basic.cshtml" />
-    <None Include="views\shared\_BootstrapLayout.empty.cshtml" />
-    <None Include="views\shared\_BootstrapLayout.narrow.cshtml" />
     <None Include="views\shared\_html5shiv.cshtml" />
-    <None Include="views\shared\_validationSummary.cshtml" />
-    <None Include="views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VacationVillaManager\VacationVillaManager.csproj">
