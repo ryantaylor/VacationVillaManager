@@ -42,8 +42,8 @@ namespace VacationVillaManager
             // Bootstrap bundles
 
             bundles.Add(new ScriptBundle("~/bundles/scripts-bootstrap").Include(
-                "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery-migrate-{version}.js",
+                "~/Scripts/jquery-1.9.1.js",
+                "~/Scripts/jquery-migrate-1.9.1.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/jquery.validate.js",
                 "~/scripts/jquery.validate.unobtrusive.js",
@@ -56,6 +56,8 @@ namespace VacationVillaManager
                 "~/Content/bootstrap-responsive.css",
                 "~/Content/bootstrap-mvc-validation.css"
                 ));
+
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }
