@@ -420,7 +420,6 @@
     <Content Include="Views\Shared\_BootstrapLayout.empty.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.basic.cshtml" />
     <Content Include="Views\Shared\_alerts.cshtml" />
-    <Content Include="Views\Houses\_Thumbnail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
