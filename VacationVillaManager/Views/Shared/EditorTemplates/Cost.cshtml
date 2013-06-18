@@ -2,14 +2,10 @@
 
 @Html.HiddenFor(model => model.ID)
 
-<div class="input-prepend">
+<div class="input-prepend input-append">
     <span class="add-on"><i class="icon-tag"></i></span>
-    @Html.TextBoxFor(model => model.Name, new { placeholder = "Name" })
-</div><br />
-
-<div class="input-prepend">
+    @Html.TextBoxFor(model => model.Name, new { placeholder = "Name", @class = "input-sm" })
     <span class="add-on"><i class="icon-usd"></i></span>
-    @Html.TextBoxFor(model => model.Amount, new { placeholder = "Amount" })
-</div><br />
-
-<a href="#" class="deleteRow">delete</a>
+    @Html.TextBoxFor(model => model.Amount, new { placeholder = "Amount", @class = "input-mini" })
+    <span class="add-on"><a href="javascript:void(0)" class="deleteRow"> <i class="icon-remove-sign icon-large"></i></a></span>
+</div>

@@ -889,8 +889,8 @@ qq.UploadButton = function(o){
         // name attribute of file input
         name: 'file',
         onChange: function(input){},
-        hoverClass: 'qq-upload-button-hover',
-        focusClass: 'qq-upload-button-focus'                       
+        //hoverClass: 'qq-upload-button-hover',
+        //focusClass: 'qq-upload-button-focus'                       
     };
     
     qq.extend(this._options, o);
@@ -899,13 +899,13 @@ qq.UploadButton = function(o){
     this._element = this._options.element;
     
     // make button suitable container for input
-    qq.css(this._element, {
+    /*qq.css(this._element, {
         position: 'relative',
         overflow: 'hidden',
         // Make sure browse button is in the right side
         // in Internet Explorer
         direction: 'ltr'
-    });   
+    });*/
     
     this._input = this._createInput();
 };

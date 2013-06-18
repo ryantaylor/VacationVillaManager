@@ -54,37 +54,61 @@
                 </div>
                 <div class="span4 well well-small">
                     <fieldset>
-                        <legend>Contact Information</legend>
-                        @Html.EditorFor(model => model.Location)
+                        <legend>Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></legend>
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                            <li class="span3">
+                                <a href="#" class="thumbnail">
+                                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_thumb,h_200,w_200/v1371481801/fjnnx1emkwpnvcjtmf3k.jpg" />
+                                </a>
+                            </li>
+                        </ul>
                     </fieldset>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Photos)
-    </div>
-
-    <div id="file-uploader">       
-        <noscript>          
-            <p>Please enable JavaScript to use file uploader.</p>
-            <!-- or put a simple form for upload here -->
-        </noscript>         
-    </div>
-
-    <div id="thumbs">
-        <!-- Uploaded image thumbnails go here -->
-    </div>
-
     <p>
         <input type="submit" value="Create" />
     </p>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     
@@ -97,9 +121,12 @@
             var id = 0;
             var photoID = 0;
 
-            var uploader = new qq.FileUploader({
-                element: document.getElementById('file-uploader'),
+            var qqupload = new qq.FileUploaderBasic({
+                button: document.getElementById('photo-button'),
                 action: '@Url.Action("PhotoUpload", "Bookings")',
+                onUpload: function (id, filename, xhr) {
+                    alert("uploading");
+                },
                 onComplete: function (id, filename, responseJSON) {
                     @{Model.Photos.Add(new Photo());}
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].ID" value="0" />';

@@ -44,3 +44,43 @@ a.add-button:hover {
 a.back-button {
     text-decoration: none;
 }
+
+a.addNewPhoto {
+    color: forestgreen;
+    text-decoration: none;
+}
+
+a.addNewPhoto:hover {
+    color: darkgreen;
+}
+
+.addNewPhoto {
+    position: relative;
+    top: 12px;
+    margin-top: -12px;
+    display: inline-block;
+    overflow: hidden;
+    direction: ltr;
+}
+
+
+.input-sm {
+    width: 120px;
+}
+
+.deleteRow {
+
+}
+
+.costEditorRow {
+    vertical-align: middle;
+}
+
+a.deleteRow {
+    color: red;
+    text-decoration: none;
+}
+
+a.deleteRow:hover {
+    color: maroon;
+}
