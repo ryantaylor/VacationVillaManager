@@ -177,6 +177,28 @@ namespace VacationVillaManager.Controllers
             return RedirectToAction("Index");
         }
 
+        //
+        // AJAX: /House/ToggleActive/5
+
+        public ActionResult ToggleActive(int id)
+        {
+            House house = db.Houses.Single(m => m.ID == id);
+            if (house.Active)
+            {
+                house.Active = false;
+                this.Success(house.Name + " was successfully deactivated!");
+            }
+
+            else
+            {
+                house.Active = true;
+                this.Success(house.Name + " was successfully activated!");
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
