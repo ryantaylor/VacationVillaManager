@@ -194,6 +194,7 @@
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Inquiry.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\HouseManager.cs" />
     <Compile Include="Models\ManagerContext.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Report.cs" />
@@ -432,6 +433,7 @@
     <Content Include="Views\Shared\_BootstrapLayout.empty.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.basic.cshtml" />
     <Content Include="Views\Shared\_alerts.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\HouseManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

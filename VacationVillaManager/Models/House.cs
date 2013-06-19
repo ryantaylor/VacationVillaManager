@@ -17,6 +17,9 @@ namespace VacationVillaManager.Models
         public string Name { get; set; }
         public Location Location { get; set; }
 
+        public string PhoneNumber { get; set; }
+        public string SecurityCode { get; set; }
+
         public double Rate { get; set; }
         public string VirtualTour { get; set; }
         public string Flyer { get; set; }
@@ -27,6 +30,9 @@ namespace VacationVillaManager.Models
         public List<Cost> Costs { get; set; }
         public List<Photo> Photos { get; set; }
 
+        public HouseManager Owner { get; set; }
+        public HouseManager ManagementCompany { get; set; }
+
         public Boolean Active { get; set; }
 
         public House()
@@ -34,6 +40,8 @@ namespace VacationVillaManager.Models
             Costs = new List<Cost>();
             Photos = new List<Photo>();
             Location = new Location();
+            Owner = new HouseManager(ManagerType.OWNER);
+            ManagementCompany = new HouseManager(ManagerType.COMPANY);
         }
 
         public static IEnumerable<SelectListItem> BuildHousesDropdownList()

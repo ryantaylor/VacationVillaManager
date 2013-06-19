@@ -1,0 +1,20 @@
+﻿@model VacationVillaManager.Models.HouseManager
+
+@Html.HiddenFor(model => model.Type)
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-tag"></i></span>
+    @Html.TextBoxFor(model => model.Name, new { placeholder = "Name" })
+</div><br />
+
+@Html.EditorFor(model => model.Location)
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-phone"></i></span>
+    @Html.TextBoxFor(model => model.ContactNumberA, new { placeholder = "Primary Phone Number" })
+</div><br />
+
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-phone"></i></span>
+    @Html.TextBoxFor(model => model.ContactNumberB, new { placeholder = "Secondary Phone Number" })
+</div><br />

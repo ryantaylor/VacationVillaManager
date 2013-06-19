@@ -24,6 +24,7 @@ namespace VacationVillaManager.Models
         public DbSet<Cost> Costs { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<HouseManager> HouseManagers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
