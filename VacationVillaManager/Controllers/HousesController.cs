@@ -178,11 +178,11 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // AJAX: /House/ToggleActive/5
+        // GET: /House/ToggleActive/5
 
         public ActionResult ToggleActive(int id)
         {
-            House house = db.Houses.Single(m => m.ID == id);
+            House house = db.Houses.Include("Location").Include("Owner").Include("ManagementCompany").Single(m => m.ID == id);
             if (house.Active)
             {
                 house.Active = false;
