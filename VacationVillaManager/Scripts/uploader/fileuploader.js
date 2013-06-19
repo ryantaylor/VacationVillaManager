@@ -899,13 +899,13 @@ qq.UploadButton = function(o){
     this._element = this._options.element;
     
     // make button suitable container for input
-    /*qq.css(this._element, {
+    qq.css(this._element, {
         position: 'relative',
         overflow: 'hidden',
         // Make sure browse button is in the right side
         // in Internet Explorer
         direction: 'ltr'
-    });*/
+    });
     
     this._input = this._createInput();
 };
@@ -951,8 +951,11 @@ qq.UploadButton.prototype = {
             cursor: 'pointer',
             opacity: 0
         });
+
+        input.setAttribute("id", "upload-input");
         
-        this._element.appendChild(input);
+        document.getElementById("upload-info").appendChild(input);
+        //this._element.appendChild(input);
 
         var self = this;
         this._attach(input, 'change', function(){

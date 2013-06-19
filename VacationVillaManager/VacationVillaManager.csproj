@@ -268,12 +268,15 @@
     <Content Include="Content\themes\base\jquery.ui.core.css" />
     <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
     <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
     <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
     <Content Include="Content\themes\base\jquery.ui.resizable.css" />
     <Content Include="Content\themes\base\jquery.ui.selectable.css" />
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -310,6 +313,8 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-migrate-1.1.1.js" />
     <Content Include="Scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.ui.monthpicker.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

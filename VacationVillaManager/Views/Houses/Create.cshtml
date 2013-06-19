@@ -71,8 +71,8 @@
                     </fieldset>
                 </div>
                 <div class="span4 well well-small">
-                    <fieldset>
-                        <legend>Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></legend>
+                    
+                        <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
                         <div id="upload-info">
                             <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
                                 <ul class="thumbnails">
@@ -80,7 +80,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </fieldset>
+                    
                 </div>
             </div>
         </div>
@@ -97,6 +97,8 @@
     @Styles.Render("~/Scripts/slideshow/css/bootstrap-image-gallery.css")
     @Scripts.Render("~/Scripts/uploader/fileuploader.js")
     @Styles.Render("~/Scripts/uploader/fileuploader.css")
+    @Scripts.Render("~/Scripts/jquery-ui-1.10.3.js")
+    @Scripts.Render("~/Scripts/jquery-migrate-1.1.1.js")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -130,6 +132,10 @@
                 params: {
                     houseID: '0'
                 }
+            });
+
+            $('#photo-button').click(function () {
+                $('#upload-input').click();
             });
 
             $('.addNewCost').click(function () {
