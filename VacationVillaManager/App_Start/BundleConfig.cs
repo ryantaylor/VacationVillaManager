@@ -58,6 +58,7 @@ namespace VacationVillaManager
                 ));
 
             //BundleTable.EnableOptimizations = true;
+            //
         }
     }
 }
