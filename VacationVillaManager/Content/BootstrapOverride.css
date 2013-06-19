@@ -17,7 +17,7 @@
 }
 
 .center {
-    text-align:center;
+    text-align:center !important;
 }
 
 .center form {
@@ -98,4 +98,16 @@ ul.thumbnails {
 
 .contact-select {
     padding-bottom: 20px;
+}
+
+.houseHead {
+    margin-top: 0;
+}
+
+.icon-green {
+    color: forestgreen;
+}
+
+.icon-red {
+    color: red;
 }

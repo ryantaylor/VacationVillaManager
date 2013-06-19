@@ -1,0 +1,81 @@
+﻿@model IEnumerable<VacationVillaManager.Models.House>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Styles.Render("~/Content/BootstrapOverride.css")
+
+<div class="row-fluid">
+    <div class="span6">
+        <h3 class="houseHead">Houses <small>Listing</small></h3>
+    </div>
+    <div class="span6">
+        <a href="@Url.Action("Create")" class="btn btn-large btn-primary pull-right"><i class="icon-plus"></i> New House</a>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th style="width: 1px;">
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model) {
+        
+        var trClass = "";
+        var icon = "";
+        if (item.Active == true)
+        {
+            trClass = "success";
+            icon = "icon-ok icon-green";
+        }
+        else
+        {
+            trClass = "error";
+            icon = "icon-remove icon-red";
+        }
+
+        <tr class="@trClass">
+            <td class="center">
+                <i class="@icon"></i>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Owner.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.City), @Html.DisplayFor(modelItem => item.Location.Region)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>

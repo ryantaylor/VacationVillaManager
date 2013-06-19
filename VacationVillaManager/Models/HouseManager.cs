@@ -22,10 +22,15 @@ namespace VacationVillaManager.Models
 
         public string Name { get; set; }
         public Location Location { get; set; }
-        public ManagerType Type { get; set; }
+        public ManagerType? Type { get; set; }
 
         public string ContactNumberA { get; set; }
         public string ContactNumberB { get; set; }
+
+        public HouseManager()
+        {
+            Type = null;
+        }
 
         public HouseManager(ManagerType type)
         {

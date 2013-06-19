@@ -19,7 +19,7 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Houses.ToList());
+            return View(db.Houses.Include("Location").Include("Owner").ToList());
         }
 
         //
@@ -75,6 +75,7 @@ namespace VacationVillaManager.Controllers
                 db.Houses.Add(house);
                 db.SaveChanges();
 
+                this.Success("Added!");
                 return RedirectToAction("Index");
             }
 
