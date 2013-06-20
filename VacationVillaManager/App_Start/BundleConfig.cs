@@ -12,7 +12,7 @@ namespace VacationVillaManager
                         "~/Scripts/jquery-1.9.1.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-1.8.20.js"));
+                        "~/Scripts/jquery-ui-1.10.3.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",

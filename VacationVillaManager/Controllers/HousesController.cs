@@ -105,7 +105,11 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            House house = db.Houses.Include("Location").Single(m => m.ID == id);
+            House house = db.Houses.Include("Location").Include("Owner").Include("Owner.Location").Include("ManagementCompany").Include("ManagementCompany.Location").Single(m => m.ID == id);
+            house.Photos = db.Photos.Where(m => m.House.ID == house.ID).ToList();
+            house.Costs = db.Costs.Where(m => m.House.ID == house.ID).ToList();
+            foreach (Cost c in house.Costs)
+                c.House = null;
             if (house == null)
             {
                 return HttpNotFound();
@@ -121,8 +125,21 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(house).State = EntityState.Modified;
-                db.Entry(house.Location).State = EntityState.Modified;
+                //House h = db.Houses.Include("Location").Include("Owner").Include("Owner.Location").Include("ManagementCompany").Include("ManagementCompany.Location").Single(m => m.ID == house.ID);
+                /*h.Name = house.Name;
+                h.SecurityCode = house.SecurityCode;
+                h.PhoneNumber = house.PhoneNumber;
+                h.Rate = house.Rate;
+                h.Location.Address = house.Location.Address;*/
+                House h = db.Houses.Include("Location").Include("Owner").Include("Owner.Location").Include("ManagementCompany").Include("ManagementCompany.Location").Single(m => m.ID == house.ID);
+                db.Entry(h).CurrentValues.SetValues(house);
+                db.Entry(h.Location).CurrentValues.SetValues(house.Location);
+                db.Entry(h.Owner).CurrentValues.SetValues(house.Owner);
+                db.Entry(h.ManagementCompany).CurrentValues.SetValues(house.ManagementCompany);
+                //db.Entry(house).State = EntityState.Modified;
+                //db.Entry(house.Location).State = EntityState.Modified;
+                //db.Entry(house.Owner).State = EntityState.Modified;
+                //db.Entry(house.ManagementCompany).State = EntityState.Modified;
 
                 List<Cost> newCosts = house.Costs;
 
@@ -134,7 +151,7 @@ namespace VacationVillaManager.Controllers
                         if (c.Name == null)
                         {
                             db.Entry(c).State = EntityState.Deleted;
-                            i--;
+                            //i--;
                         }
                         else
                             db.Entry(c).State = EntityState.Modified;
@@ -142,11 +159,37 @@ namespace VacationVillaManager.Controllers
                     else
                     {
                         if (c.Name != null)
+                        {
+                            c.House = h;
                             db.Entry(c).State = EntityState.Added;
+                        }
+                            //db.Costs.Add(c);
                     }
                 }
 
+                List<Photo> newPhotos = house.Photos;
+
+                for (int i = 0; i < newPhotos.Count; i++)
+                {
+                    Photo p = newPhotos.ElementAt(i);
+                    if (p.ID > 0)
+                    {
+                        if (p.URL == null)
+                            db.Entry(p).State = EntityState.Deleted;
+                    }
+                    else
+                    {
+                        if (p.URL != null)
+                        {
+                            p.House = h;
+                            db.Entry(p).State = EntityState.Added;
+                        }
+                    }
+
+                }
+
                 db.SaveChanges();
+                Success("Changes were successfully saved!");
                 return RedirectToAction("Index");
             }
             return View(house);
@@ -199,10 +242,10 @@ namespace VacationVillaManager.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        /*protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

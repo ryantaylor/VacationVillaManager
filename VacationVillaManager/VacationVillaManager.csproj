@@ -308,6 +308,11 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\editable\css\bootstrap-editable.css" />
+    <Content Include="Scripts\editable\img\clear.png" />
+    <Content Include="Scripts\editable\img\loading.gif" />
+    <Content Include="Scripts\editable\js\bootstrap-editable.js" />
+    <Content Include="Scripts\editable\js\bootstrap-editable.min.js" />
     <Content Include="Scripts\html5shiv.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />

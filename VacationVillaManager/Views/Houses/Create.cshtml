@@ -28,8 +28,6 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
-    <br />
-
     <div class="control-group">
         <div class="controls">
             <div class="row-fluid">
@@ -94,16 +92,14 @@
                     </fieldset>
                 </div>
                 <div class="span4 well well-small">
-                    
-                        <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
-                        <div id="upload-info">
-                            <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
-                                <ul class="thumbnails">
-                                    <!-- Image thumbnails go here -->
-                                </ul>
-                            </div>
+                    <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
+                    <div id="upload-info">
+                        <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+                            <ul class="thumbnails">
+                                <!-- Image thumbnails go here -->
+                            </ul>
                         </div>
-                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,7 +229,6 @@
             });
 
             $('body').on('click', 'a.deleteRow', function () {
-                //$(this).parents("div.costEditorRow:first").remove();
                 var divId = $(this).parents("div.costEditorRow:first").attr('id');
                 
                 $(this).parents("div.costEditorRow:first").slideUp('default', function () {
