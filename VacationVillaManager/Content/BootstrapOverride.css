@@ -111,3 +111,21 @@ ul.thumbnails {
 .icon-red {
     color: red;
 }
+
+.b10 {
+    width: 80% !important;
+    *width: 80% !important;
+}
+
+.booking-info {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.center-icon {
+    margin-top: 10px;
+}
+
+.red {
+    color: #b94a48;
+}

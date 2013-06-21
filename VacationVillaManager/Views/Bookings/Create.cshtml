@@ -4,17 +4,30 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+@Styles.Render("~/Content/BootstrapOverride.css")
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-
-        <legend>Booking</legend>
-
-        <h2>Client Info</h2>
+    <div class="row-fluid">
+        <div class="span3">
+            <h3><a href="@Url.Action("Index")" class="back-button"><i class="icon-circle-arrow-left"></i></a> New Booking</h3>
+        </div>
+        <div class="span9 booking-info alert alert-block alert-info">
+            <div class="row-fluid">
+                <div class="span4" style="margin-bottom: -8px;">
+                    <i class="icon-home icon-large"></i> <strong class="red"> No house selected</strong>
+                </div>
+                <div class="span4" style="margin-bottom: -8px;">
+                    <i class="icon-usd icon-large"></i> <strong class="red">No house selected</strong>
+                </div>
+                <div class="span4" style="margin-bottom: -8px;">
+                    <i class="icon-calendar icon-large"></i> <strong class="red">No dates selected</strong>
+                </div>
+            </div>
+        </div>
+    </div>
 
         <table>
             <tr>
@@ -29,8 +42,6 @@
         <div class="clientInfo">
             <!-- Generated client editor goes here -->
         </div>
-
-        <h2>Booking Info</h2>
 
         <table>
             @Html.HiddenFor(model => model.House.Location)
@@ -79,7 +90,6 @@
         <p>
             <input type="submit" value="Create" />
         </p>
-    </fieldset>
 }
 
 <div>
