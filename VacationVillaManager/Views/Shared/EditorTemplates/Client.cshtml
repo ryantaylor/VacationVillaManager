@@ -1,22 +1,18 @@
 ﻿@model VacationVillaManager.Models.Client
 
-<table>
-    <tr>
-        <td>@Html.LabelFor(model => model.Name)</td>
-        <td>@Html.EditorFor(model => model.Name)</td>
-        <td>@Html.ValidationMessageFor(model => model.Name)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(model => model.PhoneNumber)</td>
-        <td>@Html.EditorFor(model => model.PhoneNumber)</td>
-        <td>@Html.ValidationMessageFor(model => model.PhoneNumber)</td>
-    </tr>
-    <tr>
-        <td>@Html.LabelFor(model => model.Email)</td>
-        <td>@Html.EditorFor(model => model.Email)</td>
-        <td>@Html.ValidationMessageFor(model => model.Email)</td>
-    </tr>
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-tag"></i></span>
+    @Html.TextBoxFor(model => model.Name, new { placeholder = "Name" })
+</div><br />
 
-    @Html.EditorFor(model => model.Location)
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-phone"></i></span>
+    @Html.TextBoxFor(model => model.PhoneNumber, new { placeholder = "Phone Number" })
+</div><br />
 
-</table>
+<div class="input-prepend">
+    <span class="add-on"><i class="icon-envelope-alt"></i></span>
+    @Html.TextBoxFor(model => model.Email, new { placeholder = "Email Address" })
+</div><br />
+
+@Html.EditorFor(model => model.Location)

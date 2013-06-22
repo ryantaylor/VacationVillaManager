@@ -31,12 +31,6 @@ namespace VacationVillaManager.Models
             List<SelectListItem> clientsList = new List<SelectListItem>();
             List<Client> clients = db.Clients.ToList();
 
-            clientsList.Add(new SelectListItem
-            {
-                Value = "",
-                Text = "Select One",
-            });
-
             foreach (Client c in clients)
             {
                 clientsList.Add(new SelectListItem

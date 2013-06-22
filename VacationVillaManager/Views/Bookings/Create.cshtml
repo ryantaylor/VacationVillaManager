@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    //var testVal = @Html.Raw(Json.Encode(ViewData["HousesList"]));
 }
 
 @Styles.Render("~/Content/BootstrapOverride.css")
@@ -17,13 +18,53 @@
         <div class="span9 booking-info alert alert-block alert-info">
             <div class="row-fluid">
                 <div class="span4" style="margin-bottom: -8px;">
-                    <i class="icon-home icon-large"></i> <strong class="red"> No house selected</strong>
+                    <i class="icon-home icon-large"></i> <strong class="red"> <a href="#" id="house-editable">No house selected</a></strong>
                 </div>
                 <div class="span4" style="margin-bottom: -8px;">
                     <i class="icon-usd icon-large"></i> <strong class="red">No house selected</strong>
                 </div>
                 <div class="span4" style="margin-bottom: -8px;">
                     <i class="icon-calendar icon-large"></i> <strong class="red">No dates selected</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.StartDate)
+    @Html.HiddenFor(model => model.EndDate)
+    
+    <div class="control-group center">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>Client Information</legend>
+                        <ul class="nav nav-tabs" id="clientTabs">
+                            <li><a href="#new" data-toggle="tab">New Client</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Returning Client <b class="caret"></b></a>
+                                <ul id="client-dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="newClient tab-contents">
+                            <div class="clientInfoEditor">
+                                @Html.EditorFor(model => model.Client)
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>Booking Information</legend>
+                    </fieldset>
+                </div>
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>Other</legend>
+                    </fieldset>
                 </div>
             </div>
         </div>
@@ -47,7 +88,7 @@
             @Html.HiddenFor(model => model.House.Location)
             <tr>
                 <td>@Html.LabelFor(model => model.House)</td>
-                <td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>
+                <!--<td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["ClientsList"], new { id = "housesList" })</td>-->
                 <td>@Html.ValidationMessageFor(model => model.House.ID)</td>
             </tr>
             <tr>
@@ -100,13 +141,48 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/Scripts/editable/js/bootstrap-editable.js")
+    @Styles.Render("~/Scripts/editable/css/bootstrap-editable.css")
     
     <script type="text/javascript">
         $(document).ready(function () {
 
+            var housesXeditable = [];
+            var json = "";
+            
+            var houseList = @Html.Raw(Json.Encode(ViewData["HousesList"]))
+            
+            $.each(houseList, function (index, house) {
+                var houseInfo = {
+                    value: house.Value,
+                    text: house.Text
+                }
+                housesXeditable.push(houseInfo);
+            });
+
+            json = JSON.stringify(housesXeditable);
+
+            var clientList = @Html.Raw(Json.Encode(ViewData["ClientsList"]))
+
+            $.each(clientList, function (index, client) {
+                var toAppend = '<li><a id="client-' + client.Value + '" href="#" data-toggle="tab">' + client.Text + '</a></li>';
+                $('#client-dropdown').append(toAppend);
+            });
+
+            $('#clientTabs a[href="#new"]').tab('show');
+
             $.datepicker.setDefaults({
                 dateFormat: "M dd yy",
                 showOn: "focus"
+            });
+
+            //$.fn.editable.defaults.mode = 'inline';
+
+            $('#house-editable').editable({
+                type: 'select',
+                value: 0,
+                source: json,
+                title: 'Enter name'
             });
 
             $('.date').datepicker();

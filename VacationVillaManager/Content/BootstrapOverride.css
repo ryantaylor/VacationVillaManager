@@ -129,3 +129,18 @@ ul.thumbnails {
 .red {
     color: #b94a48;
 }
+
+.tab-contents {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+.dropdown-menu > li > a {
+    text-align: left;
+}
