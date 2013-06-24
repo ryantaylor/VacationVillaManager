@@ -24,14 +24,15 @@
                     <i class="icon-usd icon-large"></i> <strong class="red">No house selected</strong>
                 </div>
                 <div class="span4" style="margin-bottom: -8px;">
-                    <i class="icon-calendar icon-large"></i> <strong class="red">No dates selected</strong>
+                    <i class="icon-calendar icon-large"></i> <strong class="red"> <a href="#" id="date-editable" class="editable editable-click">No dates selected</a></strong>
                 </div>
             </div>
         </div>
     </div>
 
-    @Html.HiddenFor(model => model.StartDate)
-    @Html.HiddenFor(model => model.EndDate)
+    @Html.HiddenFor(model => model.House.ID, new { id = "houseID" })
+    @Html.HiddenFor(model => model.StartDate, new { id = "startDate" })
+    @Html.HiddenFor(model => model.EndDate, new { id = "endDate" })
     
     <div class="control-group center">
         <div class="controls">
@@ -87,21 +88,6 @@
         <table>
             @Html.HiddenFor(model => model.House.Location)
             <tr>
-                <td>@Html.LabelFor(model => model.House)</td>
-                <!--<td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["ClientsList"], new { id = "housesList" })</td>-->
-                <td>@Html.ValidationMessageFor(model => model.House.ID)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.StartDate)</td>
-                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date" })</td>
-                <td>@Html.ValidationMessageFor(model => model.StartDate)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.EndDate)</td>
-                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date" })</td>
-                <td>@Html.ValidationMessageFor(model => model.EndDate)</td>
-            </tr>
-            <tr>
                 <td>@Html.LabelFor(model => model.NumAdults)</td>
                 <td>@Html.EditorFor(model => model.NumAdults)</td>
                 <td>@Html.ValidationMessageFor(model => model.NumAdults)</td>
@@ -110,11 +96,6 @@
                 <td>@Html.LabelFor(model => model.NumChildren)</td>
                 <td>@Html.EditorFor(model => model.NumChildren)</td>
                 <td>@Html.ValidationMessageFor(model => model.NumChildren)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Rate)</td>
-                <td>@Html.TextBoxFor(model => model.Rate, new { id = "rateBox" })</td>
-                <td>@Html.ValidationMessageFor(model => model.Rate)</td>
             </tr>
         </table>
 
@@ -141,9 +122,12 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/Scripts/daterangepicker/daterangepicker.js")
+    @Styles.Render("~/Scripts/daterangepicker/daterangepicker.css")
+    @Scripts.Render("~/Scripts/daterangepicker/moment.js")
     @Scripts.Render("~/Scripts/editable/js/bootstrap-editable.js")
     @Styles.Render("~/Scripts/editable/css/bootstrap-editable.css")
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -178,12 +162,37 @@
 
             //$.fn.editable.defaults.mode = 'inline';
 
+            $('#date-editable').daterangepicker({
+
+            },
+            function (start, end) {
+                if (start == null || end == null) {
+                    $('#date-editable').text("No dates selected");
+                    $('#startDate').val("");
+                    $('#endDate').val("");
+                }
+                else {
+                    $('#date-editable').text(start.format('MMM D, YYYY') + " - " + end.format('MMM D, YYYY'));
+                    $('#startDate').val(start.format('DD/MM/YYYY'));
+                    $('#endDate').val(end.format('DD/MM/YYYY'));
+                }
+            });
+
             $('#house-editable').editable({
                 type: 'select',
                 value: 0,
                 source: json,
-                title: 'Enter name'
+                title: 'Select house',
+                success: function (response, newValue) {
+                    $('#houseID').val(newValue);
+                }
             });
+
+            /*$('#date-editable').editable({
+                type: 'text',
+                title: 'Select dates',
+                inputclass: 'daterange'
+            });*/
 
             $('.date').datepicker();
 
