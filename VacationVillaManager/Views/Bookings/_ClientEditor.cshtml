@@ -1,10 +1,9 @@
 ﻿@model VacationVillaManager.Models.Booking
 
-<div class="clientInfoEditor">
+<div class="clientInfoEditor" style="display: none;">
 
     @if (!(bool)ViewBag.NewClient)
     {
-        @Html.HiddenFor(model => model.Client.ID)
         @Html.HiddenFor(model => model.Client.Location.ID)
     }
 

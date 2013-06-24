@@ -45,12 +45,13 @@
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Returning Client <b class="caret"></b></a>
                                 <ul id="client-dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-
+                                    <!-- Client dropdown items go here -->
                                 </ul>
                             </li>
                         </ul>
 
                         <div class="newClient tab-contents">
+                            @Html.HiddenFor(model => model.Client.ID, new { id = "clientID", @Value = "0" })
                             <div class="clientInfoEditor">
                                 @Html.EditorFor(model => model.Client)
                             </div>
@@ -70,16 +71,6 @@
             </div>
         </div>
     </div>
-
-        <table>
-            <tr>
-                <td>@Html.RadioButton("clientSelect", 0, true, new { id = "radioReturnClient" }) Returning Client</td>
-                <td>@Html.DropDownList("clientList", (IEnumerable<SelectListItem>)ViewData["ClientsList"], new { id = "clientList" })</td>
-            </tr>
-            <tr>
-                <td>@Html.RadioButton("clientSelect", 1, false, new { id = "radioNewClient" }) New Client</td>
-            </tr>
-        </table>
 
         <div class="clientInfo">
             <!-- Generated client editor goes here -->
@@ -213,6 +204,43 @@
                 });
             });
 
+            $('#clientTabs a[href="#new"]').click(function () {
+                $('.clientInfoEditor').slideUp('fast', function () {
+                    $('div').remove('.clientInfoEditor');
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/_ClientEditor/0",
+                        success: function ($result) {
+                            var toInject = $result;
+                            $('.newClient').append(toInject);
+                            $('.clientInfoEditor').slideDown();
+                            $('#clientID').val(0);
+                        }
+                    });
+                });
+            });
+
+            $('#client-dropdown').on('click', 'a', function () {
+                var elId = $(this).attr('id').split("-");
+                var clientID = elId[1];
+
+                $('.clientInfoEditor').slideUp('fast', function () {
+                    $('div').remove('.clientInfoEditor');
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/_ClientEditor/" + clientID,
+                        success: function ($result) {
+                            var toInject = $result;
+                            $('.newClient').append(toInject);
+                            $('.clientInfoEditor').slideDown();
+                            $('#clientID').val(clientID);
+                        }
+                    });
+                });
+                
+                
+            });
+
             $("a.deleteRow").live("click", function () {
                 //$(this).parents("div.costEditorRow:first").remove();
                 var divId = $(this).closest('div').attr('id');
@@ -221,7 +249,7 @@
                 return false;
             });
 
-            $('#radioReturnClient').click(function () {
+            /*$('#radioReturnClient').click(function () {
                 $('div').remove('.clientInfoEditor');
                 $('#clientList').removeAttr('disabled');
                 var clientID = $('#clientList').val();
@@ -317,7 +345,7 @@
                 else {
                     $('#rateBox').val('0');
                 }
-            });
+            });*/
         });
     </script>
 }
