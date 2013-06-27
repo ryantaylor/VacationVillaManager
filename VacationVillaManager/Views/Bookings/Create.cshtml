@@ -7,7 +7,7 @@
 
 @Styles.Render("~/Content/BootstrapOverride.css")
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "Bookings", FormMethod.Post, new { autocomplete = "off" })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -21,7 +21,7 @@
                     <i class="icon-home icon-large"></i> <strong class="red"> <a href="#" id="house-editable">No house selected</a></strong>
                 </div>
                 <div class="span4" style="margin-bottom: -8px;">
-                    <i class="icon-usd icon-large"></i> <strong class="red">No house selected</strong>
+                    <i class="icon-usd icon-large"></i> <strong class="red" id="total-cost">No house selected</strong>
                 </div>
                 <div class="span4" style="margin-bottom: -8px;">
                     <i class="icon-calendar icon-large"></i> <strong class="red"> <a href="#" id="date-editable" class="editable editable-click">No dates selected</a></strong>
@@ -31,8 +31,8 @@
     </div>
 
     @Html.HiddenFor(model => model.House.ID, new { id = "houseID" })
-    @Html.HiddenFor(model => model.StartDate, new { id = "startDate" })
-    @Html.HiddenFor(model => model.EndDate, new { id = "endDate" })
+    @Html.HiddenFor(model => model.StartDate, new { id = "startDate", @Value = "" })
+    @Html.HiddenFor(model => model.EndDate, new { id = "endDate", @Value = "" })
     
     <div class="control-group center">
         <div class="controls">
@@ -61,6 +61,27 @@
                 <div class="span4 well well-small">
                     <fieldset>
                         <legend>Booking Information</legend>
+                        <div id="booking-info" style="display: none;">
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-user"></i></span>
+                                @Html.TextBoxFor(model => model.NumAdults, new { @class = "input-mini", @Value = "", placeholder = "Num. of" })
+                                <span class="add-on" style="padding-left: 12px; padding-right: 12px;">Adult(s)</span>
+                            </div><br />
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-user"></i></span>
+                                @Html.TextBoxFor(model => model.NumChildren, new { @class = "input-mini", @Value = "", placeholder = "Num. of" })
+                                <span class="add-on">Child(ren)</span>
+                            </div><br />
+                            <hr style="border-bottom: 1px solid #e5e5e5; border-top: 0; margin-top: 10px;" />
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-usd"></i></span>
+                                @Html.TextBoxFor(model => model.Rate, new { id = "rateBox", @class = "input-mini", @Value = "", placeholder = "Rate" })
+                                <span class="add-on">Per Day</span>
+                            </div>
+                            <div class="costEditor">
+                                <!-- Generated cost editors go here -->
+                            </div>
+                        </div>
                     </fieldset>
                 </div>
                 <div class="span4 well well-small">
@@ -72,31 +93,11 @@
         </div>
     </div>
 
-        <div class="clientInfo">
-            <!-- Generated client editor goes here -->
-        </div>
-
-        <table>
-            @Html.HiddenFor(model => model.House.Location)
-            <tr>
-                <td>@Html.LabelFor(model => model.NumAdults)</td>
-                <td>@Html.EditorFor(model => model.NumAdults)</td>
-                <td>@Html.ValidationMessageFor(model => model.NumAdults)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.NumChildren)</td>
-                <td>@Html.EditorFor(model => model.NumChildren)</td>
-                <td>@Html.ValidationMessageFor(model => model.NumChildren)</td>
-            </tr>
-        </table>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Costs)
         </div>
 
-        <div class="costEditor">
-            <!-- Generated cost editors go here -->
-        </div>
+        
 
         <a href="javascript:void()" class="addNewCost" >Add</a>
 
@@ -146,15 +147,10 @@
 
             $('#clientTabs a[href="#new"]').tab('show');
 
-            $.datepicker.setDefaults({
-                dateFormat: "M dd yy",
-                showOn: "focus"
-            });
-
             //$.fn.editable.defaults.mode = 'inline';
 
             $('#date-editable').daterangepicker({
-
+                // options here
             },
             function (start, end) {
                 if (start == null || end == null) {
@@ -166,8 +162,30 @@
                     $('#date-editable').text(start.format('MMM D, YYYY') + " - " + end.format('MMM D, YYYY'));
                     $('#startDate').val(start.format('DD/MM/YYYY'));
                     $('#endDate').val(end.format('DD/MM/YYYY'));
+                    updateCostTotal();
                 }
             });
+
+            $('body').on('click', '[id^=freq-toggle-]', function () {
+                var label = $(this).find('span');
+                var value = $(this).find('input');
+
+                if (value.val() === "false") {
+                    value.val("true");
+                    label.attr('class', 'label label-success');
+                    label.text("Daily");
+                }
+
+                else {
+                    value.val("false");
+                    label.attr('class', 'label label-info');
+                    label.text("Once");
+                }
+
+                updateCostTotal();
+            });
+
+            var id = -1;
 
             $('#house-editable').editable({
                 type: 'select',
@@ -175,7 +193,76 @@
                 source: json,
                 title: 'Select house',
                 success: function (response, newValue) {
+
+                    if ($('#houseID').val() == 0) {
+                        $('#booking-info').slideDown();
+                    }
+
+                    else {
+                        $('#booking-info').slideUp('default', function () {
+                            $('.addNewCost').hide();
+                            $('.costEditorRow .costName').val('');
+                            $('.costEditorRow .costAmount').val('');
+                            $('.costEditorRow .costID').val(0);
+                            $('div[class="costEditorRow"]').hide();
+
+                            if (newValue != 0)
+                                $('#booking-info').slideDown();
+                        });
+                    }
+
+                    if (newValue != 0) {
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/Bookings/GetRate/" + newValue,
+                            success: function ($result) {
+                                $('#rateBox').val($result);
+                            }
+                        });
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/Bookings/GetCosts/" + newValue,
+                            success: function ($result) {
+
+                                var currentPos = id;
+                                var endPos = id + $result.Costs.length;
+                                $.each($result.Costs, function (index, cost) {
+                                    id++;
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "/Bookings/_CostEditorWithID/" + id,
+                                        async: false,
+                                        success: function ($result2) {
+                                            var toInject = $result2;
+                                            $('.costEditor').append(toInject);
+                                            $('.costEditor').find('.costEditorRow:last').slideDown();
+
+                                            currentPos++;
+
+                                            $('#' + currentPos + ' .costName').val(cost.Name);
+                                            $('#' + currentPos + ' .costAmount').val(cost.Amount);
+                                            $('#' + currentPos + ' .costID').val(0);
+
+                                            if ($('#' + currentPos + ' .freq-id').val() == true) {
+                                                $('#' + currentPos + '').find('span').attr('class', 'label label-success');
+                                                $('#' + currentPos + '').find('span').text('Daily');
+                                            }
+
+                                            updateCostTotal();
+
+                                            if (currentPos >= endPos) {
+                                                $('.addNewCost').show();
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    }
                     $('#houseID').val(newValue);
+                    updateCostTotal();
                 }
             });
 
@@ -185,11 +272,13 @@
                 inputclass: 'daterange'
             });*/
 
-            $('.date').datepicker();
+            $('#rateBox').change(function () {
+                updateCostTotal();
+            });
 
-            $('.addNewCost').hide();
-
-            var id = -1;
+            $('body').on('change', '.costAmount', function () {
+                updateCostTotal();
+            });
 
             $('.addNewCost').click(function () {
                 id++;
@@ -199,9 +288,22 @@
                     success: function ($result) {
                         var toInject = $result;
                         $('.costEditor').append(toInject);
+                        $('.costEditor').find('.costEditorRow:last').slideDown();
                         $('#' + id + ' .costID').val(0);
                     }
                 });
+            });
+
+            $('body').on('click', 'a.deleteRow', function () {
+                var divId = $(this).parents("div.costEditorRow:first").attr('id');
+
+                $(this).parents("div.costEditorRow:first").slideUp('default', function () {
+                    $('#' + divId + ' .costName').val('');
+                    $('#' + divId + ' .costAmount').val(0);
+                    $('#' + divId + ' .costID').val(0);
+                    updateCostTotal();
+                });
+                return false;
             });
 
             $('#clientTabs a[href="#new"]').click(function () {
@@ -237,63 +339,50 @@
                         }
                     });
                 });
-                
-                
             });
 
-            $("a.deleteRow").live("click", function () {
+            function updateCostTotal() {
+
+                var elem = $('#total-cost');
+
+                if ($('#houseID').val() == 0)
+                    elem.text('No house selected');
+
+                else if ($('#startDate').val() == '' || $('#endDate').val() == '')
+                    elem.text('No valid dates selected');
+
+                else {
+                    var cost = 0;
+                    var start = Date.parse($('#startDate').val());
+                    var end = Date.parse($('#endDate').val());
+                    var length = Math.round((end - start) / 1000 / 60 / 60 / 24 / 30) + 1;
+                    
+                    var rate = parseInt($('#rateBox').val());
+                    cost = rate * length;
+
+                    $('.costEditor').children('div .costEditorRow').each(function () {
+                        var expense = parseInt($(this).find('.costAmount').val());
+                        var daily = $(this).find('.freq-id').val();
+
+                        if (daily === "true")
+                            expense = expense * length;
+
+                        cost += expense;
+                    });
+
+                    elem.text(cost);
+                }
+            }
+
+            /*$("a.deleteRow").live("click", function () {
                 //$(this).parents("div.costEditorRow:first").remove();
                 var divId = $(this).closest('div').attr('id');
                 $('#' + divId + ' input').val('');
                 $(this).parents("div.costEditorRow:first").hide();
                 return false;
-            });
+            });*/
 
-            /*$('#radioReturnClient').click(function () {
-                $('div').remove('.clientInfoEditor');
-                $('#clientList').removeAttr('disabled');
-                var clientID = $('#clientList').val();
-                if (clientID != "") {
-                    $.ajax({
-                        type: "GET",
-                        url: "/Bookings/_ClientEditor/" + clientID,
-                        success: function ($result) {
-                            var toInject = $result;
-                            $('.clientInfo').hide().append(toInject).slideDown();
-                        }
-                    });
-                }
-            });
-
-            $('#radioNewClient').click(function () {
-                $('div').remove('.clientInfoEditor');
-                $('#clientList').attr('disabled', 'disabled');
-                $.ajax({
-                    type: "GET",
-                    url: "/Bookings/_ClientEditor/0",
-                    success: function ($result) {
-                        var toInject = $result;
-                        $('.clientInfo').hide().append(toInject).slideDown();
-                    }
-                });
-            });
-
-            $('#clientList').change(function () {
-                $('div').remove('.clientInfoEditor');
-                var clientID = $('#clientList').val();
-                if (clientID != "") {
-                    $.ajax({
-                        type: "GET",
-                        url: "/Bookings/_ClientEditor/" + clientID,
-                        success: function ($result) {
-                            var toInject = $result;
-                            $('.clientInfo').hide().append(toInject).slideDown();
-                        }
-                    });
-                }
-            });
-
-            $('#housesList').change(function () {
+            /*$('#housesList').change(function () {
 
                 $('.addNewCost').hide();
                 $('.costEditorRow input').val('');
