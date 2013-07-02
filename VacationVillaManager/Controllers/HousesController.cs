@@ -75,10 +75,10 @@ namespace VacationVillaManager.Controllers
                 db.Houses.Add(house);
                 db.SaveChanges();
 
-                this.Success("Added!");
+                Success(house.Name + " was successfully created!");
                 return RedirectToAction("Index");
             }
-
+            Error("Something went wrong!");
             return View(house);
         }
 
@@ -192,6 +192,7 @@ namespace VacationVillaManager.Controllers
                 Success("Changes were successfully saved!");
                 return RedirectToAction("Index");
             }
+            Error("Something went wrong! Changes weren't saved.");
             return View(house);
         }
 

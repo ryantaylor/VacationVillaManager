@@ -79,9 +79,10 @@ namespace VacationVillaManager.Controllers
 
                 db.Bookings.Add(booking);
                 db.SaveChanges();
+                Success("The booking was created successfully!");
                 return RedirectToAction("Index");
             }
-
+            Error("Something went wrong!");
             return View(booking);
         }
 
@@ -240,6 +241,7 @@ namespace VacationVillaManager.Controllers
                 }*/
 
                 db.SaveChanges();
+                Success("Changes were successfully saved!");
                 return RedirectToAction("Index");
             }
             return View(booking);
