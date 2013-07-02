@@ -179,12 +179,17 @@ namespace VacationVillaManager.Controllers
             {
                 //House temp = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
                 //db.Entry(temp).CurrentValues.SetValues(booking.House);
-                //db.Entry(temp).CurrentValues.SetValues(booking.House);
-                db.Entry(booking).State = EntityState.Modified;
-                //db.Entry(booking.House).State = EntityState.Modified;
+                //db.Entry(temp).CurrentValues.SetValues(booking.House);//db.Entry(booking.House).State = EntityState.Modified;
                 //db.Entry(booking).CurrentValues.SetValues(booking);
-                db.Entry(booking.Client).State = EntityState.Modified;
-                db.Entry(booking.Client.Location).State = EntityState.Modified;
+
+                //db.Entry(booking).State = EntityState.Modified;
+                //db.Entry(booking.Client).State = EntityState.Modified;
+                //db.Entry(booking.Client.Location).State = EntityState.Modified;
+
+                Booking b = db.Bookings.Include("House").Include("House.Location").Include("Client").Include("Client.Location").Single(m => m.ID == booking.ID);
+                db.Entry(b).CurrentValues.SetValues(booking);
+                db.Entry(b.Client).CurrentValues.SetValues(booking.Client);
+                db.Entry(b.Client.Location).CurrentValues.SetValues(booking.Client.Location);
 
                 List<Cost> newCosts = booking.Costs;
 
@@ -196,7 +201,7 @@ namespace VacationVillaManager.Controllers
                         if (c.Name == null)
                         {
                             db.Entry(c).State = EntityState.Deleted;
-                            i--;
+                            //i--;
                         }
                         else
                             db.Entry(c).State = EntityState.Modified;
@@ -207,6 +212,7 @@ namespace VacationVillaManager.Controllers
                         {
                             //c.Booking = new Booking();
                             //c.Booking.ID = booking.ID;
+                            c.Booking = b;
                             db.Entry(c).State = EntityState.Added;
                         }
                     }

@@ -244,9 +244,10 @@
                                             $('#' + currentPos + ' .costAmount').val(cost.Amount);
                                             $('#' + currentPos + ' .costID').val(0);
 
-                                            if ($('#' + currentPos + ' .freq-id').val() == true) {
-                                                $('#' + currentPos + '').find('span').attr('class', 'label label-success');
-                                                $('#' + currentPos + '').find('span').text('Daily');
+                                            if ($('#' + currentPos + ' .freq-id').val() == "true") {
+                                                var span = $('#' + currentPos + '').find('.freq-toggle').find('span');
+                                                span.attr('class', 'label label-success');
+                                                span.text('Daily');
                                             }
 
                                             updateCostTotal();

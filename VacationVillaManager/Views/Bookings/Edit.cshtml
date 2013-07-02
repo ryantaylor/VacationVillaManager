@@ -172,10 +172,12 @@
                                 $('#' + currentPos + ' .costName').val(cost.Name);
                                 $('#' + currentPos + ' .costAmount').val(cost.Amount);
                                 $('#' + currentPos + ' .costID').val(cost.ID);
+                                $('#' + currentPos + ' .freq-id').val(cost.CalculateDaily);
 
-                                if ($('#' + currentPos + ' .freq-id').val() == true) {
-                                    $('#' + currentPos + '').find('span').attr('class', 'label label-success');
-                                    $('#' + currentPos + '').find('span').text('Daily');
+                                if ($('#' + currentPos + ' .freq-id').val() == "true") {
+                                    var span = $('#' + currentPos + '').find('.freq-toggle').find('span');
+                                    span.attr('class', 'label label-success');
+                                    span.text('Daily');
                                 }
 
                                 updateCostTotal();
@@ -197,12 +199,24 @@
                     success: function ($result) {
                         var toInject = $result;
                         $('.costEditor').append(toInject);
+                        $('.costEditor').find('.costEditorRow:last').slideDown();
                         $('#' + id + ' .costID').val(0);
                     }
                 });
             });
 
-            $("a.deleteRow").live("click", function () {
+            $('body').on('click', 'a.deleteRow', function () {
+                var divId = $(this).parents("div.costEditorRow:first").attr('id');
+
+                $(this).parents("div.costEditorRow:first").slideUp('default', function () {
+                    $('#' + divId + ' .costName').val('');
+                    $('#' + divId + ' .costAmount').val(0);
+                    updateCostTotal();
+                });
+                return false;
+            });
+
+            /*$("a.deleteRow").live("click", function () {
                 //$(this).parents("div.costEditorRow:first").remove();
                 var divId = $(this).closest('div').attr('id');
                 $('#' + divId + ' .costName').val('');
@@ -264,7 +278,7 @@
                 else {
                     $('#rateBox').val('0');
                 }
-            });
+            });*/
 
             function updateCostTotal() {
 
