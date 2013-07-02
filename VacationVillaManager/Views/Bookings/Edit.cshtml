@@ -4,79 +4,104 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+@Styles.Render("~/Content/BootstrapOverride.css")
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Booking</legend>
-
-        @Html.HiddenFor(model => model.ID, new { id = "bookingID" })
-
-        @Html.HiddenFor(model => model.Client.ID)
-        @Html.HiddenFor(model => model.Client.Location.ID)
-        @Html.EditorFor(model => model.Client)
-
-        <table>
-            
-            <tr>
-                <td>@Html.LabelFor(model => model.House)</td>
-                <td>@Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })</td>
-                <td>@Html.ValidationMessageFor(model => model.House.ID)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.StartDate)</td>
-                <td>@Html.TextBoxFor(model => model.StartDate, new { @class = "date", @Value = Model.StartDate.ToString("dd MMM yyyy") })</td>
-                <td>@Html.ValidationMessageFor(model => model.StartDate)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.EndDate)</td>
-                <td>@Html.TextBoxFor(model => model.EndDate, new { @class = "date", @Value = Model.EndDate.ToString("dd MMM yyyy") })</td>
-                <td>@Html.ValidationMessageFor(model => model.EndDate)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.NumAdults)</td>
-                <td>@Html.EditorFor(model => model.NumAdults)</td>
-                <td>@Html.ValidationMessageFor(model => model.NumAdults)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.NumChildren)</td>
-                <td>@Html.EditorFor(model => model.NumChildren)</td>
-                <td>@Html.ValidationMessageFor(model => model.NumChildren)</td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Rate)</td>
-                <td>@Html.TextBoxFor(model => model.Rate, new { id = "rateBox" })</td>
-                <td>@Html.ValidationMessageFor(model => model.Rate)</td>
-            </tr>
-        </table>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Costs)
+    <div class="row-fluid">
+        <div class="span3">
+            <h3><a href="@Url.Action("Index")" class="back-button"><i class="icon-circle-arrow-left"></i></a> Edit Booking</h3>
         </div>
-
-        <div class="costEditor">
-            <!-- Generated cost editors go here -->
+        <div class="span9 booking-info alert alert-block alert-info">
+            <div class="row-fluid">
+                <div class="span4" style="margin-bottom: -8px;">
+                    <i class="icon-home icon-large"></i> <strong class="red"> @Html.DisplayFor(model => model.House.Name)</strong>
+                </div>
+                <div class="span4" style="margin-bottom: -8px;">
+                    <i class="icon-usd icon-large"></i> <strong class="red" id="total-cost">0</strong>
+                </div>
+                <div class="span4" style="margin-bottom: -8px;">
+                    <i class="icon-calendar icon-large"></i> <strong class="red"> <a href="#" id="date-editable" class="editable editable-click">@Model.StartDate.ToString("dd MMM yyyy") - @Model.EndDate.ToString("dd MMM yyyy")</a></strong>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <a href="javascript:void(0)" class="addNewCost" >Add</a>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+    @Html.HiddenFor(model => model.ID, new { id = "bookingID" })
+    @Html.HiddenFor(model => model.Client.ID)
+    @Html.HiddenFor(model => model.Client.Location.ID)
+    @Html.HiddenFor(model => model.House.ID)
+    @Html.HiddenFor(model => model.StartDate, new { id = "startDate" })
+    @Html.HiddenFor(model => model.EndDate, new { id = "endDate" })
+    
+    <div class="control-group center">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>Client Information</legend>
+                        @Html.EditorFor(model => model.Client)
+                    </fieldset>
+                </div>
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>Booking Information</legend>
+                        <div id="booking-info">
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-user"></i></span>
+                                @Html.TextBoxFor(model => model.NumAdults, new { @class = "input-mini", placeholder = "Num. of" })
+                                <span class="add-on" style="padding-left: 12px; padding-right: 12px;">Adult(s)</span>
+                            </div><br />
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-user"></i></span>
+                                @Html.TextBoxFor(model => model.NumChildren, new { @class = "input-mini", placeholder = "Num. of" })
+                                <span class="add-on">Child(ren)</span>
+                            </div><br />
+                            <hr style="border-bottom: 1px solid #e5e5e5; border-top: 0; margin-top: 10px;" />
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-usd"></i></span>
+                                @Html.TextBoxFor(model => model.Rate, new { id = "rateBox", @class = "input-mini", placeholder = "Rate" })
+                                <span class="add-on">Per Day</span>
+                            </div>
+                            <div class="costEditor">
+                                <!-- Generated cost editors go here -->
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>Other</legend>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row-fluid">
+        <div class="span12 well well-small">
+            <div class="row-fluid">
+                <div class="offset1">
+                    <label for="editBooking" class="btn btn-large btn-primary"><i class="icon-ok"></i>  Save</label>
+                    <input type="submit" value="Save" id="editBooking" class="hidden" />
+                </div>
+            </div>
+        </div>
+    </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/Scripts/daterangepicker/daterangepicker.js")
+    @Styles.Render("~/Scripts/daterangepicker/daterangepicker.css")
+    @Scripts.Render("~/Scripts/daterangepicker/moment.js")
+    @Scripts.Render("~/Scripts/editable/js/bootstrap-editable.js")
+    @Styles.Render("~/Scripts/editable/css/bootstrap-editable.css")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -84,13 +109,45 @@
             var id = -1;
             var houseID = $('#housesList').val();
             var bookingID = $('#bookingID').val();
+            var start = '@Model.StartDate.ToString("M/dd/yyyy")';
+            var end = '@Model.EndDate.ToString("M/dd/yyyy")';
 
-            $.datepicker.setDefaults({
-                dateFormat: "dd M yy",
-                showOn: "focus"
+            $('#date-editable').daterangepicker({
+                startDate: start,
+                endDate: end
+            },
+            function (start, end) {
+                if (start == null || end == null) {
+                    $('#date-editable').text("No dates selected");
+                    $('#startDate').val("");
+                    $('#endDate').val("");
+                }
+                else {
+                    $('#date-editable').text(start.format('MMM D, YYYY') + " - " + end.format('MMM D, YYYY'));
+                    $('#startDate').val(start.format('DD/MM/YYYY'));
+                    $('#endDate').val(end.format('DD/MM/YYYY'));
+                    updateCostTotal();
+                }
             });
+            
+            $('body').on('click', '[id^=freq-toggle-]', function () {
+                var label = $(this).find('span');
+                var value = $(this).find('input');
 
-            $('.date').datepicker();
+                if (value.val() === "false") {
+                    value.val("true");
+                    label.attr('class', 'label label-success');
+                    label.text("Daily");
+                }
+
+                else {
+                    value.val("false");
+                    label.attr('class', 'label label-info');
+                    label.text("Once");
+                }
+
+                updateCostTotal();
+            });
 
             $.ajax({
                 type: "GET",
@@ -107,13 +164,21 @@
                             async: false,
                             success: function ($result2) {
                                 var toInject = $result2;
-                                $('.costEditor').hide().append(toInject).slideDown();
+                                $('.costEditor').append(toInject);
+                                $('.costEditor').find('.costEditorRow:last').slideDown();
 
                                 currentPos++;
 
                                 $('#' + currentPos + ' .costName').val(cost.Name);
                                 $('#' + currentPos + ' .costAmount').val(cost.Amount);
                                 $('#' + currentPos + ' .costID').val(cost.ID);
+
+                                if ($('#' + currentPos + ' .freq-id').val() == true) {
+                                    $('#' + currentPos + '').find('span').attr('class', 'label label-success');
+                                    $('#' + currentPos + '').find('span').text('Daily');
+                                }
+
+                                updateCostTotal();
 
                                 if (currentPos >= endPos) {
                                     $('.addNewCost').show();
@@ -200,6 +265,37 @@
                     $('#rateBox').val('0');
                 }
             });
+
+            function updateCostTotal() {
+
+                var elem = $('#total-cost');
+
+                if ($('#startDate').val() == '' || $('#endDate').val() == '')
+                    elem.text('No valid dates selected');
+
+                else {
+                    var cost = 0;
+                    var start = Date.parse($('#startDate').val());
+                    var end = Date.parse($('#endDate').val());
+                    var length = Math.round((end - start) / 1000 / 60 / 60 / 24 / 30) + 1;
+
+                    var rate = parseInt($('#rateBox').val());
+                    cost = rate * length;
+
+                    $('.costEditor').children('div .costEditorRow').each(function () {
+                        var expense = parseInt($(this).find('.costAmount').val());
+                        var daily = $(this).find('.freq-id').val();
+
+                        if (daily === "true")
+                            expense = expense * length;
+
+                        cost += expense;
+                    });
+
+                    var withTaxes = cost + cost * 0.12;
+                    elem.text(cost + ' (' + withTaxes + ')');
+                }
+            }
         });
     </script>
 }

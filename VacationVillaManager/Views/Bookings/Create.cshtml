@@ -92,18 +92,17 @@
             </div>
         </div>
     </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Costs)
+    
+    <div class="row-fluid">
+        <div class="span12 well well-small">
+            <div class="row-fluid">
+                <div class="offset1">
+                    <label for="createBooking" class="btn btn-large btn-primary"><i class="icon-plus"></i>  Create</label>
+                    <input type="submit" value="Create" id="createBooking" class="hidden" />
+                </div>
+            </div>
         </div>
-
-        
-
-        <a href="javascript:void()" class="addNewCost" >Add</a>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+    </div>
 }
 
 <div>
@@ -370,7 +369,8 @@
                         cost += expense;
                     });
 
-                    elem.text(cost);
+                    var withTaxes = cost + cost * 0.12;
+                    elem.text(cost + ' (' + withTaxes + ')');
                 }
             }
 

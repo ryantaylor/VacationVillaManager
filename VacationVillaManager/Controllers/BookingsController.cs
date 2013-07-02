@@ -21,7 +21,7 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Bookings.ToList());
+            return View(db.Bookings.Include("House").Include("Client").OrderByDescending(m => m.StartDate).ToList());
         }
 
         //

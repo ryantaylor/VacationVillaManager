@@ -4,54 +4,92 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@Styles.Render("~/Content/BootstrapOverride.css")
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NumAdults)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumChildren)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rate)
-        </th>
-        <th></th>
-    </tr>
+<div class="row-fluid">
+    <div class="span6">
+        <h3 class="houseHead">Active <small>Bookings</small></h3>
+    </div>
+    <div class="span6">
+        <a href="@Url.Action("Create")" class="btn btn-large btn-primary pull-right"><i class="icon-plus"></i> New Booking</a>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumAdults)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumChildren)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+<table class="table table-hover" id="bookings-table">
+    <thead>
+        <tr>
+            <th>
+                Duration <i class="icon-usd"></i>
+            </th>
+            <th>
+                Client
+            </th>
+            <th>
+                House
+            </th>
+            <th>
+                Subtotal
+            </th>
+            <th>
+                After Taxes
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model) {
+        <tr class="info">
+            <td>
+                @item.StartDate.ToString("dd MMM yyyy") - @item.EndDate.ToString("dd MMM yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.House.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+    </tbody>
 
 </table>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/jquery.dataTables.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#bookings-table').dataTable({
+                "aaSorting": [],
+                "sDom": 't'
+            });
+
+            // Assigning BootStrap CSS classes to the DataTables components
+            $.fn.dataTableExt.oStdClasses.sPaging = "btn-group ";
+            $.fn.dataTableExt.oStdClasses.sPagePrevDisabled = "btn disabled ";
+            $.fn.dataTableExt.oStdClasses.sPageNextDisabled = "btn disabled ";
+            $.fn.dataTableExt.oStdClasses.sPagePrevEnabled = "btn ";
+            $.fn.dataTableExt.oStdClasses.sPageNextEnabled = "btn ";
+
+            $('th').each(function () {
+                if ($(this).text() != '') {
+                    $(this).append('<i class="icon-caret-up"></i><i class="icon-caret-down"></i>');
+                }
+            });
+        });
+    </script>
+}
