@@ -4,52 +4,55 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+@Styles.Render("~/Content/BootstrapOverride.css")
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Special</legend>
+    <div class="row-fluid">
+        <div class="span3">
+            <h3><a href="@Url.Action("Index")" class="back-button"><i class="icon-circle-arrow-left"></i></a> New Special</h3>
+        </div>
+    </div>
+    
+    @Html.HiddenFor(model => model.StartDate, new { id = "startDate", @Value = "" })
+    @Html.HiddenFor(model => model.EndDate, new { id = "endDate", @Value = "" })
 
-        @Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList" })
+    <div class="control-group center">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>House</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartDate)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.StartDate, new { @class = "date" })
-            @Html.ValidationMessageFor(model => model.StartDate)
-        </div>
+                        @Html.DropDownListFor(model => model.House.ID, (IEnumerable<SelectListItem>)ViewData["HousesList"], new { id = "housesList", @class = "selectpicker show-tick" })
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EndDate)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.EndDate, new { @class = "date" })
-            @Html.ValidationMessageFor(model => model.EndDate)
-        </div>
+                    </fieldset>
+                </div>
+                <div class="span4 well well-small">
+                    <fieldset>
+                        <legend>Details</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Rate)
+                    </fieldset>
+                </div>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.Rate, new { id = "rateBox" })
-            @Html.ValidationMessageFor(model => model.Rate)
+    </div>
+    
+    <div class="row-fluid">
+        <div class="span12 well well-small">
+            <div class="row-fluid">
+                <div class="offset1">
+                    <label for="createSpecial" class="btn btn-large btn-primary"><i class="icon-plus"></i>  Create</label>
+                    <input type="submit" value="Create" id="createSpecial" class="hidden" />
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Costs)
-        </div>
+   
 
-        <div class="costEditor">
-            <!-- Generated cost editors go here -->
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
 }
 
 <div>
@@ -60,16 +63,16 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/Scripts/daterangepicker/daterangepicker.js")
+    @Styles.Render("~/Scripts/daterangepicker/daterangepicker.css")
+    @Scripts.Render("~/Scripts/daterangepicker/moment.js")
+    @Scripts.Render("~/Scripts/bootstrap-select/bootstrap-select.js")
+    @Styles.Render("~/Scripts/bootstrap-select/bootstrap-select.css")
 
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $.datepicker.setDefaults({
-                dateFormat: "dd M yy",
-                showOn: "focus"
-            });
-
-            $('.date').datepicker();
+            $('.selectpicker').selectpicker();
 
             var id = -1;
 
