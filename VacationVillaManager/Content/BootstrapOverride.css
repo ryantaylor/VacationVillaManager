@@ -145,6 +145,14 @@ ul.thumbnails {
     text-align: left;
 }
 
+a.disabled {
+    color: grey;
+}
+
+a.disabled:hover {
+    color: grey;
+}
+
 
 
 
