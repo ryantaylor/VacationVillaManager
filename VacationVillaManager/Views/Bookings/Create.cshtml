@@ -180,9 +180,87 @@
                 updateCostTotal();
             });
 
-            var id = -1;
+            var id = 0;
 
             $('#house-editable').editable({
+                type: 'select',
+                value: 0,
+                source: json,
+                title: 'Select house',
+                success: function (response, newValue) {
+
+                    if ($('#houseID').val() == 0) {
+                        $('#booking-info').slideDown();
+                        updateCosts(newValue);
+                    }
+
+                    else {
+                        $('#booking-info').slideUp('default', function () {
+                            $('.addNewCost').hide();
+                            $('.costEditorRow').remove();
+
+                            updateCosts(newValue);
+
+                            if (newValue != 0)
+                                $('#booking-info').slideDown();
+                        });
+                    }
+
+                    
+                }
+            });
+
+            function updateCosts(house) {
+
+                if (house != 0) {
+
+                    id = 0;
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetRate/" + house,
+                        success: function ($result) {
+                            $('#rateBox').val($result);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetCosts/" + house,
+                        success: function ($result) {
+                            $.each($result.Costs, function (index, cost) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/Bookings/_CostEditorWithID/" + id,
+                                    async: false,
+                                    success: function ($result2) {
+                                        var toInject = $result2;
+                                        $('.costEditor').append(toInject);
+                                        $('.costEditor').find('.costEditorRow:last').slideDown();
+
+                                        $('#' + id + ' .costName').val(cost.Name);
+                                        $('#' + id + ' .costAmount').val(cost.Amount);
+                                        $('#' + id + ' .costID').val(0);
+
+                                        if ($('#' + id + ' .freq-id').val() == "true") {
+                                            var span = $('#' + id + '').find('.freq-toggle').find('span');
+                                            span.attr('class', 'label label-success');
+                                            span.text('Daily');
+                                        }
+                                        id++;
+                                        updateCostTotal();
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+                $('#houseID').val(house);
+                $('.addNewCost').show();
+                updateCostTotal();
+            }
+
+            /*$('#house-editable').editable({
                 type: 'select',
                 value: 0,
                 source: json,
@@ -260,7 +338,7 @@
                     $('#houseID').val(newValue);
                     updateCostTotal();
                 }
-            });
+            });*/
 
             /*$('#date-editable').editable({
                 type: 'text',

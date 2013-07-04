@@ -4,6 +4,7 @@
     int id = (int)ViewBag.CostID;
 }
 
-<div class="costEditorRow" id="@id" style="display: none;">
-    @Html.EditorFor(model => model.Costs[id])
+<div class="row-fluid costEditorRow" id="@id" style="display: none;">
+    <div class="span1" style="padding-top: 4px;"><a href="#" id="freq-toggle-@id" class="freq-toggle"><span class="label label-info">Once </span>@Html.HiddenFor(model => model.Costs[id].CalculateDaily, new { id = "freq-" + id, @class = "freq-id", @Value = "false" })</a></div>
+    <div class="span11">@Html.EditorFor(model => model.Costs[id])</div>
 </div>

@@ -6,8 +6,8 @@
 
 @Styles.Render("~/Content/BootstrapOverride.css")
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm("Create", "Specials", FormMethod.Post, new { autocomplete = "off" })) {
+
     @Html.ValidationSummary(true)
 
     <div class="row-fluid">
@@ -33,24 +33,21 @@
                 <div class="span4 well well-small">
                     <fieldset>
                         <legend>Details</legend>
-                            <div class="input-prepend">
-                                <span class="add-on"><i class="icon-calendar"></i></span>
-                                @Html.TextBox("DateRange", null, new { id = "date-range", placeholder = "Specify a date range" })
-
-                                <div id="special-info" style="display: none;">
-                                    <br />
-                                    <hr style="border-bottom: 1px solid #e5e5e5; border-top: 0; margin-top: 10px;" />
-                                    <div class="input-prepend input-append">
-                                        <span class="add-on"><i class="icon-usd"></i></span>
-                                        @Html.TextBoxFor(model => model.Rate, new { id = "rateBox", @class = "input-mini", @Value = "", placeholder = "Rate" })
-                                        <span class="add-on">Per Day</span>
-                                    </div>
-
-                                    <div class="costEditor">
-                                        <!-- Generated cost editors go here -->
-                                    </div>
-                                </div>
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                            @Html.TextBox("DateRange", null, new { id = "date-range", placeholder = "Specify a date range" })
+                        </div>
+                        <div id="special-info" style="display: none;">
+                            <hr style="border-bottom: 1px solid #e5e5e5; border-top: 0; margin-top: 10px;" />
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-usd"></i></span>
+                                @Html.TextBoxFor(model => model.Rate, new { id = "rateBox", @class = "input-mini", @Value = "", placeholder = "Rate" })
+                                <span class="add-on">Per Day</span>
                             </div>
+                            <div class="costEditor">
+                                <!-- Generated cost editors go here -->
+                            </div>
+                        </div>
                     </fieldset>
                 </div>
             </div>
@@ -71,10 +68,6 @@
    
 
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -109,7 +102,78 @@
                 return;
             });
 
-            var id = -1;
+            var up = true;
+
+            $('#housesList').change(function () {
+                if (up == false) {
+                    $('#special-info').slideUp('default', function () {
+                        updateHouse();
+                    });
+                }
+                else {
+                    updateHouse();
+                }
+            });
+
+            function updateHouse() {
+                var id = 0;
+                var houseID = $('#housesList').val();
+
+                $('.costEditorRow').remove();
+
+                if (houseID == 0) {
+                    up = true;
+                    $('#rateBox').val(0);
+                }
+                else {
+                    up = false;
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetRate/" + houseID,
+                        success: function ($result) {
+                            $('#rateBox').val($result);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Bookings/GetCosts/" + houseID,
+                        success: function ($result) {
+                            $.each($result.Costs, function (index, cost) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/Houses/_CostEditorWithID/" + id,
+                                    async: false,
+                                    success: function ($result2) {
+                                        var toInject = $result2;
+                                        $('.costEditor').append(toInject);
+                                        $('.costEditor').find('.costEditorRow:last').show();
+
+                                        $('#' + id + ' .costName').val(cost.Name);
+                                        $('#' + id + ' .costAmount').val(cost.Amount);
+                                        $('#' + id + ' .costID').val(0);
+
+                                        if ($('#' + id + ' .freq-id').val() == "true") {
+                                            var span = $('#' + id + '').find('.freq-toggle').find('span');
+                                            span.attr('class', 'label label-success');
+                                            span.text('Daily');
+                                        }
+
+                                        $('.costName').attr('readonly', true);
+                                        $('.deleteRow').addClass('disabled');
+
+                                        id++;
+                                    }
+                                });
+                            });
+                        }
+                    });
+                    $('#special-info').slideDown();
+                }
+            }
+
+            /*var id = -1;
 
             $('#housesList').change(function () {
 
@@ -172,7 +236,7 @@
                 else {
                     $('#rateBox').val('0');
                 }
-            });
+            });*/
         });
     </script>
 }
