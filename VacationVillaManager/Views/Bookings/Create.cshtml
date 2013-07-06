@@ -33,6 +33,7 @@
     @Html.HiddenFor(model => model.House.ID, new { id = "houseID" })
     @Html.HiddenFor(model => model.StartDate, new { id = "startDate", @Value = "" })
     @Html.HiddenFor(model => model.EndDate, new { id = "endDate", @Value = "" })
+    @Html.HiddenFor(model => model.Subtotal, new { id = "subtotal" })
     
     <div class="control-group center">
         <div class="controls">
@@ -444,8 +445,10 @@
                         cost += expense;
                     });
 
+                    $('#subtotal').val(cost);
+
                     var withTaxes = cost + cost * 0.12;
-                    elem.text(cost + ' (' + withTaxes + ')');
+                    elem.text(cost.toFixed(2) + ' (' + withTaxes.toFixed(2) + ')');
                 }
             }
 

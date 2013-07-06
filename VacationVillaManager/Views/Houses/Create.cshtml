@@ -159,6 +159,23 @@
                 }
             });
 
+            $('body').on('click', '[id^=freq-toggle-]', function () {
+                var label = $(this).find('span');
+                var value = $(this).find('input');
+
+                if (value.val() === "false") {
+                    value.val("true");
+                    label.attr('class', 'label label-success');
+                    label.text("Daily");
+                }
+
+                else {
+                    value.val("false");
+                    label.attr('class', 'label label-info');
+                    label.text("Once");
+                }
+            });
+
             //$('#btnHome').button();
             $('#btnHome').button('toggle');
 

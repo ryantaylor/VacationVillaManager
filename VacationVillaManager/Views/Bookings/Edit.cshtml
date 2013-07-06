@@ -36,6 +36,7 @@
     @Html.HiddenFor(model => model.House.ID)
     @Html.HiddenFor(model => model.StartDate, new { id = "startDate" })
     @Html.HiddenFor(model => model.EndDate, new { id = "endDate" })
+    @Html.HiddenFor(model => model.Subtotal, new { id = "subtotal" })
     
     <div class="control-group center">
         <div class="controls">
@@ -75,6 +76,18 @@
                 <div class="span4 well well-small">
                     <fieldset>
                         <legend>Other</legend>
+                        <div class="input-prepend input-append">
+                            <span class="add-on" style="padding-left: 19px; padding-right: 20px;">Deposit</span>
+                            <span class="add-on"><i class="icon-usd"></i></span>
+                            @Html.TextBoxFor(model => model.Deposit, new { id = "deposit", placeholder = "Deposit", @class = "input-mini" })
+                            <span id="deposit-date" class="add-on">due @Model.StartDate.AddDays(-42).ToString("MM/dd/yyyy")</span>
+                        </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Outstanding</span>
+                            <span class="add-on"><i class="icon-usd"></i></span>
+                            @Html.TextBox("Unpaid", Math.Round(Model.Subtotal + Model.Subtotal * 0.12, 2).ToString("0.00"), new { id = "outstanding", placeholder = "Outstanding", @class = "input-mini", disabled = "disabled" })
+                            <span id="outstanding-date" class="add-on">due @Model.StartDate.ToString("MM/dd/yyyy")</span>
+                        </div>
                     </fieldset>
                 </div>
             </div>
@@ -121,11 +134,16 @@
                     $('#date-editable').text("No dates selected");
                     $('#startDate').val("");
                     $('#endDate').val("");
+                    $('#deposit-date').text("due date unknown!");
+                    $('#outstanding-date').text("due date unknown!");
                 }
                 else {
                     $('#date-editable').text(start.format('MMM D, YYYY') + " - " + end.format('MMM D, YYYY'));
                     $('#startDate').val(start.format('DD/MM/YYYY'));
                     $('#endDate').val(end.format('DD/MM/YYYY'));
+                    var depDate = moment(start);
+                    $('#deposit-date').text("due " + depDate.subtract('d', 42).format('MM/DD/YYYY'));
+                    $('#outstanding-date').text("due " + start.format('MM/DD/YYYY'));
                     updateCostTotal();
                 }
             });
@@ -280,6 +298,18 @@
                 }
             });*/
 
+            $('#rateBox').change(function () {
+                updateCostTotal();
+            });
+
+            $('#deposit').change(function () {
+                updateCostTotal();
+            });
+
+            $('body').on('change', '.costAmount', function () {
+                updateCostTotal();
+            });
+
             function updateCostTotal() {
 
                 var elem = $('#total-cost');
@@ -306,8 +336,13 @@
                         cost += expense;
                     });
 
+                    $('#subtotal').val(cost);
+
+                    var deposit = parseInt($('#deposit').val());
                     var withTaxes = cost + cost * 0.12;
-                    elem.text(cost + ' (' + withTaxes + ')');
+                    var outstanding = (withTaxes - deposit).toFixed(2);
+                    $('#outstanding').val(outstanding);
+                    elem.text(cost.toFixed(2) + ' (' + withTaxes.toFixed(2) + ')');
                 }
             }
         });
