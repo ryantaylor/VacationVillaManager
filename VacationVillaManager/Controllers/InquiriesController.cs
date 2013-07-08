@@ -66,7 +66,7 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Inquiry inquiry = db.Inquiries.Find(id);
+            Inquiry inquiry = db.Inquiries.Include("House").Single(m => m.ID == id);
             if (inquiry == null)
             {
                 return HttpNotFound();

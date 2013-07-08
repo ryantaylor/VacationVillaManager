@@ -19,7 +19,7 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Specials.ToList());
+            return View(db.Specials.Include("House").OrderBy(m => m.StartDate).ToList());
         }
 
         //

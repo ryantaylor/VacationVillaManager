@@ -27,6 +27,6 @@ namespace VacationVillaManager.Models
 
         public string Status { get; set; }
 
-        
+        public string Response { get; set; }
     }
 }

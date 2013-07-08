@@ -180,6 +180,10 @@ a.disabled:hover {
     background-color: black;
 }
 
+a#resolved-toggle:hover {
+    text-decoration: none;
+}
+
 
 
 .dataTables_length{
