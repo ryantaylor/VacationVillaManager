@@ -31,6 +31,7 @@ namespace VacationVillaManager.Models
 
         public double Subtotal { get; set; }
         public double Deposit { get; set; }
+        public bool PaidInFull { get; set; }
 
         public Booking()
         {

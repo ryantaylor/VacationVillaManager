@@ -154,7 +154,6 @@ a.disabled:hover {
 }
 
 .tip {
-	color: green;
 	background: white;
 	display:none; /*--Hides by default--*/
 	padding:5px;
@@ -167,6 +166,19 @@ a.disabled:hover {
     font-style: italic;
 }
 
+.green {
+    color: green;
+}
+
+.blue {
+    color: #c4e3f3;
+    background-color: black;
+}
+
+.yellow {
+    color: #faf2cc;
+    background-color: black;
+}
 
 
 
