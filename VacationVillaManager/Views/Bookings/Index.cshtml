@@ -19,6 +19,9 @@
     <thead>
         <tr>
             <th>
+                <!-- hidden column for date sorting -->
+            </th>
+            <th>
                 Duration
             </th>
             <th>
@@ -57,6 +60,9 @@
             }
             <tr class="@trClass tip_trigger">
                 <td>
+                    @item.StartDate.ToString("dd MMM yyyy")
+                </td>
+                <td>
                     @item.StartDate.ToString("dd MMM yyyy") - @item.EndDate.ToString("dd MMM yyyy")
                 </td>
                 <td>
@@ -69,7 +75,7 @@
                     @Html.DisplayFor(modelItem => item.Subtotal)
                 </td>
                 <td>
-                    @{var afterTaxes = item.Subtotal + item.Subtotal * 0.12;}
+                    @{var afterTaxes = Math.Round(item.Subtotal + item.Subtotal * 0.12, 2).ToString("0.00");}
                     @afterTaxes
                 </td>
                 <td>
@@ -93,6 +99,9 @@
 <table class="table table-hover bookings-table">
     <thead>
         <tr>
+            <th>
+                <!-- hidden column for date sorting -->
+            </th>
             <th>
                 Duration
             </th>
@@ -152,6 +161,9 @@
             }
             <tr class="@trClass tip_trigger">
                 <td>
+                    @item.StartDate.ToString("dd MMM yyyy")
+                </td>
+                <td>
                     @item.StartDate.ToString("dd MMM yyyy") - @item.EndDate.ToString("dd MMM yyyy")
                 </td>
                 <td>
@@ -164,7 +176,7 @@
                     @Html.DisplayFor(modelItem => item.Subtotal)
                 </td>
                 <td>
-                    @{var afterTaxes = item.Subtotal + item.Subtotal * 0.12;}
+                    @{var afterTaxes = Math.Round(item.Subtotal + item.Subtotal * 0.12, 2).ToString("0.00");}
                     @afterTaxes
                 </td>
                 <td>
@@ -188,6 +200,9 @@
 <table class="table table-hover bookings-table">
     <thead>
         <tr>
+            <th>
+                <!-- hidden column for date sorting -->
+            </th>
             <th>
                 Duration
             </th>
@@ -214,6 +229,9 @@
         {
             <tr>
                 <td>
+                    @item.StartDate.ToString("dd MMM yyyy")
+                </td>
+                <td>
                     @item.StartDate.ToString("dd MMM yyyy") - @item.EndDate.ToString("dd MMM yyyy")
                 </td>
                 <td>
@@ -226,7 +244,7 @@
                     @Html.DisplayFor(modelItem => item.Subtotal)
                 </td>
                 <td>
-                    @{var afterTaxes = item.Subtotal + item.Subtotal * 0.12;}
+                    @{var afterTaxes = Math.Round(item.Subtotal + item.Subtotal * 0.12, 2).ToString("0.00");}
                     @afterTaxes
                 </td>
                 <td>
@@ -250,7 +268,16 @@
 
             $('.bookings-table').dataTable({
                 "aaSorting": [],
-                "sDom": 't'
+                "sDom": 't',
+                "aoColumns" : [
+                    { "bVisible": false },
+                    { "iDataSort": 0 },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ]
             });
 
             // Assigning BootStrap CSS classes to the DataTables components

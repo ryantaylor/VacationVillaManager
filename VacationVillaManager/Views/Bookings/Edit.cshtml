@@ -37,6 +37,7 @@
     @Html.HiddenFor(model => model.StartDate, new { id = "startDate" })
     @Html.HiddenFor(model => model.EndDate, new { id = "endDate" })
     @Html.HiddenFor(model => model.Subtotal, new { id = "subtotal" })
+    @Html.HiddenFor(model => model.PaidInFull, new { id = "paidInFull" })
     
     <div class="control-group center">
         <div class="controls">
@@ -88,6 +89,10 @@
                             @Html.TextBox("Unpaid", Math.Round(Model.Subtotal + Model.Subtotal * 0.12, 2).ToString("0.00"), new { id = "outstanding", placeholder = "Outstanding", @class = "input-mini", disabled = "disabled" })
                             <span id="outstanding-date" class="add-on">due @Model.StartDate.ToString("MM/dd/yyyy")</span>
                         </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Payment Status</span>
+                            <button id="payment-toggle" class="btn btn-danger"><i class="icon-remove"></i> Outstanding</button>
+                        </div>
                     </fieldset>
                 </div>
             </div>
@@ -124,6 +129,13 @@
             var bookingID = $('#bookingID').val();
             var start = '@Model.StartDate.ToString("M/dd/yyyy")';
             var end = '@Model.EndDate.ToString("M/dd/yyyy")';
+
+            if ($('#paidInFull').val() == "True") {
+                var toAppend = '<i class="icon-ok"></i> Paid in Full';
+                $('#payment-toggle').attr('class', 'btn btn-success');
+                $('#payment-toggle').text('');
+                $('#payment-toggle').append(toAppend);
+            }
 
             $('#date-editable').daterangepicker({
                 startDate: start,
@@ -206,6 +218,24 @@
                             }
                         });
                     });
+                }
+            });
+
+            $('#payment-toggle').click(function (e) {
+                e.preventDefault();
+                if ($('#paidInFull').val() == "false") {
+                    var toAppend = '<i class="icon-ok"></i> Paid in Full';
+                    $('#payment-toggle').attr('class', 'btn btn-success');
+                    $('#payment-toggle').text('');
+                    $('#payment-toggle').append(toAppend);
+                    $('#paidInFull').val("true");
+                }
+                else {
+                    var toAppend = '<i class="icon-remove"></i> Outstanding';
+                    $('#payment-toggle').attr('class', 'btn btn-danger');
+                    $('#payment-toggle').text('');
+                    $('#payment-toggle').append(toAppend);
+                    $('#paidInFull').val("false");
                 }
             });
 
@@ -323,10 +353,10 @@
                     var end = Date.parse($('#endDate').val());
 
                     // uncomment this line for local testing
-                    //var length = Math.round((end - start) / 1000 / 60 / 60 / 24 / 30) + 1;
+                    var length = Math.round((end - start) / 1000 / 60 / 60 / 24 / 30) + 1;
 
                     // uncomment this line for deployment testing
-                    var length = Math.round((end - start) / 1000 / 60 / 60 / 24);
+                    //var length = Math.round((end - start) / 1000 / 60 / 60 / 24);
 
                     var rate = parseInt($('#rateBox').val());
                     cost = rate * length;
