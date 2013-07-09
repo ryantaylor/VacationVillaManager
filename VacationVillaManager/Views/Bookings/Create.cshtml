@@ -241,9 +241,10 @@
 
                                         $('#' + id + ' .costName').val(cost.Name);
                                         $('#' + id + ' .costAmount').val(cost.Amount);
+                                        $('#' + id + ' .freq-id').val(cost.CalculateDaily);
                                         $('#' + id + ' .costID').val(0);
-
-                                        if ($('#' + id + ' .freq-id').val() == "true") {
+                                        
+                                        if ($('#' + id + ' .freq-id').val().toLowerCase() == "true") {
                                             var span = $('#' + id + '').find('.freq-toggle').find('span');
                                             span.attr('class', 'label label-success');
                                             span.text('Daily');

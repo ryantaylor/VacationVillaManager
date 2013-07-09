@@ -12,6 +12,10 @@
     @Html.HiddenFor(model => model.ID)
     @Html.HiddenFor(model => model.House.ID)
     @Html.HiddenFor(model => model.Status, new { id = "inquiryStatus" })
+    @Html.HiddenFor(model => model.StartDate)
+    @Html.HiddenFor(model => model.EndDate)
+    @Html.HiddenFor(model => model.FirstName)
+    @Html.HiddenFor(model => model.LastName)
 
     <div class="row-fluid">
         <div class="span12">
@@ -27,35 +31,35 @@
                         <legend>Inquiry Information</legend>
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-user"></i></span>
-                            @Html.TextBox("Name", Model.FirstName + " " + Model.LastName, new { disabled = "disabled" })
+                            @Html.TextBox("Name", Model.FirstName + " " + Model.LastName, new { @readonly = "readonly" })
                         </div>
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-envelope-alt"></i></span>
-                            @Html.TextBoxFor(model => model.Email, new { disabled = "disabled" })
+                            @Html.TextBoxFor(model => model.Email, new { @readonly = "readonly" })
                         </div>
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-phone"></i></span>
-                            @Html.TextBoxFor(model => model.PhoneNumber, new { disabled = "disabled" })
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @readonly = "readonly" })
                         </div>
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-home"></i></span>
-                            @Html.TextBoxFor(model => model.House.Name, new { disabled = "disabled" })
+                            @Html.TextBoxFor(model => model.House.Name, new { @readonly = "readonly" })
                         </div>
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-calendar"></i></span>
-                            @Html.TextBox("Duration", Model.StartDate.ToString("MMM dd yyyy") + " - " + Model.EndDate.ToString("MMM dd yyyy"), new { disabled = "disabled" })
+                            @Html.TextBox("Duration", Model.StartDate.ToString("MMM dd yyyy") + " - " + Model.EndDate.ToString("MMM dd yyyy"), new { @readonly = "readonly" })
                         </div>
                         <div class="input-prepend input-append">
                             <span class="add-on"><i class="icon-user"></i></span>
-                            @Html.TextBoxFor(model => model.NumAdults, new { @class = "input-mini", disabled = "disabled" })
+                            @Html.TextBoxFor(model => model.NumAdults, new { @class = "input-mini", @readonly = "readonly" })
                             <span class="add-on" style="padding-left: 12px; padding-right: 12px;">Adult(s)</span>
                         </div><br />
                         <div class="input-prepend input-append">
                             <span class="add-on"><i class="icon-user"></i></span>
-                            @Html.TextBoxFor(model => model.NumChildren, new { @class = "input-mini", disabled = "disabled" })
+                            @Html.TextBoxFor(model => model.NumChildren, new { @class = "input-mini", @readonly = "readonly" })
                             <span class="add-on">Child(ren)</span>
                         </div><br />
-                        @Html.TextArea("Questions", new { @Value = Model.Questions, disabled = "disabled" })
+                        @Html.TextArea("Questions", new { @Value = Model.Questions, @readonly = "readonly" })
                     </fieldset>
                 </div>
                 <div class="span4 well well-small">
@@ -90,6 +94,10 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+
+            if ($('#inquiryStatus').val() == "Resolved") {
+                $('#resolved-toggle').find('i').attr('class', 'icon-ok icon-green');
+            }
 
             $('#resolved-toggle').click(function () {
                 if ($('#inquiryStatus').val() == "Pending") {

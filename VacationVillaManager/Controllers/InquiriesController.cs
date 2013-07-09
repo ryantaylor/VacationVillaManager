@@ -82,7 +82,8 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(inquiry).State = EntityState.Modified;
+                Inquiry i = db.Inquiries.Include("House").Single(m => m.ID == inquiry.ID);
+                db.Entry(i).CurrentValues.SetValues(inquiry);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
