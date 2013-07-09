@@ -82,7 +82,7 @@ namespace VacationVillaManager.Controllers
                 Success("The booking was created successfully!");
                 return RedirectToAction("Index");
             }
-            Error("Something went wrong!");
+            Error("Something went wrong! " + ModelState.ToString());
             return View(booking);
         }
 
