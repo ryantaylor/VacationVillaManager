@@ -23,7 +23,6 @@
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(false)
 
     @Html.HiddenFor(model => model.ID, new { id = "houseID" })
     @Html.HiddenFor(model => model.Active)
@@ -232,7 +231,9 @@
                 },
                 gallery = blueimp.Gallery(links, options);
 
-            //gallery.close();
+            if (gallery != false) {
+                gallery.close();
+            }
 
             var linksContainer = $('#gallery').on('click', 'a', function (event) {
                 // Show the Gallery as lightbox when selecting a link,
