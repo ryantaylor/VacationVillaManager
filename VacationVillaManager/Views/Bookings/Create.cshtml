@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm("Create", "Bookings", FormMethod.Post, new { autocomplete = "off" })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
 
     <div class="row-fluid">
         <div class="span3">
