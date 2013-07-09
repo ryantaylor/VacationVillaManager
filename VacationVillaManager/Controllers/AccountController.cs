@@ -60,7 +60,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /Account/Register
 
-        /*[AllowAnonymous]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -91,7 +91,7 @@ namespace VacationVillaManager.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }*/
+        }
 
         //
         // POST: /Account/Disassociate
