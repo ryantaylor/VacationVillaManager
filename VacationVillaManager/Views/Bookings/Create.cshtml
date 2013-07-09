@@ -177,7 +177,7 @@
                 else if ($('#startDate').val() == '' || $('#endDate').val() == '')
                     elem.text('No valid dates selected');
 
-                else {
+                else if (parseFloat($('#forceGrand').val()) > 0) {
                     var start = Date.parse($('#startDate').val());
                     var end = Date.parse($('#endDate').val());
                     var length = Math.round((end - start) / 1000 / 60 / 60 / 24);
@@ -194,8 +194,11 @@
                     });
 
                     var rate = target / length;
-                    $('#rateBox').val(rate.toFixed(2));
+                    $('#rateBox').val(rate.toFixed(4));
                     updateCostTotal();
+                }
+                else {
+                    alert("Enter a value!");
                 }
                 
             });
