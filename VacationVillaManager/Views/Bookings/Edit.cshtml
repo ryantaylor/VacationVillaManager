@@ -223,7 +223,7 @@
 
             $('#payment-toggle').click(function (e) {
                 e.preventDefault();
-                if ($('#paidInFull').val() == "false") {
+                if ($('#paidInFull').val().toLowerCase() == "false") {
                     var toAppend = '<i class="icon-ok"></i> Paid in Full';
                     $('#payment-toggle').attr('class', 'btn btn-success');
                     $('#payment-toggle').text('');

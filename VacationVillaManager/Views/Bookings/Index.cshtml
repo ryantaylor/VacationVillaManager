@@ -140,7 +140,7 @@
                 trClass = "info";
                 tip = "<span class='tip blue'>Payment Pending; No Deadlines Approaching</span>";
 
-                if (item.StartDate.AddDays(-49) < System.DateTime.Now && item.Deposit > 0)
+                if (item.StartDate.AddDays(-49) < System.DateTime.Now && item.Deposit == 0)
                 {
                     if (item.StartDate.AddDays(-42) < System.DateTime.Now)
                     {
