@@ -93,7 +93,8 @@ namespace VacationVillaManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(special).State = EntityState.Modified;
+                Special s = db.Specials.Include("House").Include("House.Location").Include("House.Owner").Include("House.Owner.Location").Include("House.ManagementCompany").Include("House.ManagementCompany.Location").Single(m => m.ID == special.ID);
+                db.Entry(s).CurrentValues.SetValues(special);
                 foreach (Cost c in special.Costs)
                     db.Entry(c).State = EntityState.Modified;
                 db.SaveChanges();
