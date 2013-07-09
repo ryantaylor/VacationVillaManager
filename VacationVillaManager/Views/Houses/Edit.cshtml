@@ -23,7 +23,7 @@
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
 
     @Html.HiddenFor(model => model.ID, new { id = "houseID" })
     @Html.HiddenFor(model => model.Active)
