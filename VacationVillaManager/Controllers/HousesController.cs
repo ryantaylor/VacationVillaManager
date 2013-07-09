@@ -135,7 +135,9 @@ namespace VacationVillaManager.Controllers
                 db.Entry(h).CurrentValues.SetValues(house);
                 db.Entry(h.Location).CurrentValues.SetValues(house.Location);
                 db.Entry(h.Owner).CurrentValues.SetValues(house.Owner);
+                db.Entry(h.Owner.Location).CurrentValues.SetValues(house.Owner.Location);
                 db.Entry(h.ManagementCompany).CurrentValues.SetValues(house.ManagementCompany);
+                db.Entry(h.ManagementCompany.Location).CurrentValues.SetValues(house.ManagementCompany.Location);
                 //db.Entry(house).State = EntityState.Modified;
                 //db.Entry(house.Location).State = EntityState.Modified;
                 //db.Entry(house.Owner).State = EntityState.Modified;

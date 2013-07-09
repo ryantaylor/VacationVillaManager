@@ -9,18 +9,14 @@
 
 <!-- Begin slideshow scaffolding -->
 
-<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
-    <div class="modal-header">
-        <a class="close" data-dismiss="modal">&times;</a>
-        <h3 class="modal-title"></h3>
-    </div>
-    <div class="modal-body"><div class="modal-image"></div></div>
-    <div class="modal-footer">
-        <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
-        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
-        <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Previous</a>
-        <a class="btn btn-primary modal-next">Next <i class="icon-arrow-right icon-white"></i></a>
-    </div>
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
 </div>
 
 <!-- End -->
@@ -94,7 +90,7 @@
                 <div class="span4 well well-small">
                     <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
                     <div id="upload-info">
-                        <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+                        <div id="gallery">
                             <ul class="thumbnails">
                                 <!-- Image thumbnails go here -->
                             </ul>
@@ -118,9 +114,8 @@
 }
 
 @section Scripts {
-    @Scripts.Render("http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js")
-    @Scripts.Render("~/Scripts/slideshow/js/bootstrap-image-gallery.js")
-    @Styles.Render("~/Scripts/slideshow/css/bootstrap-image-gallery.css")
+    @Styles.Render("~/Scripts/slideshow/css/blueimp-gallery.css")
+    @Scripts.Render("~/Scripts/slideshow/js/blueimp-gallery.js")
     @Scripts.Render("~/Scripts/uploader/fileuploader.js")
     @Styles.Render("~/Scripts/uploader/fileuploader.css")
 
@@ -135,7 +130,7 @@
                 button: document.getElementById('photo-button'),
                 action: '@Url.Action("PhotoUpload", "Bookings")',
                 onUpload: function (id, filename, xhr) {
-                    var toAppend = '<li class="span3"><a href="#" class="thumbnail" title="' + filename + '" data-gallery="gallery"><img id=photo' + id + ' src="/Scripts/uploader/loading.gif" /></a></li>';
+                    var toAppend = '<li class="span3"><a href="#" class="thumbnail" title="' + filename + '" data-index="' + photoID + '"><img id=photo' + photoID + ' src="/Scripts/uploader/loading.gif" /></a></li>';
                     $('.thumbnails').append(toAppend);
                 },
                 onComplete: function (id, filename, responseJSON) {
@@ -149,14 +144,36 @@
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
                     $('#upload-info').append(toAppend);
 
-                    $('#photo' + id + '').attr("src", responseJSON.thumb);
-                    $('#photo' + id + '').parent().attr("href", responseJSON.path);
+                    $('#photo' + photoID + '').attr("src", responseJSON.thumb);
+                    $('#photo' + photoID + '').parent().attr("href", responseJSON.path);
 
                     photoID++;
                 },
                 params: {
                     houseID: '0'
                 }
+            });
+
+            var links = document.getElementById('gallery').getElementsByTagName('a'),
+                options = {
+                    // Set to true to initialize the Gallery with carousel specific options:
+                    carousel: false
+                },
+                gallery = blueimp.Gallery(links, options);
+
+            //gallery.close();
+
+            var linksContainer = $('#gallery').on('click', 'a', function (event) {
+                // Show the Gallery as lightbox when selecting a link,
+                // starting with the selected image:
+                if (blueimp.Gallery(linksContainer.find('a'), {
+                    index: $(this).data('index')
+                })) {
+                    // Prevent the default link action on
+                    // successful Gallery initialization:
+                    event.preventDefault();
+                }
+                event.preventDefault();
             });
 
             $('body').on('click', '[id^=freq-toggle-]', function () {
