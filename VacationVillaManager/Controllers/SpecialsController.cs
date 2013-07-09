@@ -50,9 +50,10 @@ namespace VacationVillaManager.Controllers
         [HttpPost]
         public ActionResult Create(Special special)
         {
+            ViewData["HousesList"] = House.BuildHousesDropdownList();
             if (ModelState.IsValid)
             {
-                special.House = db.Houses.Include("Location").Single(m => m.ID == special.House.ID);
+                special.House = db.Houses.Include("Location").Include("Owner").Include("Owner.Location").Include("ManagementCompany").Include("ManagementCompany.Location").Single(m => m.ID == special.House.ID);
                 List<Cost> costs = new List<Cost>();
 
                 foreach (Cost c in special.Costs)

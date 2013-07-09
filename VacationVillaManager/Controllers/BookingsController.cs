@@ -59,7 +59,7 @@ namespace VacationVillaManager.Controllers
 
             if (ModelState.IsValid && House.IsAvailableInRange(booking.StartDate, booking.EndDate, booking.House.ID))
             {
-                booking.House = db.Houses.Include("Location").Single(m => m.ID == booking.House.ID);
+                booking.House = db.Houses.Include("Location").Include("Owner").Include("Owner.Location").Include("ManagementCompany").Include("ManagementCompany.Location").Single(m => m.ID == booking.House.ID);
                 List<Cost> costs = new List<Cost>();
 
                 foreach (Cost c in booking.Costs)
@@ -82,7 +82,7 @@ namespace VacationVillaManager.Controllers
                 Success("The booking was created successfully!");
                 return RedirectToAction("Index");
             }
-            Error("Something went wrong! " + ModelState.ToString());
+            Error("Something went wrong!");
             return View(booking);
         }
 
