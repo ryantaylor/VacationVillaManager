@@ -87,6 +87,12 @@
                 <div class="span4 well well-small">
                     <fieldset>
                         <legend>Other</legend>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Force Grand Total</span>
+                            <span class="add-on"><i class="icon-usd"></i></span>
+                            @Html.TextBox("ForceGT", null, new { id = "forceGrand", @class = "input-mini", placeholder = "Amount" })
+                            <a href="#" class="btn btn-success" id="force-apply">Apply</a>
+                        </div>
                     </fieldset>
                 </div>
             </div>
@@ -159,6 +165,39 @@
                     $('#endDate').val(end.format('MM/DD/YYYY'));
                     updateCostTotal();
                 }
+            });
+
+            $('#force-apply').click(function () {
+
+                var elem = $('#total-cost');
+
+                if ($('#houseID').val() == 0)
+                    elem.text('No house selected');
+
+                else if ($('#startDate').val() == '' || $('#endDate').val() == '')
+                    elem.text('No valid dates selected');
+
+                else {
+                    var start = Date.parse($('#startDate').val());
+                    var end = Date.parse($('#endDate').val());
+                    var length = Math.round((end - start) / 1000 / 60 / 60 / 24);
+                    var target = parseFloat($('#forceGrand').val()) / 1.12;
+
+                    $('.costEditor').children('div .costEditorRow').each(function () {
+                        var expense = parseFloat($(this).find('.costAmount').val());
+                        var daily = $(this).find('.freq-id').val();
+
+                        if (daily.toLowerCase() === "true")
+                            expense = expense * length;
+
+                        target -= expense;
+                    });
+
+                    var rate = target / length;
+                    $('#rateBox').val(rate.toFixed(2));
+                    updateCostTotal();
+                }
+                
             });
 
             $('body').on('click', '[id^=freq-toggle-]', function () {
@@ -437,20 +476,20 @@
                     // uncomment this line for deployment testing
                     var length = Math.round((end - start) / 1000 / 60 / 60 / 24);
                     
-                    var rate = parseInt($('#rateBox').val());
+                    var rate = parseFloat($('#rateBox').val());
                     cost = rate * length;
 
                     $('.costEditor').children('div .costEditorRow').each(function () {
-                        var expense = parseInt($(this).find('.costAmount').val());
+                        var expense = parseFloat($(this).find('.costAmount').val());
                         var daily = $(this).find('.freq-id').val();
 
-                        if (daily === "true")
+                        if (daily.toLowerCase() === "true")
                             expense = expense * length;
 
                         cost += expense;
                     });
 
-                    $('#subtotal').val(cost);
+                    $('#subtotal').val(cost.toFixed(2));
 
                     var withTaxes = cost + cost * 0.12;
                     elem.text(cost.toFixed(2) + ' (' + withTaxes.toFixed(2) + ')');

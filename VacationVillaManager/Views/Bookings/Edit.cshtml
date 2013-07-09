@@ -357,20 +357,20 @@
                     // uncomment this line for deployment testing
                     var length = Math.round((end - start) / 1000 / 60 / 60 / 24);
 
-                    var rate = parseInt($('#rateBox').val());
+                    var rate = parseFloat($('#rateBox').val());
                     cost = rate * length;
 
                     $('.costEditor').children('div .costEditorRow').each(function () {
-                        var expense = parseInt($(this).find('.costAmount').val());
+                        var expense = parseFloat($(this).find('.costAmount').val());
                         var daily = $(this).find('.freq-id').val();
 
-                        if (daily === "true")
+                        if (daily.toLowerCase() === "true")
                             expense = expense * length;
 
                         cost += expense;
                     });
 
-                    $('#subtotal').val(cost);
+                    $('#subtotal').val(cost.toFixed(2));
 
                     var deposit = parseInt($('#deposit').val());
                     var withTaxes = cost + cost * 0.12;
