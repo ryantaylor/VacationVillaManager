@@ -63,10 +63,11 @@ namespace VacationVillaManager.Controllers
 
                 special.Costs = costs;
                 db.Specials.Add(special);
+                Success("A special for " + special.House.Name + " was added successfully!");
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            Error("Something went wrong! The special was not added.");
             return View(special);
         }
 
@@ -95,8 +96,10 @@ namespace VacationVillaManager.Controllers
                 foreach (Cost c in special.Costs)
                     db.Entry(c).State = EntityState.Modified;
                 db.SaveChanges();
+                Success("Changes were successfully saved!");
                 return RedirectToAction("Index");
             }
+            Error("Something went wrong! Changes were not saved.");
             return View(special);
         }
 

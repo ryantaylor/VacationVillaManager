@@ -192,7 +192,7 @@ namespace VacationVillaManager.Controllers
                 Success("Changes were successfully saved!");
                 return RedirectToAction("Index");
             }
-            Error("Something went wrong! Changes weren't saved.");
+            Error("Something went wrong! Changes were not saved.");
             return View(house);
         }
 

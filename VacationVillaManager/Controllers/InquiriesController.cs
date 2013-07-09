@@ -85,8 +85,10 @@ namespace VacationVillaManager.Controllers
                 Inquiry i = db.Inquiries.Include("House").Single(m => m.ID == inquiry.ID);
                 db.Entry(i).CurrentValues.SetValues(inquiry);
                 db.SaveChanges();
+                Success("Response sent!");
                 return RedirectToAction("Index");
             }
+            Error("Something went wrong! No response was sent");
             return View(inquiry);
         }
 
