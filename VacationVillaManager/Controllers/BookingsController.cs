@@ -187,7 +187,7 @@ namespace VacationVillaManager.Controllers
                 //db.Entry(booking.Client).State = EntityState.Modified;
                 //db.Entry(booking.Client.Location).State = EntityState.Modified;
 
-                Booking b = db.Bookings.Include("House").Include("House.Location").Include("Client").Include("Client.Location").Single(m => m.ID == booking.ID);
+                Booking b = db.Bookings.Include("House").Include("House.Location").Include("House.Owner").Include("House.Owner.Location").Include("House.ManagementCompany").Include("House.ManagementCompany.Location").Include("Client").Include("Client.Location").Single(m => m.ID == booking.ID);
                 db.Entry(b).CurrentValues.SetValues(booking);
                 db.Entry(b.Client).CurrentValues.SetValues(booking.Client);
                 db.Entry(b.Client.Location).CurrentValues.SetValues(booking.Client.Location);
