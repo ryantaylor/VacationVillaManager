@@ -105,12 +105,30 @@
                             <ul class="thumbnails">
                                 @for (int i = 0; i < Model.Photos.Count; i ++)
                                 {
-                                    <li class="span3">
-                                        <a href="@Model.Photos[i].URL" class="thumbnail" title="@Model.Photos[i].Name" data-index="@i"><img id="photo-@i" src="@Model.Photos[i].URLThumb" /></a>
+                                    <li class="span3" style="position: relative;">
+                                        <a href="@Model.Photos[i].URL" id="photo-link-@i" class="thumbnail" title="@Model.Photos[i].Name" data-index="@i"><img id="photo-@i" src="@Model.Photos[i].URLThumb" /></a>
+                                        <div id="photo-control-@i" class="photo-controls">
+                                            <button class="btn btn-primary btn-mini photo-info" data-toggle="modal" data-target="#photo-modal-@i"><i class="icon-gear icon-large"></i></button>
+                                            <button class="btn btn-danger btn-mini photo-close"><i class="icon-remove icon-large"></i></button>
+                                        </div>
                                         @Html.HiddenFor(model => Model.Photos[i].ID)
-                                        @Html.HiddenFor(model => Model.Photos[i].Name)
-                                        @Html.HiddenFor(model => Model.Photos[i].URL)
+                                        @Html.HiddenFor(model => Model.Photos[i].URL, new { id = "photo-url-" + i })
                                         @Html.HiddenFor(model => Model.Photos[i].URLThumb)
+
+                                        <div id="photo-modal-@i" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-header">
+                                                <h3 id="myModalLabel">Photo Information</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="input-prepend">
+                                                    <span class="add-on">Name</span>
+                                                    @Html.TextBoxFor(model => Model.Photos[i].Name, new { id = "photo-name-" + i })
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="name-save-@i" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save Changes</button>
+                                            </div>
+                                        </div>
                                     </li>
                                 }
 
@@ -167,22 +185,44 @@
                 button: document.getElementById('photo-button'),
                 action: '@Url.Action("PhotoUpload", "Bookings")',
                 onUpload: function (id, filename, xhr) {
-                    var toAppend = '<li class="span3"><a href="#" class="thumbnail" title="' + filename + '" data-index="' + photoID + '"><img id=photo' + photoID + ' src="/Scripts/uploader/loading.gif" /></a></li>';
+                    var toAppend = '<li class="span3" style="position: relative;">' +
+                                        '<a href="#" id="photo-link-' + photoID + '" class="thumbnail" title="' + filename + '" data-index="' + photoID + '"><img id=photo-' + photoID + ' src="/Scripts/uploader/loading.gif" /></a>' +
+                                        '<div id="photo-control-' + photoID + '" class="photo-controls">' +
+                                            '<button class="btn btn-primary btn-mini photo-info" data-toggle="modal" data-target="#photo-modal-' + photoID + '"><i class="icon-gear icon-large"></i></button> ' +
+                                            '<button class="btn btn-danger btn-mini photo-close"><i class="icon-remove icon-large"></i></button>' +
+                                        '</div>';
                     $('.thumbnails').append(toAppend);
                 },
                 onComplete: function (id, filename, responseJSON) {
                     @{Model.Photos.Add(new Photo());}
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].ID" value="0" />';
                     $('#upload-info').append(toAppend);
-                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URL" value="' + responseJSON.path + '" />';
+                    var toAppend = '<input type="hidden" id="photo-url-' + photoID + '" name="Photos[' + photoID + '].URL" value="' + responseJSON.path + '" />';
                     $('#upload-info').append(toAppend);
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumb" value="' + responseJSON.thumb + '" />';
                     $('#upload-info').append(toAppend);
-                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
+                    //var toAppend = '<input type="hidden" id="photo-name-' + photoID + '" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
+                    //$('#upload-info').append(toAppend);
+
+                    var toAppend = '<div id="photo-modal-' + photoID + '" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
+                                            '<div class="modal-header">' +
+                                                '<h3 id="myModalLabel">Photo Information</h3>' +
+                                            '</div>' +
+                                            '<div class="modal-body">' +
+                                               '<div class="input-prepend">' +
+                                                    '<span class="add-on">Name</span>' +
+                                                    '<input type="text" id="photo-name-' + photoID + '" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="modal-footer">' +
+                                                '<button id="name-save-' + photoID + '" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save Changes</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</li>';
                     $('#upload-info').append(toAppend);
 
-                    $('#photo' + photoID + '').attr("src", responseJSON.thumb);
-                    $('#photo' + photoID + '').parent().attr("href", responseJSON.path);
+                    $('#photo-' + photoID + '').attr("src", responseJSON.thumb);
+                    $('#photo-' + photoID + '').parent().attr("href", responseJSON.path);
 
                     photoID++;
                 },
@@ -194,6 +234,64 @@
             $('#photo-button').click(function () {
                 $('#upload-input').click();
             });
+
+            /*$('body').on('mouseenter', '.thumbnail', function () {
+                var elem = $(this).parent('li').children('div');
+                //var temp = elemId.split('-');
+                //var pId = temp[1];
+                //$('#photo-control-' + pId + '').show();
+                elem.show();
+            });
+
+            $('body').on('mouseleave', '.thumbnail', function () {
+                var elem = $(this).parent('li').children('div');
+                //var temp = elemId.split('-');
+                //var pId = temp[1];
+                //$('#photo-control-' + pId + '').hide();
+                elem.hide();
+            });*/
+
+            $('body').on('click', '.photo-close', function (e) {
+                e.preventDefault();
+                var parentId = $(this).parent().attr('id');
+                var temp = parentId.split('-');
+                var pId = temp[2];
+                //$('#photo-link-' + pId + '').attr('disabled', 'disabled');
+                $('#photo-url-' + pId + '').prop('disabled', true);
+                $('#photo-' + pId + '').addClass('photo-delete');
+                $(this).attr('class', 'btn btn-success btn-mini photo-allow');
+                $(this).children('i').attr('class', 'icon-ok icon-large');
+            });
+
+            $('body').on('click', '.photo-allow', function (e) {
+                e.preventDefault();
+                var parentId = $(this).parent().attr('id');
+                var temp = parentId.split('-');
+                var pId = temp[2];
+                //$('#photo-link-' + pId + '').attr('disabled', 'disabled');
+                $('#photo-url-' + pId + '').prop('disabled', false);
+                $('#photo-' + pId + '').removeClass('photo-delete');
+                $(this).attr('class', 'btn btn-danger btn-mini photo-close');
+                $(this).children('i').attr('class', 'icon-remove icon-large');
+            });
+
+            $('body').on('click', '[id^=name-save-]', function () {
+                alert("here!");
+                var elemId = $(this).attr('id');
+                var temp = elemId.split('-');
+                var pId = temp[2];
+                alert($('#photo-name-' + pId + '').val());
+                $('#photo-link-' + pId + '').attr('title', $('#photo-name-' + pId + '').val());
+            });
+
+            $('body').on('click', '.photo-info', function (e) {
+                //e.preventDefault();
+                //alert("settings!");
+            });
+
+            /*$('body').on('click', 'a', function () {
+                alert("click!");
+            });*/
 
             /*$.ajax({
                 type: "GET",

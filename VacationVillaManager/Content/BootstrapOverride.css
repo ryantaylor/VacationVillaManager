@@ -184,6 +184,28 @@ a#resolved-toggle:hover {
     text-decoration: none;
 }
 
+.photo-controls {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.photo-controls:hover {
+    display: block;
+}
+
+a.thumbnail:hover ~ .photo-controls {
+    display: block;
+}
+
+.photo-delete {    
+    opacity: 0.25;
+}
+
+
+
+
 
 
 .dataTables_length{

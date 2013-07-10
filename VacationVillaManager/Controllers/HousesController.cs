@@ -178,6 +178,8 @@ namespace VacationVillaManager.Controllers
                     {
                         if (p.URL == null)
                             db.Entry(p).State = EntityState.Deleted;
+                        else
+                            db.Entry(p).State = EntityState.Modified;
                     }
                     else
                     {
