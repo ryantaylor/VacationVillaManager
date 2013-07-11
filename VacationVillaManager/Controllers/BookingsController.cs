@@ -268,7 +268,7 @@ namespace VacationVillaManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Booking booking = db.Bookings.Find(id);
+            Booking booking = db.Bookings.Include("Client").Single(m => m.ID == id);
             List<Cost> costs = db.Costs.Where(m => m.Booking.ID == id).ToList();
             foreach (Cost c in costs)
             {
