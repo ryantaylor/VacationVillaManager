@@ -269,6 +269,11 @@ namespace VacationVillaManager.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Booking booking = db.Bookings.Find(id);
+            List<Cost> costs = db.Costs.Where(m => m.Booking.ID == id).ToList();
+            foreach (Cost c in costs)
+            {
+                db.Costs.Remove(c);
+            }
             db.Bookings.Remove(booking);
             db.SaveChanges();
             return RedirectToAction("Index");
