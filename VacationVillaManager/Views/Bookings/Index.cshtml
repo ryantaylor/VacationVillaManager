@@ -139,25 +139,27 @@
 
                 trClass = "info";
                 tip = "<span class='tip blue'>Payment Pending; No Deadlines Approaching</span>";
-
-                if (item.StartDate.AddDays(-49) < System.DateTime.Now && item.Deposit == 0)
+                
+                if (item.Deposit == 0)
                 {
-                    if (item.StartDate.AddDays(-42) < System.DateTime.Now)
+                    trClass = "error";
+                    tip = "<span class='tip red'>Unpaid Deposit!</span>";
+                }
+
+                else if (item.StartDate.AddDays(-63) < System.DateTime.Now && item.PaidInFull == false)
+                {
+                    if (item.StartDate.AddDays(-56) < System.DateTime.Now)
                     {
                         trClass = "error";
-                        tip = "<span class='tip red'>Unpaid Deposit, Past Due Date! (" + item.StartDate.AddDays(-42).ToString("dd MMM yyyy") + ")</span>";
+                        tip = "<span class='tip red'>Outstanding Payments, Past Due Date! (" + item.StartDate.AddDays(-56).ToString("dd MMM yyyy") + ")</span>";
                     }
                     else
                     {
                         trClass = "warning";
-                        tip = "<span class='tip yellow'>Unpaid Deposit, due " + item.StartDate.AddDays(-42).ToString("dd MMM yyyy") + "</span>";
+                        tip = "<span class='tip yellow'>Outstanding Payments, due " + item.StartDate.AddDays(-56).ToString("dd MMM yyyy") + "</span>";
                     }
                 }
-                else if (item.StartDate.AddDays(-7) < System.DateTime.Now && item.PaidInFull == false)
-                {
-                    trClass = "warning";
-                    tip = "<span class='tip yellow'>Outstanding Payments, due " + item.StartDate.ToString("dd MMM yyyy") + "</span>";
-                }
+                
             }
             <tr class="@trClass tip_trigger">
                 <td>
