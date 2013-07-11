@@ -92,7 +92,15 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <h3 class="houseHead">Upcoming <small>Bookings</small><span id="filter" style="padding-left: 50px;"></span></h3>
+        <h3 class="houseHead">Upcoming <small>Bookings</small>
+            <span id="filter" class="input-prepend" style="padding-left: 25px;">
+                <span class="add-on">Filter by House</span>
+            </span>
+            <span class="input-prepend">
+                <span class="add-on">Filter by Client</span>
+                @Html.TextBox("ClientFilter", null, new { id = "filter-client", placeholder = "Client Name", @class = "input-medium" })
+            </span>
+        </h3>
     </div>
 </div>
 
@@ -303,6 +311,10 @@
 
             $('select').change(function () {
                 dTable.fnFilter($(this).val(), 3);
+            });
+
+            $('#filter-client').keyup(function () {
+                dTable.fnFilter($(this).val(), 2);
             });
 
             // Assigning BootStrap CSS classes to the DataTables components
