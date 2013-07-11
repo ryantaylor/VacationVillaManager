@@ -86,7 +86,7 @@
                             <span class="add-on">Outstanding</span>
                             <span class="add-on"><i class="icon-usd"></i></span>
                             @Html.TextBox("Unpaid", Math.Round(Model.Subtotal + Model.Subtotal * 0.12, 2).ToString("0.00"), new { id = "outstanding", placeholder = "Outstanding", @class = "input-mini", disabled = "disabled" })
-                            <span id="outstanding-date" class="add-on">due @Model.StartDate.AddDays(-56).ToString("MM/dd/yyyy")</span>
+                            <span id="outstanding-date" class="add-on" style="padding-left: 24px; padding-right: 26px;">due @Model.StartDate.AddDays(-56).ToString("MM/dd/yyyy")</span>
                         </div>
                         <div class="input-prepend input-append">
                             <span class="add-on">Payment Status</span>
