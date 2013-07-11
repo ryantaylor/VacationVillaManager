@@ -98,7 +98,7 @@
             </span>
             <span class="input-prepend">
                 <span class="add-on">Filter by Client</span>
-                @Html.TextBox("ClientFilter", null, new { id = "filter-client", placeholder = "Client Name", @class = "input-medium" })
+                @Html.TextBox("ClientFilter", null, new { id = "filter-client", placeholder = "Client Name", @class = "input-medium", autocomplete = "off" })
             </span>
         </h3>
     </div>
@@ -307,10 +307,20 @@
                 ]
             });
 
+            var autoCompleteSource = dTable.fnGetColumnData(2);
+
             $('#filter').append(fnCreateSelect(dTable.fnGetColumnData(3)));
 
             $('select').change(function () {
                 dTable.fnFilter($(this).val(), 3);
+            });
+
+            $('#filter-client').typeahead({
+                source: autoCompleteSource,
+                updater: function (item) {
+                    dTable.fnFilter(item, 2);
+                    return item;
+                }
             });
 
             $('#filter-client').keyup(function () {
