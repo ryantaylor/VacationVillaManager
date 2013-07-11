@@ -357,6 +357,7 @@
     <Content Include="Scripts\slideshow\js\blueimp-gallery.js" />
     <Content Include="Scripts\slideshow\js\blueimp-gallery.min.js" />
     <Content Include="Scripts\slideshow\js\demo.js" />
+    <Content Include="Scripts\table-selectfilter.js" />
     <Content Include="Scripts\uploader\fileuploader.css" />
     <Content Include="Scripts\uploader\fileuploader.js" />
     <Content Include="Scripts\uploader\loading.gif" />

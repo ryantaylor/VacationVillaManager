@@ -91,12 +91,12 @@
 </table>
 
 <div class="row-fluid">
-    <div class="span6">
-        <h3 class="houseHead">Upcoming <small>Bookings</small></h3>
+    <div class="span12">
+        <h3 class="houseHead">Upcoming <small>Bookings</small><span id="filter" style="padding-left: 50px;"></span></h3>
     </div>
 </div>
 
-<table class="table table-hover bookings-table">
+<table class="table table-hover bookings-table-filter">
     <thead>
         <tr>
             <th>
@@ -262,6 +262,7 @@
 
 @section Scripts {
     @Scripts.Render("~/Scripts/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/table-selectfilter.js")
     @Scripts.Render("~/bundles/jqueryui")
 
     <script type="text/javascript">
@@ -281,6 +282,27 @@
                     null,
                     null
                 ]
+            });
+
+            var dTable = $('.bookings-table-filter').dataTable({
+                "bPaginate": false,
+                "aaSorting": [],
+                "sDom": 't',
+                "aoColumns": [
+                    { "bVisible": false },
+                    { "iDataSort": 0 },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+            });
+
+            $('#filter').append(fnCreateSelect(dTable.fnGetColumnData(3)));
+
+            $('select').change(function () {
+                dTable.fnFilter($(this).val(), 3);
             });
 
             // Assigning BootStrap CSS classes to the DataTables components
