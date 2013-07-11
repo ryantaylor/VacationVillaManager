@@ -203,6 +203,11 @@ a.thumbnail:hover ~ .photo-controls {
     opacity: 0.25;
 }
 
+.dropdown-menu {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
 
 
 
