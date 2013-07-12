@@ -202,6 +202,7 @@
     <Compile Include="Models\ReportModels\ReportEmailModel.cs" />
     <Compile Include="Models\ReportModels\ReportFreeHousesModel.cs" />
     <Compile Include="Models\ReportModels\ReportTaxesModel.cs" />
+    <Compile Include="Models\ReportModels\TaxViewModel.cs" />
     <Compile Include="Models\Special.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
@@ -304,6 +305,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\ReportCreate.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.css" />
@@ -454,6 +456,7 @@
     <Content Include="Views\Shared\_BootstrapLayout.basic.cshtml" />
     <Content Include="Views\Shared\_alerts.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HouseManager.cshtml" />
+    <Content Include="Views\Reports\_ViewTaxes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

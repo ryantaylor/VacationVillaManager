@@ -7,16 +7,17 @@ using System.Web;
 
 namespace VacationVillaManager.Models.ReportModels
 {
+    [Serializable]
     public class ReportTaxesModel
     {
-        public List<int> Rates { get; set; }
+        public List<double> Rates { get; set; }
         public DateTime Month { get; set; }
 
         public ReportTaxesModel()
         {
-            Rates = new List<int>();
+            Rates = new List<double>();
             for (int i = 0; i < 3; i++)
-                Rates.Add(0);
+                Rates.Add(0.0);
         }
     }
 }

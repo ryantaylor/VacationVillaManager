@@ -4,6 +4,8 @@
     ViewBag.Title = "Create";
 }
 
+@Styles.Render("~/Content/ReportCreate.css")
+
 @Html.DropDownList("reportType", (IEnumerable<SelectListItem>)ViewData["TypesList"])
 
 <div class="reportInfo">
@@ -43,6 +45,28 @@
                         $.ajax({
                             type: "GET",
                             url: "/Reports/GenerateEmailReport",
+                            success: function ($result) {
+                                var toInject = $result;
+                                $('.reportView').hide().append(toInject).slideDown();
+                            }
+                        });
+                        break;
+
+                    case "2":
+                        var month = $('.month').val();
+                        var rate1 = $('.rate1').val();
+                        var rate2 = $('.rate2').val();
+                        var rate3 = $('.rate3').val();
+                        var allRates = [rate1, rate2, rate3];
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Reports/GenerateTaxesReport",
+                            traditional: true,
+                            data: {
+                                Month: month,
+                                Rates: allRates
+                            },
                             success: function ($result) {
                                 var toInject = $result;
                                 $('.reportView').hide().append(toInject).slideDown();

@@ -1,0 +1,109 @@
+﻿@model List<VacationVillaManager.Models.ReportModels.TaxViewModel>
+
+@Styles.Render("~/Content/ReportCreate.css")
+
+@{
+    var totalBookings = 0;
+    var totalPaid = 0;
+    var totalNightsOccupied = 0;
+    var totalNightsPossible = 0;
+    var totalSubtotal = 0.0;
+    var grandTotal = 0.0;
+    var rates = new Dictionary<double, double>();
+    var month = new DateTime();
+}
+
+<div class="viewPane" style="padding-top: 25px;">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span6">
+                @foreach (var entry in Model)
+                {
+                    totalBookings += entry.NumBookings;
+                    totalPaid += entry.NumPaidFull;
+                    totalNightsOccupied += entry.NumNights;
+                    totalNightsPossible += System.DateTime.DaysInMonth(entry.Month.Year, entry.Month.Month);
+                    totalSubtotal += entry.Subtotal;
+                    grandTotal += entry.Subtotal;
+                    rates = entry.Taxes;
+                    month = entry.Month;
+                    
+                    var total = entry.Subtotal;
+                    <div class="span12 well well-small tax-display">
+                        <h3>@entry.House.Name <small>Tax Summary - @entry.Month.ToString("MMMM yyyy")</small></h3>
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>Number of bookings</td>
+                                    <td>@entry.NumBookings</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of paid bookings</td>
+                                    <td>@entry.NumPaidFull</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of nights occupied</td>
+                                    <td>@entry.NumNights out of @System.DateTime.DaysInMonth(entry.Month.Year, entry.Month.Month)</td>
+                                </tr>
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td>$@entry.Subtotal.ToString("0.00")</td>
+                                </tr>
+                                @foreach (var tax in entry.Taxes)
+                                {
+                                    total += tax.Value;
+                                    <tr>
+                                        <td>Tax (@tax.Key%)</td>
+                                        <td>$@tax.Value.ToString("0.00")</td>
+                                    </tr>
+                                }
+                                <tr class="info">
+                                    <td>Grand Total</td>
+                                    <td>$@total.ToString("0.00")</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+            <div class="span6">
+                <div class="span12 well well-small tax-display">
+                    <h3>All Houses <small>Tax Summary - @month.ToString("MMMM yyyy")</small></h3>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>Number of bookings</td>
+                                <td>@totalBookings</td>
+                            </tr>
+                            <tr>
+                                <td>Number of paid bookings</td>
+                                <td>@totalPaid</td>
+                            </tr>
+                            <tr>
+                                <td>Number of nights occupied</td>
+                                <td>@totalNightsOccupied out of @totalNightsPossible</td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>$@totalSubtotal.ToString("0.00")</td>
+                            </tr>
+                            @foreach (var tax in rates)
+                            {
+                                var value = totalSubtotal * (tax.Key / 100);
+                                grandTotal += value;
+                                <tr>
+                                    <td>Tax (@tax.Key%)</td>
+                                    <td>$@value.ToString("0.00")</td>
+                                </tr>
+                            }
+                            <tr class="info">
+                                <td>Grand Total</td>
+                                <td>$@grandTotal.ToString("0.00")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

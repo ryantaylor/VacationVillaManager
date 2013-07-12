@@ -101,9 +101,57 @@ namespace VacationVillaManager.Controllers
         //
         // POST: /Reports/GenerateTaxesReport
 
-        public ActionResult GenerateTaxesReport(ReportTaxesModel model)
+        public PartialViewResult GenerateTaxesReport(ReportTaxesModel model)
         {
-            return View();
+            List<TaxViewModel> taxes = new List<TaxViewModel>();
+            List<House> houses = db.Houses.ToList();
+
+            foreach (House h in houses)
+            {
+                if (h.Name != null)
+                {
+                    List<Booking> bookings = db.Bookings.Where(m => m.House.ID == h.ID && ((m.StartDate.Month == model.Month.Month && m.StartDate.Year == model.Month.Year) || (m.EndDate.Month == model.Month.Month && m.EndDate.Year == model.Month.Year))).ToList();
+                    TaxViewModel taxModel = new TaxViewModel();
+                    taxModel.House = h;
+                    taxModel.Month = model.Month;
+
+                    foreach (Booking b in bookings)
+                    {
+                        taxModel.NumBookings++;
+                        if (b.PaidInFull) taxModel.NumPaidFull++;
+                        if (b.StartDate.Month == b.EndDate.Month)
+                        {
+                            taxModel.Subtotal += b.Subtotal;
+                            TimeSpan span = b.EndDate - b.StartDate;
+                            taxModel.NumNights += (int)Math.Round(span.TotalDays);
+                        }
+                        else
+                        {
+                            int taxableNights = 0;
+                            int totalNights = 0;
+                            DateTime start = b.StartDate;
+                            DateTime end = b.EndDate;
+                            while (!isSameDay(start, end))
+                            {
+                                if (start.Month == model.Month.Month) taxableNights++;
+                                start = start.AddDays(1);
+                                totalNights++;
+                            }
+                            taxModel.Subtotal += b.Subtotal * ((double)taxableNights / totalNights);
+                            taxModel.NumNights += taxableNights;
+                        }
+                    }
+
+                    foreach (double rate in model.Rates)
+                    {
+                        taxModel.Taxes.Add(rate, taxModel.Subtotal * (rate / 100));
+                    }
+
+                    taxes.Add(taxModel);
+                }
+                
+            }
+            return PartialView("_ViewTaxes", taxes);
         }
 
         //
@@ -147,6 +195,11 @@ namespace VacationVillaManager.Controllers
             }
 
             return PartialView("_ViewComeGo", model);
+        }
+
+        private bool isSameDay(DateTime first, DateTime second)
+        {
+            return (first.Day == second.Day && first.Month == second.Month && first.Year == second.Year);
         }
 
         //
