@@ -4,15 +4,15 @@
     <table>
         <tr>
             <td>Tax Rate 1: </td>
-            <td>@Html.TextBoxFor(model => model.Rates[0], new { @class = "rate1" })</td>
+            <td>@Html.TextBoxFor(model => model.Rates[0], new { @class = "rate1", @Value = "1" })</td>
         </tr>
         <tr>
             <td>Tax Rate 2: </td>
-            <td>@Html.TextBoxFor(model => model.Rates[1], new { @class = "rate2" })</td>
+            <td>@Html.TextBoxFor(model => model.Rates[1], new { @class = "rate2", @Value = "5" })</td>
         </tr>
         <tr>
             <td>Tax Rate 3: </td>
-            <td>@Html.TextBoxFor(model => model.Rates[2], new { @class = "rate3" })</td>
+            <td>@Html.TextBoxFor(model => model.Rates[2], new { @class = "rate3", @Value = "6" })</td>
         </tr>
         <tr>
             <td>Month: </td>
