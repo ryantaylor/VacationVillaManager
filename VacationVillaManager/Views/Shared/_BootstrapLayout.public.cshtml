@@ -19,6 +19,7 @@
 
         <link href="@Styles.Url("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
         <link href="@Styles.Url("~/Content/PublicOverride.css")" rel="stylesheet" />
+        <link rel="shortcut icon" href="/Content/images/favicon.ico">  
         
 
         @RenderSection("head", required: false)
@@ -135,4 +136,23 @@
         @RenderSection("Scripts", required: false)
     </body>
 </html>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            var url = window.location.pathname;
+            if (url == "/") { }
+            else {
+                var substr = url.split('/');
+                var urlaspx = substr[substr.length - 1];
+                $('.nav').find('.active').removeClass('active');
+                $('.nav li a').each(function () {
+                    if ($(this).attr('href') == url) {
+                        $(this).parent().addClass('active');
+                        if (substr[1] == "Houses")
+                            $(this).parent().parent().parent().addClass('active');
+                    }
+                });
+            }
+        });
+    </script>
 

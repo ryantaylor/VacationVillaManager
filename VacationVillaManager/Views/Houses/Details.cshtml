@@ -2,7 +2,7 @@
 @using VacationVillaManager.Models
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
 }
 
@@ -23,18 +23,5 @@
 </p>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Styles.Render("~/Content/themes/base/css")
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $.datepicker.setDefaults({
-                dateFormat: "M dd yy",
-                showOn: "focus"
-            });
-
-            $('.date').datepicker();
-        });
-    </script>
 }

@@ -9,7 +9,7 @@ using VacationVillaManager.Models;
 
 namespace VacationVillaManager.Controllers
 {
-    [Authorize]
+    
     public class HousesController : BootstrapBaseController
     {
         private ManagerContext db = new ManagerContext();
@@ -17,6 +17,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /House/
 
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Houses.Include("Location").Include("Owner").ToList());
@@ -42,6 +43,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /House/Create
 
+        [Authorize]
         public ActionResult Create()
         {
             return View(new House());
@@ -87,6 +89,7 @@ namespace VacationVillaManager.Controllers
         //
         // PARTIAL: /Houses/CostEditor
 
+        [Authorize]
         public PartialViewResult _CostEditor(int id = 0)
         {
             ViewBag.CostID = id;
@@ -96,6 +99,7 @@ namespace VacationVillaManager.Controllers
         //
         // PARTIAL: /Houses/CostEditorWithID
 
+        [Authorize]
         public PartialViewResult _CostEditorWithID(int id = 0)
         {
             ViewBag.CostID = id;
@@ -105,6 +109,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /House/Edit/5
 
+        [Authorize]
         public ActionResult Edit(int id = 0)
         {
             House house = db.Houses.Include("Location").Include("Owner").Include("Owner.Location").Include("ManagementCompany").Include("ManagementCompany.Location").Single(m => m.ID == id);
@@ -205,6 +210,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /House/Delete/5
 
+        [Authorize]
         public ActionResult Delete(int id = 0)
         {
             House house = db.Houses.Find(id);
@@ -230,6 +236,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /House/ToggleActive/5
 
+        [Authorize]
         public ActionResult ToggleActive(int id)
         {
             House house = db.Houses.Include("Location").Include("Owner").Include("ManagementCompany").Single(m => m.ID == id);
