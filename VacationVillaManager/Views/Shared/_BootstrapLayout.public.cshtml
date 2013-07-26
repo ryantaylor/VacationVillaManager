@@ -1,0 +1,133 @@
+﻿@using System.Web.Optimization
+@using BootstrapSupport
+@using NavigationRoutes
+@using VacationVillaManager.Models
+<!DOCTYPE html>
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->  
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>@ViewBag.Title</title>
+
+        <link href="@Styles.Url("~/unitycss")" rel="stylesheet"/>
+
+        <link href="@Styles.Url("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
+        <link href="@Styles.Url("~/Content/PublicOverride.css")" rel="stylesheet" />
+        
+
+        @RenderSection("head", required: false)
+        @Html.Partial("_html5shiv")
+        @* favicons and touch icons go here *@
+    </head>
+    <body>
+        <!--=== Top ===-->    
+        <div class="top">
+            <div class="container">         
+                <ul class="loginbar pull-right">
+                    <li>@Html.ActionLink("Admin Panel", "Index", "Houses", null, new { @class = "login-btn" })</li>   
+                </ul>
+            </div>      
+        </div><!--/top-->
+        <!--=== End Top ===-->
+
+        <!--=== Header ===-->
+        <div class="header">
+            <div class="container">
+                <div class="logo">
+                    <h3 class="logo">@Html.ActionLink("VacationVillaManager", "Index", "Home")</h3>
+                </div>
+
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="nav-collapse collapse">
+                            <ul class="nav top-2">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                                <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Houses <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        @foreach (var item in (IEnumerable<House>)Session["ActiveHouses"])
+                                        {
+                                            if (item.Active)
+                                            {
+                                                <li><a href="/Houses/Details/@item.ID">@item.Name</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                    <b class="caret-out"></b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=== End Header ===-->
+
+        @RenderBody()
+
+        <!--=== Footer ===-->
+        <div class="footer">
+	        <div class="container">
+		        <div class="row-fluid">
+			        <div class="span4">
+                        <!-- About -->
+		                <div class="headline"><h3>About</h3></div>	
+				        <p class="margin-bottom-25">Unify is an incredibly beautiful responsive Bootstrap Template for corporate and creative professionals.</p>	
+			        </div>
+			
+			        <div class="span4">
+                        <div class="posts">
+                            <div class="headline"><h3>Recent Blog Entries</h3></div>
+                        </div>
+			        </div>
+
+			        <div class="span4">
+	                    <!-- Monthly Newsletter -->
+		                <div class="headline"><h3>Contact Us</h3></div>	
+                        <address>
+					        25, Lorem Lis Street, Orange <br />
+					        California, US <br />
+					        Phone: 800 123 3456 <br />
+					        Fax: 800 123 3456 <br />
+					        Email: <a href="mailto:info@anybiz.com" class="">info@anybiz.com</a>
+                        </address>
+			        </div>
+		        </div>	
+	        </div>
+        </div>
+        <!--=== End Footer ===-->
+
+        <!--=== Copyright ===-->
+        <div class="copyright">
+	        <div class="container">
+		        <div class="row-fluid">
+			        <div class="span8">						
+	                    <p>2013 &copy; VacationVillaManager. ALL Rights Reserved. @Html.ActionLink("Admin Panel", "Index", "Houses")</p>
+			        </div>
+			        <div class="span4">	
+				        <h5 class="pull-right">@Html.ActionLink("VacationVillaManager", "Index", "Home")</h5>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+        <!--=== End Copyright ===-->
+
+        @Scripts.Render("~/unityjs")
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>
+

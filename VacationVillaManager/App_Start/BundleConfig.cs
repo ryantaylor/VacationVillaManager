@@ -57,6 +57,29 @@ namespace VacationVillaManager
                 "~/Content/bootstrap-mvc-validation.css"
                 ));
 
+            bundles.Add(new StyleBundle("~/content/csspublic").Include(
+                "~/Content/public/bootstrap.css",
+                "~/Content/body.css",
+                "~/Content/bootstrap-responsive.css",
+                "~/Content/bootstrap-mvc-validation.css"
+                ));
+
+            bundles.Add(new StyleBundle("~/unitycss").Include(
+                "~/Content/unity/plugins/bootstrap/css/bootstrap.css",
+                "~/Content/unity/css/style.css",
+                "~/Content/unity/css/headers/header1.css",
+                "~/Content/unity/plugins/bootstrap/css/bootstrap-responsive.css",
+                "~/Content/unity/css/style_responsive.css",
+                "~/Content/unity/css/themes/default.css",
+                "~/Content/unity/css/themes/headers/default.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/unityjs").Include(
+                "~/Content/unity/js/jquery-1.8.2.js",
+                "~/Content/unity/js/modernizr.custom.js",
+                "~/Content/unity/plugins/bootstrap/js/bootstrap.js"
+                ));
+
             //BundleTable.EnableOptimizations = true;
             
         }

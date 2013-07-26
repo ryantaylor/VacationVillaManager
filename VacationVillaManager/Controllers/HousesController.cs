@@ -27,6 +27,8 @@ namespace VacationVillaManager.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
+
             House house = db.Houses.Find(id);
             ViewBag.HouseID = id;
             ViewData["HousesList"] = House.BuildHousesDropdownList();

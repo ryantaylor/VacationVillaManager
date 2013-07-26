@@ -1,0 +1,17 @@
+﻿@import url('//fonts.googleapis.com/css?family=Lobster|Cabin:400,700');
+
+.logo {
+    font-family: 'Lobster', cursive;
+}
+
+.logo > a:hover {
+    text-decoration: none;
+}
+
+h5 {
+    font-family: 'Lobster', cursive;
+}
+
+h5 > a:hover {
+    text-decoration: none;
+}
