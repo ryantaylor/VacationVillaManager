@@ -688,7 +688,7 @@
     <Content Include="Content\unity\plugins\parallax-slider\img\bg-heading-red.png" />
     <Content Include="Content\unity\plugins\parallax-slider\img\bg-heading.png" />
     <Content Include="Content\unity\plugins\parallax-slider\img\bg-text.png" />
-    <Content Include="Content\unity\plugins\parallax-slider\img\bg.jpg" />
+    <Content Include="Content\unity\plugins\parallax-slider\img\bg.gif" />
     <Content Include="Content\unity\plugins\parallax-slider\img\html5andcss3.png" />
     <Content Include="Content\unity\plugins\parallax-slider\js\jquery.cslider.js" />
     <Content Include="Content\unity\plugins\parallax-slider\js\modernizr.js" />
