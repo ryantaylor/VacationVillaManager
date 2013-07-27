@@ -19,8 +19,7 @@ h5 > a:hover {
 .house-photo-carousel > .item > img,
 .house-photo-carousel > .item > a > img {
     height: auto;
-    max-height: 100%;
-    width: auto;
+    width: 100%;
     max-width: 100%;
     margin: 0 auto;
     vertical-align: middle;
