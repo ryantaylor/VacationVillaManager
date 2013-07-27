@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
+    var firstImg = true;
+    var imgClass = "item";
 }
 
 <!--=== Breadcrumbs ===-->
@@ -28,7 +30,18 @@
                 <div class="carousel-inner house-photo-carousel">
                     @foreach (var photo in Model.Photos)
                     {
-                        <div class="item">
+                        if (firstImg)
+                        {
+                            firstImg = false;
+                            imgClass = "item active";
+                        }
+
+                        else
+                        {
+                            imgClass = "item";
+                        }
+
+                        <div class="@imgClass">
                             <img src="@photo.URL" alt="@photo.Name" />
                             <div class="carousel-caption">
                                 <h4>@Model.Name</h4>
