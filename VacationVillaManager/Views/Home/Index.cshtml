@@ -9,21 +9,19 @@
 <div class="slider-inner">
     <div id="da-slider" class="da-slider">
         <div class="da-slide">
-            <h2><i>CLEAN &amp; FRESH</i> <br /> <i>FULLY RESPONSIVE</i> <br /> <i>DESIGN</i></h2>
-            <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+            <h2><i>EXPLORE ORLANDO</i> <br /> <i>AND HAVE</i> <br /> <i>A BLAST!!</i></h2>
+            <p><i>Conveniently located near</i> <br /> <i>Universal Studios, Disneyland,</i> <br /> <i>and many more! </i></p>
+            <div class="da-img"><img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/c_scale,h_200/v1374904772/universalstudiosflorida_iuepcc.png" alt="" /></div>
         </div>
         <div class="da-slide">
-            <h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
-            <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i></p>
-            <div class="da-img span6">
-            	<div class="span6">
-					<iframe src="http://player.vimeo.com/video/47911018" width="100%" height="320" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
- 				</div>
-            </div>
+            <h2><i>RELAX</i> <br /> <i>BY THE</i> <br /> <i>POOL</i></h2>
+            <p><i>Many of our Villas</i> <br /> <i>have heated pools!</i></p>
+            <div class="da-img"><img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/bo_5px_solid_rgb:000,c_thumb,h_200,w_640/v1373400262/ej1hszsliq3tzdvv1it9.jpg" alt="" /></div>
         </div>
         <div class="da-slide">
-            <h2><i>USING BEST WEB</i> <br /> <i>SOLUTIONS WITH</i> <br /> <i>HTML5/CSS3</i></h2>
-            <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+            <h2><i>RETIRE TO</i> <br /> <i>THE COMFORTS OF</i> <br /> <i>OUR SPACIOUS VILLAS</i></h2>
+            <p><i>Big or small,</i> <br /> <i>we have a Villa that's</i> <br /> <i>perfect for you! </i></p>
+            <div class="da-img"><img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/bo_5px_solid_rgb:000,c_scale,h_300/v1374905177/family3_il21p6.jpg" alt="" /></div>
         </div>
         <nav class="da-arrows">
             <span class="da-arrows-prev"></span>
@@ -33,12 +31,79 @@
 </div><!--/slider-->
 <!--=== End Slider ===-->
 
+<!-- Booking Block -->
+<div class="row-fluid purchase margin-bottom-30">
+    <div class="container">
+		<div class="span9">
+            <span>Vacation Villa Manager is your vacation home destination!</span>
+            <p>Whether you're looking for a relaxing getaway or an exciting retreat with the family, Vacation Villa Manager has a Villa available to suit your every need! Conveniently located near Orlando's many attractions, these Villas are sure to impress!</p>
+        </div>
+        <div class="span2">
+            <a href="#" class="btn-buy hover-effect">Find a Villa</a>
+        </div>
+    </div>
+</div>
+<!-- End Booking Block -->
+
+<!-- Content Block -->
+<div class="container">
+    <!-- Service Blocks -->
+	<div class="row-fluid">
+    	<div class="span4">
+    		<div class="service clearfix">
+                <i class="icon-home"></i>
+    			<div class="desc">
+    				<h4>Renting a Villa?</h4>
+                    <p>Vacation Villa Manager is a great place to rent out your Villa. If you need rental assistance, we can help! Vacation Villa Manager is always looking for new Villas to list! If you're looking for help renting out your vacation home, head over to the Contact page and send us a message!</p>
+    			</div>
+    		</div>	
+    	</div>
+    	<div class="span4">
+    		<div class="service clearfix">
+                <i class="icon-sun"></i>
+    			<div class="desc">
+    				<h4>Weather in Orlando</h4>
+                    <p>Vacation Villa Manager is a great place to rent out your Villa. If you need rental assistance, we can help! Vacation Villa Manager is always looking for new Villas to list! If you're looking for help renting out your vacation home, head over to the Contact page and send us a message!</p>
+    			</div>
+    		</div>	
+    	</div>
+    	<div class="span4">
+            <div id="myCarousel" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/v1373402453/wink5rnaivgqtfpc1wjg.jpg" alt="">
+                    <div class="carousel-caption">
+                      <p>Villa 1</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/v1373402202/gcjizbphwd2hmnnrealk.jpg" alt="">
+                    <div class="carousel-caption">
+                      <p>Villa 2</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="carousel-arrow">
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="icon-angle-left"></i></a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="icon-angle-right"></i></a>
+                </div>
+			</div>
+    	</div>			    
+	</div>
+	<!-- //End Service Blocks -->
+</div>
+
 @section Scripts {
     @Scripts.Render("~/Content/unity/plugins/parallax-slider/js/modernizr.js")
     @Scripts.Render("~/Content/unity/plugins/parallax-slider/js/jquery.cslider.js")
     <script type="text/javascript">
         $(document).ready(function () {
             $('#da-slider').cslider();
+            $('.carousel').carousel({
+                interval: 15000,
+                pause: 'hover'
+            });
         });
     </script>
 }
