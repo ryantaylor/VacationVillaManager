@@ -32,11 +32,13 @@ namespace VacationVillaManager.Controllers
 
             House house = db.Houses.Find(id);
             ViewBag.HouseID = id;
-            ViewData["HousesList"] = House.BuildHousesDropdownList();
+            house.Photos = db.Photos.Where(m => m.House.ID == id).ToList();
+
             if (house == null)
             {
                 return HttpNotFound();
             }
+
             return View(house);
         }
 

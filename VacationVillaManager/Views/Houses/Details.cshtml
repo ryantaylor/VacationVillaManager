@@ -6,15 +6,47 @@
     Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
 }
 
-<h2>Details</h2>
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-60">
+	<div class="container">
+        <h1 class="pull-left">@Model.Name</h1>
+        <ul class="pull-right breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+            <li>@Html.ActionLink("Houses", "All", "Houses") <span class="divider">/</span></li>
+            <li class="active">@Model.Name</li>
+        </ul>
+    </div><!--/container-->
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
 
-<fieldset>
-    <legend>House</legend>
-    @Html.LabelFor(model => model.Name)
-    @Html.DisplayFor(model => model.Name)
-
-    
-</fieldset>
+<!--=== Content Part ===-->
+<div class="container portfolio-item">
+    <div class="row-fluid margin-bottom-20">
+        <!-- Carousel -->
+        <div class="span7">
+            <div id="myCarousel" class="carousel slide">
+                <div class="carousel-inner house-photo-carousel">
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <div class="item">
+                            <img src="@photo.URL" alt="@photo.Name" />
+                            <div class="carousel-caption">
+                                <h4>@Model.Name</h4>
+                                <p>@photo.Name</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                
+                <div class="carousel-arrow">
+                    <a data-slide="prev" href="#myCarousel" class="left carousel-control"><i class="icon-angle-left"></i></a>
+                    <a data-slide="next" href="#myCarousel" class="right carousel-control"><i class="icon-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- //End Carousel -->
+    </div>
+</div>
 
 @Html.Partial("_SendInquiry", new Inquiry())
 <p>
