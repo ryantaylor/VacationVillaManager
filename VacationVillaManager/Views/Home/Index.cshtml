@@ -50,24 +50,20 @@
     <!-- Service Blocks -->
 	<div class="row-fluid">
     	<div class="span4">
-    		<div class="service clearfix">
+            <div class="headline"><h3>Information</h3></div>
+    		<div id="weather" class="service clearfix">
+                <!-- Weather feed goes here -->
+    		</div>	
+            <div class="service clearfix">
                 <i class="icon-home"></i>
-    			<div class="desc">
+                <div class="desc">
     				<h4>Renting a Villa?</h4>
                     <p>Vacation Villa Manager is a great place to rent out your Villa. If you need rental assistance, we can help! Vacation Villa Manager is always looking for new Villas to list! If you're looking for help renting out your vacation home, head over to the Contact page and send us a message!</p>
     			</div>
     		</div>	
     	</div>
-    	<div class="span4">
-    		<div class="service clearfix">
-                <i class="icon-sun"></i>
-    			<div class="desc">
-    				<h4>Weather in Orlando</h4>
-                    <p>Vacation Villa Manager is a great place to rent out your Villa. If you need rental assistance, we can help! Vacation Villa Manager is always looking for new Villas to list! If you're looking for help renting out your vacation home, head over to the Contact page and send us a message!</p>
-    			</div>
-    		</div>	
-    	</div>
-    	<div class="span4">
+    	<div class="span8">
+            <div class="headline"><h3>Our Villas</h3></div>
             <div id="myCarousel" class="carousel slide">
                 <div class="carousel-inner">
                   <div class="item active">
@@ -95,14 +91,22 @@
 </div>
 
 @section Scripts {
+    @Styles.Render("~/Scripts/weatherfeed/example.css")
     @Scripts.Render("~/Content/unity/plugins/parallax-slider/js/modernizr.js")
     @Scripts.Render("~/Content/unity/plugins/parallax-slider/js/jquery.cslider.js")
+    @Scripts.Render("~/Scripts/weatherfeed/jquery.zweatherfeed.js")
     <script type="text/javascript">
         $(document).ready(function () {
+
             $('#da-slider').cslider();
+
             $('.carousel').carousel({
                 interval: 15000,
                 pause: 'hover'
+            });
+
+            $('#weather').weatherfeed(['USFL0372'], {
+                
             });
         });
     </script>

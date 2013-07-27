@@ -868,6 +868,9 @@
     <Content Include="Scripts\uploader\fileuploader.css" />
     <Content Include="Scripts\uploader\fileuploader.js" />
     <Content Include="Scripts\uploader\loading.gif" />
+    <Content Include="Scripts\weatherfeed\example.css" />
+    <Content Include="Scripts\weatherfeed\jquery.zweatherfeed.js" />
+    <Content Include="Scripts\weatherfeed\jquery.zweatherfeed.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
