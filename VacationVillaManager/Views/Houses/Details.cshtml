@@ -22,7 +22,7 @@
 <!--=== End Breadcrumbs ===-->
 
 <!--=== Content Part ===-->
-<div class="container portfolio-item">
+<div class="container">
     <div class="row-fluid margin-bottom-20">
         <!-- Carousel -->
         <div class="span7">
@@ -60,24 +60,51 @@
         <!-- //End Carousel -->
 
         <div class="span5">
-        	<h3>Portfolio Item Information</h3>
-            <p>At vero eos et accusamus et iusto odio dignissimos <a href="#">ducimus qui blanditiis</a> praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus.</p>
-            <p>Molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Ut non libero consectetur adipiscing elit magna. Sed et quam lacus.</p>
-            <ul class="unstyled">
-            	<li><i class="icon-user color-green"></i> Jack Baur</li>
-            	<li><i class="icon-calendar color-green"></i> 14,2003 February</li>
-            	<li><i class="icon-tags color-green"></i> Websites, Google, HTML5/CSS3</li>
+        	<h3>@Model.Name - @Model.Location.City, @Model.Location.Region</h3>
+            <p>Description here at vero eos et accusamus et iusto odio dignissimos <a href="#">ducimus qui blanditiis</a> praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus.</p>
+                        
+            <!-- Testimonial Block -->
+            <blockquote class="hero">
+                <p>Amazing Villa! I loved it! Would definitely recommend, and will be returning soon!</p>
+                <small>Excited Villa Guest</small>
+            </blockquote>
+	        <!--//End Testimonial Block -->
+            <p><a class="btn-u btn-u-large" href="#">BOOKING INQUIRY</a></p>
+        </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="row-fluid margin-bottom-40">
+        <div class="span3 pricing hover-effect">
+            <div class="pricing-head">
+                <h3>Pricing <span>@Model.Name</span></h3>
+                <h4><i>$</i>@Model.Rate <i>/night</i></h4>
+            </div>
+            <ul class="pricing-content unstyled">
+                @foreach (var cost in Model.Costs)
+                {
+                    var frequency = "";
+                    if (cost.CalculateDaily)
+                    {
+                        frequency = "per day";
+                    }
+                    else
+                    {
+                        frequency = "per booking";
+                    }
+                    
+                    <li><i class="icon-star"></i> @cost.Name - $@cost.Amount @frequency</li>
+                }
             </ul>
-            <p><a class="btn-u btn-u-large" href="#">VISIT THE PROJECT</a></p>
+            <div class="pricing-footer">
+                <p>Prices listed subject to change, and do not include 12% Florida sales tax.</p>
+                <button type="submit">Order Now</button>
+            </div>
         </div>
     </div>
 </div>
 
-@Html.Partial("_SendInquiry", new Inquiry())
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<!--@Html.Partial("_SendInquiry", new Inquiry())-->
 
 @section Scripts {
 

@@ -30,9 +30,10 @@ namespace VacationVillaManager.Controllers
         {
             if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
 
-            House house = db.Houses.Find(id);
+            House house = db.Houses.Include("Location").Single(m => m.ID == id);
             ViewBag.HouseID = id;
             house.Photos = db.Photos.Where(m => m.House.ID == id).ToList();
+            house.Costs = db.Costs.Where(m => m.House.ID == id).ToList();
 
             if (house == null)
             {
