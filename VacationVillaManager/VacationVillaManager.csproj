@@ -311,7 +311,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\ReportCreate.css" />
-    <Content Include="Content\tri.gif" />
     <Content Include="Content\unity\css\animate.css" />
     <Content Include="Content\unity\css\effects.css" />
     <Content Include="Content\unity\css\headers\header1.css" />
