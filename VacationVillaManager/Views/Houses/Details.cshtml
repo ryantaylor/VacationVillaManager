@@ -152,8 +152,7 @@
                 
                 for (var i = 0; i < bookings.length; i++) {
                     if (bookings[i][0].getTime() == date.getTime()) {
-                        alert(date + " " + date.getTime());
-                        alert(bookings[i][0] + " " + bookings[i][0].getTime());
+                        
                         for (var j = 0; j < bookings.length; j++) {
                             if (bookings[i][0].getTime() == bookings[j][1].getTime() && i != j) {
                                 return [true, 'active-booking'];
@@ -170,6 +169,8 @@
                         return [true, 'end-booking'];
                     }
                     else if (date.getTime() > bookings[i][0].getTime() && date.getTime() < bookings[i][1].getTime()) {
+                        alert(date + " " + date.getTime());
+                        alert(bookings[i][0] + " " + bookings[i][0].getTime());
                         return [true, 'active-booking'];
                     }
                 }
