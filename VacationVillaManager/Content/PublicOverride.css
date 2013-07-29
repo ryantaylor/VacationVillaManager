@@ -29,3 +29,16 @@ h5 > a:hover {
     width: 100%;
     height: 400px;
 }
+
+.active-booking > a {
+    background: url("reserved.png") !important;
+}
+
+.start-booking > a {
+    background: url("arrive.png") !important;
+}
+
+.end-booking > a {
+    background: url("depart.png") !important;
+}
+

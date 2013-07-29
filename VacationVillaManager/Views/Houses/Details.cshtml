@@ -60,7 +60,7 @@
         <!-- //End Carousel -->
 
         <div class="span5">
-        	<h3>@Model.Name - @Model.Location.City, @Model.Location.Region</h3>
+        	<h3>@Model.Name</h3>
             <p>Description here at vero eos et accusamus et iusto odio dignissimos <a href="#">ducimus qui blanditiis</a> praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus.</p>
                         
             <!-- Testimonial Block -->
@@ -101,11 +101,78 @@
                 <button type="submit">Order Now</button>
             </div>
         </div>
+        <div id="availability" class="span6">
+            <div class="headline"><h3>Availability</h3></div>
+        </div>
     </div>
 </div>
 
 <!--@Html.Partial("_SendInquiry", new Inquiry())-->
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/jquery-ui.css")
+    @Styles.Render("~/Content/themes/base/jquery.ui.datepicker.calendar.css")
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var bookings = [];
+            var bookingsRaw = @Html.Raw(Json.Encode(ViewData["Bookings"]))
+
+            $.each(bookingsRaw, function (index, booking) {
+                var firstSplit = booking.StartDate.split("(");
+                var temp = firstSplit[1];
+                var secondSplit = temp.split(")");
+                var startMilli = secondSplit[0];
+                var startDate = new Date();
+                startDate.setTime(startMilli);
+                
+                var firstSplit = booking.EndDate.split("(");
+                var temp = firstSplit[1];
+                var secondSplit = temp.split(")");
+                var endMilli = secondSplit[0];
+                var endDate = new Date();
+                endDate.setTime(endMilli);
+
+                var entry = [startDate, endDate];
+                bookings.push(entry);
+            });
+
+            $('#availability').datepicker({
+                numberOfMonths: [3,4],
+                dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+                beforeShowDay: showBooking,
+                defaultDate: '01/01/@System.DateTime.Now.Year'
+            });
+
+            $('#availability').css({ fontSize: '7.5px' });
+
+            function showBooking(date) {
+                
+                for (var i = 0; i < bookings.length; i++) {
+                    if (bookings[i][0].getTime() == date.getTime()) {
+                        for (var j = 0; j < bookings.length; j++) {
+                            if (bookings[i][0].getTime() == bookings[j][1] && i != j) {
+                                return [true, 'active-booking'];
+                            }
+                        }
+                        return [true, 'start-booking'];
+                    }
+                    else if (bookings[i][1].getTime() == date.getTime()) {
+                        for (var j = 0; j < bookings.length; j++) {
+                            if (bookings[i][1].getTime() == bookings[j][0] && i != j) {
+                                return [true, 'active-booking'];
+                            }
+                        }
+                        return [true, 'end-booking'];
+                    }
+                    else if (date.getTime() > bookings[i][0].getTime() && date.getTime() < bookings[i][1].getTime()) {
+                        return [true, 'active-booking'];
+                    }
+                }
+                return [true, ''];
+            }
+        });
+    </script>
 }

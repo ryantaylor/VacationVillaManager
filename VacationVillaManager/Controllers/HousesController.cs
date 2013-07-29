@@ -32,6 +32,12 @@ namespace VacationVillaManager.Controllers
 
             House house = db.Houses.Include("Location").Single(m => m.ID == id);
             ViewBag.HouseID = id;
+            ViewData["Bookings"] = db.Bookings.Where(m => m.House.ID == id)
+                                                .Select(m => new
+                                                {
+                                                    StartDate = m.StartDate,
+                                                    EndDate = m.EndDate
+                                                });
             house.Photos = db.Photos.Where(m => m.House.ID == id).ToList();
             house.Costs = db.Costs.Where(m => m.House.ID == id).ToList();
 

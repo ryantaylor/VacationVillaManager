@@ -212,6 +212,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\arrive.png" />
     <Content Include="Content\body.css" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-responsive.css" />
@@ -219,6 +220,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\BootstrapOverride.css" />
+    <Content Include="Content\depart.png" />
     <Content Include="Content\font-awesome\css\font-awesome-ie7.css" />
     <Content Include="Content\font-awesome\css\font-awesome-ie7.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
@@ -249,6 +251,8 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\PublicOverride.css" />
+    <Content Include="Content\reserved.png" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.calendar.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -307,6 +311,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\ReportCreate.css" />
+    <Content Include="Content\tri.gif" />
     <Content Include="Content\unity\css\animate.css" />
     <Content Include="Content\unity\css\effects.css" />
     <Content Include="Content\unity\css\headers\header1.css" />
