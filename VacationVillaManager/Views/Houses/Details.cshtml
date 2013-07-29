@@ -149,7 +149,8 @@
             $('#availability').css({ fontSize: '7.5px' });
 
             function showBooking(date) {
-                
+                alert(date);
+                alert(bookings[0][0]);
                 for (var i = 0; i < bookings.length; i++) {
                     if (bookings[i][0].getTime() == date.getTime()) {
                         for (var j = 0; j < bookings.length; j++) {
