@@ -149,8 +149,10 @@
             $('#availability').css({ fontSize: '7.5px' });
 
             function showBooking(date) {
+                //alert(bookings[3][0] + " " + bookings[3][0].getUTCDate() + " " + bookings[3][0].getUTCMonth() + " " + bookings[3][0].getUTCFullYear());
+                //alert(date + " " + date.getDate() + " " + date.getMonth() + " " + date.getFullYear());
                 for (var i = 0; i < bookings.length; i++) {
-                    if (bookings[i][0].getTime() == date.getTime()) {
+                    if (compareDates(bookings[i][0], date) == 0) {
                         for (var j = 0; j < bookings.length; j++) {
                             if (bookings[i][0].getTime() == bookings[j][1].getTime() && i != j) {
                                 return [true, 'active-booking'];
@@ -158,7 +160,7 @@
                         }
                         return [true, 'start-booking'];
                     }
-                    else if (bookings[i][1].getTime() == date.getTime()) {
+                    else if (compareDates(bookings[i][1], date) == 0) {
                         for (var j = 0; j < bookings.length; j++) {
                             if (bookings[i][1].getTime() == bookings[j][0].getTime() && i != j) {
                                 return [true, 'active-booking'];
@@ -166,17 +168,30 @@
                         }
                         return [true, 'end-booking'];
                     }
-                    else if (date.getTime() > bookings[i][0].getTime() && date.getTime() < bookings[i][1].getTime()) {
-                        alert(date + " " + date.getTime());
-                        alert(bookings[i][0] + " " + bookings[i][0].getTime());
+                    else if (compareDates(bookings[i][0], date) < 0 && compareDates(bookings[i][1], date) > 0) {
+                        //alert(date + " " + date.getTime());
+                        //alert(bookings[i][0] + " " + bookings[i][0].getTime());
                         return [true, 'active-booking'];
                     }
                 }
                 return [true, ''];
             }
 
-            function compareDates(date1, date2) {
-
+            // server dates stored in GMT, local dates given in local timezone
+            // 0  = equal
+            // -1 = serverDate < localDate
+            // 1  = serverDate > localDate
+            function compareDates(serverDate, localDate) {
+                if (serverDate.getUTCDate() == localDate.getDate() && serverDate.getUTCMonth() == localDate.getMonth() && serverDate.getUTCFullYear() == localDate.getFullYear()) {
+                    return 0;
+                }
+                else if (serverDate.getUTCFullYear() < localDate.getFullYear() || (serverDate.getUTCMonth() < localDate.getMonth() && serverDate.getUTCFullYear() == localDate.getFullYear()) ||
+                         (serverDate.getUTCDate() < localDate.getDate() && serverDate.getUTCMonth() == localDate.getMonth() && serverDate.getUTCFullYear() == localDate.getFullYear())) {
+                    return -1;
+                }
+                else {
+                    return 1;
+                }
             }
         });
     </script>
