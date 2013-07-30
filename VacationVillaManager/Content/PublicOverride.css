@@ -42,3 +42,6 @@ h5 > a:hover {
     background: url("depart.png") !important;
 }
 
+.map-box {
+    height: 475px;
+}
