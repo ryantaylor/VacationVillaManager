@@ -30,9 +30,11 @@
 }
 .ui-datepicker .ui-datepicker-prev {
 	left: 2px;
+    display: none;
 }
 .ui-datepicker .ui-datepicker-next {
 	right: 2px;
+    display: none;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
 	left: 1px;
@@ -185,4 +187,23 @@
     background: none !important;
     font-size: 8px;
     text-align: center !important;
+}
+
+.testimonial-arrow a {
+    color: #72C02C;
+    display: inline-block;
+    float: right;
+    font-size: 25px;
+    margin: 0;
+    padding: 0 9px !important;
+    vertical-align: middle !important;
+    position: relative;
+    text-decoration: none;
+    top: -22px;
+}
+
+.testimonial-arrow a:hover {
+    background: none repeat scroll 0 0 #72C02C !important;
+    color: #FFFFFF;
+    text-decoration: none;
 }
