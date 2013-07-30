@@ -45,3 +45,9 @@ h5 > a:hover {
 .map-box {
     height: 475px;
 }
+
+.pricing:hover {
+    box-shadow: 0 0 15px #B5B5B5;
+    margin-top: 0;
+    z-index: 0;
+}

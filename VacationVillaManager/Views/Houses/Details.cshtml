@@ -75,30 +75,35 @@
 
     <!-- Pricing -->
     <div class="row-fluid margin-bottom-40">
-        <div class="span3 pricing hover-effect">
-            <div class="pricing-head">
-                <h3>Pricing <span>@Model.Name</span></h3>
-                <h4><i>$</i>@Model.Rate <i>/night</i></h4>
-            </div>
-            <ul class="pricing-content unstyled">
-                @foreach (var cost in Model.Costs)
-                {
-                    var frequency = "";
-                    if (cost.CalculateDaily)
+        <div class="span3">
+            <div class="span12 pricing">
+                <div class="pricing-head">
+                    <h3>Pricing <span>@Model.Name</span></h3>
+                    <h4><i>$</i>@Model.Rate <i>/night</i></h4>
+                </div>
+                <ul class="pricing-content unstyled">
+                    @foreach (var cost in Model.Costs)
                     {
-                        frequency = "per day";
-                    }
-                    else
-                    {
-                        frequency = "per booking";
-                    }
+                        var frequency = "";
+                        if (cost.CalculateDaily)
+                        {
+                            frequency = "per day";
+                        }
+                        else
+                        {
+                            frequency = "per booking";
+                        }
                     
-                    <li><i class="icon-star"></i> @cost.Name - $@cost.Amount @frequency</li>
-                }
-            </ul>
-            <div class="pricing-footer">
-                <p>Prices listed subject to change, and do not include 12% Florida sales tax.</p>
-                <button type="submit">Order Now</button>
+                        <li><i class="icon-star"></i> @cost.Name - $@cost.Amount @frequency</li>
+                    }
+                </ul>
+                <div class="pricing-footer">
+                    <p>Prices listed subject to change, and do not include 12% Florida sales tax.</p>
+                    <button type="submit">Order Now</button>
+                </div>
+            </div>
+            <div class="span12">
+                <div class="headline"><h3>Guest Reviews</h3></div>
             </div>
         </div>
         <div id="availability" class="span6">
