@@ -149,10 +149,8 @@
             $('#availability').css({ fontSize: '7.5px' });
 
             function showBooking(date) {
-                
                 for (var i = 0; i < bookings.length; i++) {
                     if (bookings[i][0].getTime() == date.getTime()) {
-                        
                         for (var j = 0; j < bookings.length; j++) {
                             if (bookings[i][0].getTime() == bookings[j][1].getTime() && i != j) {
                                 return [true, 'active-booking'];
@@ -175,6 +173,10 @@
                     }
                 }
                 return [true, ''];
+            }
+
+            function compareDates(date1, date2) {
+
             }
         });
     </script>
