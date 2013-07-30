@@ -131,7 +131,7 @@
         $(document).ready(function () {
 
             var map;
-            var address = '@Model.Location.Address' + ' ' + '@Model.Location.City' + ' ' + '@Model.Location.Region';
+            var address = '@Model.Location.Address @Model.Location.City @Model.Location.Region';
             var displayYear = parseInt('@System.DateTime.Now.Year');
             var bookings = [];
             var bookingsRaw = @Html.Raw(Json.Encode(ViewData["Bookings"]))
