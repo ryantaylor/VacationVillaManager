@@ -69,7 +69,21 @@
                 <small>Excited Villa Guest</small>
             </blockquote>
 	        <!--//End Testimonial Block -->
-            <p><a class="btn-u btn-u-large" href="#">BOOKING INQUIRY</a></p>
+            <p><a class="btn-u btn-u-large" href="#inquiry" role="button" data-toggle="modal">BOOKING INQUIRY</a></p>
+        </div>
+    </div>
+
+    <!-- Inquiry Modal -->
+    <div id="inquiry" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="inquiryLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Booking Inquiry - @Model.Name</h3>
+        </div>
+        <div class="modal-body">
+            @Html.Partial("_SendInquiry", new Inquiry())
+        </div>
+        <div class="modal-footer">
+            <label for="submitInquiry" class="btn-u btn-warning">Submit</label>
         </div>
     </div>
 
@@ -156,8 +170,6 @@
         </div>
     </div>
 </div>
-
-<!--@Html.Partial("_SendInquiry", new Inquiry())-->
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryui")

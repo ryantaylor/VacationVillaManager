@@ -2,96 +2,82 @@
 
 @{
     int id = (int)ViewBag.HouseID;
+    var options = new AjaxOptions()
+                      {
+                          Url = Url.Action("Create", "Inquiries")
+                      };
 }
 
-@using (Html.BeginForm("Create", "Inquiries", FormMethod.Post)) {
+@using (Ajax.BeginForm("Create", "Inquiries", null, null, new { @class = "form-horizontal" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Inquiry</legend>
+    <!--<input type="hidden" name="House.ID" value="@id" />-->
+    @Html.HiddenFor(model => model.House.ID, new { @Value = id })
+    <input type="submit" value="Create" id="submitInquiry" style="display:none;" />
 
-        <input type="hidden" name="House.ID" value="@id" />
+    <p style="color: red;">* Required</p>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FirstName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
+    <div class="headline"><h3>Contact Information</h3></div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
+    <div class="control-group">
+        @Html.Label("First Name *", new { @class = "control-label", @for = "FirstName" })
+        <div class="controls">
+            @Html.TextBoxFor(model => model.FirstName, new { placeholder = "First Name" })
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(model => model.LastName, new { placeholder = "Last Name" })
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PhoneNumber)
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(model => model.PhoneNumber, new { placeholder = "Phone Number" })
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PhoneNumber)
-            @Html.ValidationMessageFor(model => model.PhoneNumber)
+    </div>
+    
+    <div class="control-group">
+        @Html.Label("Email Address *", new { @class = "control-label", @for = "Email" })
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Email, new { placeholder = "Email Address" })
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
+    </div>
+    
+    <div class="headline"><h3>Booking Information</h3></div>
+    
+    <div class="control-group">
+        @Html.Label("Number of Adults *", new { @class = "control-label", @for = "NumAdults" })
+        <div class="controls">
+            @Html.TextBoxFor(model => model.NumAdults, new { placeholder = "Number of Adults", @Value = "" })
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
+    </div>
+    
+    <div class="control-group">
+        @Html.Label("Number of Children *", new { @class = "control-label", @for = "NumChildren" })
+        <div class="controls">
+            @Html.TextBoxFor(model => model.NumChildren, new { placeholder = "Number of Children", @Value = "" })
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NumAdults)
+    </div>
+    
+    <div class="control-group">
+        @Html.Label("Interested Dates *", new { @for = "DateRange", @class = "control-label" })
+        <div class="controls">
+            @Html.TextBox("DateRange", null, new { id = "DateRange", placeholder = "Click to Select" })
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NumAdults)
-            @Html.ValidationMessageFor(model => model.NumAdults)
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(model => model.Questions, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextAreaFor(model => model.Questions, new { placeholder = "Questions/Comments", rows = "3" })
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NumChildren)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NumChildren)
-            @Html.ValidationMessageFor(model => model.NumChildren)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartDate)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.StartDate, new { @class = "date" })
-            @Html.ValidationMessageFor(model => model.StartDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EndDate)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.EndDate, new { @class = "date" })
-            @Html.ValidationMessageFor(model => model.EndDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Questions)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Questions)
-            @Html.ValidationMessageFor(model => model.Questions)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+    </div>
+    
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
