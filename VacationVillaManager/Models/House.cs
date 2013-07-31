@@ -24,6 +24,7 @@ namespace VacationVillaManager.Models
         public double Rate { get; set; }
         public string VirtualTour { get; set; }
         public string Flyer { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
 
         public string HomeAwayID { get; set; }

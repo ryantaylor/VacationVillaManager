@@ -869,6 +869,10 @@
     <Content Include="Scripts\slideshow\js\blueimp-gallery.min.js" />
     <Content Include="Scripts\slideshow\js\demo.js" />
     <Content Include="Scripts\table-selectfilter.js" />
+    <Content Include="Scripts\texteditor\bootstrap-wysihtml5.css" />
+    <Content Include="Scripts\texteditor\bootstrap-wysihtml5.js" />
+    <Content Include="Scripts\texteditor\wysihtml5-0.3.0.js" />
+    <Content Include="Scripts\texteditor\wysiwyg-color.css" />
     <Content Include="Scripts\uploader\fileuploader.css" />
     <Content Include="Scripts\uploader\fileuploader.js" />
     <Content Include="Scripts\uploader\loading.gif" />

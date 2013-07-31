@@ -216,6 +216,13 @@ a.thumbnail:hover ~ .photo-controls {
     background-color: #f5f5f5;
 }
 
+#editor {
+    height: 250px;
+    overflow: auto;
+    background: white;
+    border: 1px solid lightgrey;
+}
+
 
 
 

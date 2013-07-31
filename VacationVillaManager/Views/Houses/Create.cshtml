@@ -86,14 +86,23 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="span4 well well-small">
-                    <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
-                    <div id="upload-info">
-                        <div id="gallery">
-                            <ul class="thumbnails">
-                                <!-- Image thumbnails go here -->
-                            </ul>
+                <div class="span4">
+                    <div class="span12 well well-small">
+                        <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
+                        <div id="upload-info">
+                            <div id="gallery">
+                                <ul class="thumbnails">
+                                    <!-- Image thumbnails go here -->
+                                </ul>
+                            </div>
                         </div>
+                    </div>
+                    <div class="span12 well well-small" style="margin-left: 0;">
+                        <fieldset>
+                            <legend>Description</legend>
+                            @Html.TextAreaFor(model => model.Description, new { id = "editor", placeholder = "Enter Description", style = "width: 95%;" })
+                            <!--<textarea id="editor" placeholder="Enter Description" style="width: 95%;"></textarea>-->
+                        </fieldset>
                     </div>
                 </div>
             </div>
@@ -117,6 +126,9 @@
     @Scripts.Render("~/Scripts/slideshow/js/blueimp-gallery.js")
     @Scripts.Render("~/Scripts/uploader/fileuploader.js")
     @Styles.Render("~/Scripts/uploader/fileuploader.css")
+    @Styles.Render("~/Scripts/texteditor/bootstrap-wysihtml5.css")
+    @Scripts.Render("~/Scripts/texteditor/wysihtml5-0.3.0.js")
+    @Scripts.Render("~/Scripts/texteditor/bootstrap-wysihtml5.js")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -124,6 +136,11 @@
             var id = 0;
             var photoID = 0;
             var buttonActive = 0;
+
+            $('#editor').wysihtml5({
+                "font-styles": false,
+                "image": false
+            });
 
             var qqupload = new qq.FileUploaderBasic({
                 button: document.getElementById('photo-button'),

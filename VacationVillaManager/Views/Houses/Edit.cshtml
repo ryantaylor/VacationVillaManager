@@ -98,43 +98,52 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="span4 well well-small">
-                    <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
-                    <div id="upload-info">
-                        <div id="gallery">
-                            <ul class="thumbnails">
-                                @for (int i = 0; i < Model.Photos.Count; i ++)
-                                {
-                                    <li class="span3" style="position: relative;">
-                                        <a href="@Model.Photos[i].URL" id="photo-link-@i" class="thumbnail" title="@Model.Photos[i].Name" data-index="@i"><img id="photo-@i" src="@Model.Photos[i].URLThumb" /></a>
-                                        <div id="photo-control-@i" class="photo-controls">
-                                            <button class="btn btn-primary btn-mini photo-info" data-toggle="modal" data-target="#photo-modal-@i"><i class="icon-gear icon-large"></i></button>
-                                            <button class="btn btn-danger btn-mini photo-close"><i class="icon-remove icon-large"></i></button>
-                                        </div>
-                                        @Html.HiddenFor(model => Model.Photos[i].ID)
-                                        @Html.HiddenFor(model => Model.Photos[i].URL, new { id = "photo-url-" + i })
-                                        @Html.HiddenFor(model => Model.Photos[i].URLThumb)
-
-                                        <div id="photo-modal-@i" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-header">
-                                                <h3 id="myModalLabel">Photo Information</h3>
+                <div class="span4">
+                    <div class="span12 well well-small">
+                        <div class="legend-mimick">Photos <a href="javascript:void(0)" id="photo-button" class="addNewPhoto"><i class="icon-picture"></i></a></div>
+                        <div id="upload-info">
+                            <div id="gallery">
+                                <ul class="thumbnails">
+                                    @for (int i = 0; i < Model.Photos.Count; i ++)
+                                    {
+                                        <li class="span3" style="position: relative;">
+                                            <a href="@Model.Photos[i].URL" id="photo-link-@i" class="thumbnail" title="@Model.Photos[i].Name" data-index="@i"><img id="photo-@i" src="@Model.Photos[i].URLThumb" /></a>
+                                            <div id="photo-control-@i" class="photo-controls">
+                                                <button class="btn btn-primary btn-mini photo-info" data-toggle="modal" data-target="#photo-modal-@i"><i class="icon-gear icon-large"></i></button>
+                                                <button class="btn btn-danger btn-mini photo-close"><i class="icon-remove icon-large"></i></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="input-prepend">
-                                                    <span class="add-on">Name</span>
-                                                    @Html.TextBoxFor(model => Model.Photos[i].Name, new { id = "photo-name-" + i })
+                                            @Html.HiddenFor(model => Model.Photos[i].ID)
+                                            @Html.HiddenFor(model => Model.Photos[i].URL, new { id = "photo-url-" + i })
+                                            @Html.HiddenFor(model => Model.Photos[i].URLThumb)
+
+                                            <div id="photo-modal-@i" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-header">
+                                                    <h3 id="myModalLabel">Photo Information</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="input-prepend">
+                                                        <span class="add-on">Name</span>
+                                                        @Html.TextBoxFor(model => Model.Photos[i].Name, new { id = "photo-name-" + i })
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="name-save-@i" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save Changes</button>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button id="name-save-@i" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save Changes</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                }
+                                        </li>
+                                    }
 
-                                <!-- Image thumbnails go here -->
-                            </ul>
+                                    <!-- Image thumbnails go here -->
+                                </ul>
+                            </div>
                         </div>
+                    </div>
+                    <div class="span12 well well-small" style="margin-left: 0;">
+                        <fieldset>
+                            <legend>Description</legend>
+                            @Html.TextAreaFor(model => model.Description, new { id = "editor", placeholder = "Enter Description", style = "width: 95%;" })
+                            <!--<textarea id="editor" placeholder="Enter Description" style="width: 95%;"></textarea>-->
+                        </fieldset>
                     </div>
                 </div>
             </div>
@@ -161,6 +170,9 @@
     @Styles.Render("~/Scripts/editable/css/bootstrap-editable.css")
     @Scripts.Render("~/Scripts/uploader/fileuploader.js")
     @Styles.Render("~/Scripts/uploader/fileuploader.css")
+    @Styles.Render("~/Scripts/texteditor/bootstrap-wysihtml5.css")
+    @Scripts.Render("~/Scripts/texteditor/wysihtml5-0.3.0.js")
+    @Scripts.Render("~/Scripts/texteditor/bootstrap-wysihtml5.js")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -170,6 +182,11 @@
             var buttonActive = 0;
             var photoID = @Model.Photos.Count +0;
             //alert(photoID);
+
+            $('#editor').wysihtml5({
+                "font-styles": false,
+                "image": false
+            });
 
             $('.costEditorRow').each(function () {
                 var label = $(this).find('.label');
