@@ -157,7 +157,7 @@
 			    </div>	
             </div>
         </div>
-        <div id="availability" class="span6">
+        <div id="availability" class="span5">
             <div class="headline"><h3>Availability</h3></div>
             <div class="bx-wrapper">
                 <div class="bx-controls-direction">
@@ -166,7 +166,7 @@
                 </div>
             </div>
         </div>
-        <div id="location" class="span3">
+        <div id="location" class="span4">
             <div class="headline"><h3>Location</h3></div>
             <div id="map" class="map map-box map-box-space"></div><!---/map-->
         </div>
@@ -236,15 +236,24 @@
             });
 
             $('#availability').datepicker({
-                numberOfMonths: [3,4],
+                numberOfMonths: [2,3],
                 dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-                beforeShowDay: showBooking,
-                defaultDate: '01/01/' + displayYear
+                beforeShowDay: showBooking
             });
 
-            $('#availability').css({ fontSize: '7.5px' });
+            $('#availability').css({ fontSize: '8.3px' });
 
             $('#calendar-prev').click(function (e) {
+                e.preventDefault();
+                $('.ui-datepicker-prev').click();
+            });
+
+            $('#calendar-next').click(function (e) {
+                e.preventDefault();
+                $('.ui-datepicker-next').click();
+            });
+
+            /*$('#calendar-prev').click(function (e) {
                 e.preventDefault();
                 displayYear--;
                 $('#availability').datepicker("setDate", "01/01/" + displayYear);
@@ -254,7 +263,7 @@
                 e.preventDefault();
                 displayYear++;
                 $('#availability').datepicker("setDate", "01/01/" + displayYear);
-            });
+            });*/
 
             GMaps.geocode({
                 address: address,
