@@ -875,7 +875,7 @@ blockquote:hover {
 .pricing-head h3 {
 	color:#fafafa;
 	padding:12px 0;
-	font-size:35px;
+	font-size:25px;
 	font-family:Arial;
 	background:#55c931;
 	border-radius:3px 3px 0 0;
@@ -885,7 +885,7 @@ blockquote:hover {
 .pricing-head h4 {
 	color:#bac39f;
 	padding:5px 0;
-	font-size:70px;
+	font-size:35px;
 	font-family:Arial;
 	background:#fbfef2;
 	text-shadow:0 1px 0 #fff;
@@ -893,7 +893,7 @@ blockquote:hover {
 }
 .pricing-head h4 i {
 	top:-8px;
-	font-size:28px;
+	font-size:20px;
 	font-style:normal;
 	position:relative;
 }
@@ -933,7 +933,7 @@ blockquote:hover {
 	color:#fff;
 	border:none;
 	margin-top:5px;
-	font-size:16px;
+	font-size:12px;
 	padding:6px 15px;
 	text-align:center;
 	border-radius:2px;

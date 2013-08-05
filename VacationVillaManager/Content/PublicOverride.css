@@ -70,3 +70,9 @@ h5 > a:hover {
 #inquiry-status {
     display: none;
 }
+
+.pricing-footer a {
+    border-bottom: none;
+    text-shadow: none;
+    font-weight: bold;
+}
