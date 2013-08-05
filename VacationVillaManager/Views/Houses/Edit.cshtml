@@ -293,11 +293,11 @@
             });
 
             $('body').on('click', '[id^=name-save-]', function () {
-                alert("here!");
+                //alert("here!");
                 var elemId = $(this).attr('id');
                 var temp = elemId.split('-');
                 var pId = temp[2];
-                alert($('#photo-name-' + pId + '').val());
+                //alert($('#photo-name-' + pId + '').val());
                 $('#photo-link-' + pId + '').attr('title', $('#photo-name-' + pId + '').val());
             });
 
