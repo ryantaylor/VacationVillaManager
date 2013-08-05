@@ -9,7 +9,6 @@ using VacationVillaManager.Models;
 
 namespace VacationVillaManager.Controllers
 {
-    [Authorize]
     public class InquiriesController : BootstrapBaseController
     {
         private ManagerContext db = new ManagerContext();
@@ -17,6 +16,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /Inquiries/
 
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Inquiries.Include("House").ToList());
@@ -25,6 +25,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /Inquiries/Details/5
 
+        [Authorize]
         public ActionResult Details(int id = 0)
         {
             Inquiry inquiry = db.Inquiries.Find(id);
@@ -38,16 +39,16 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /Inquiries/Create
 
-        public ActionResult Create()
+        /*public ActionResult Create()
         {
             return View();
-        }
+        }*/
 
         //
         // POST: /Inquiries/Create
 
         [HttpPost]
-        public ActionResult Create(Inquiry inquiry)
+        public bool Create(Inquiry inquiry)
         {
             if (ModelState.IsValid)
             {
@@ -55,15 +56,16 @@ namespace VacationVillaManager.Controllers
                 inquiry.Status = "Pending";
                 db.Inquiries.Add(inquiry);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return true;
             }
 
-            return View(inquiry);
+            return false;
         }
 
         //
         // GET: /Inquiries/Edit/5
 
+        [Authorize]
         public ActionResult Edit(int id = 0)
         {
             Inquiry inquiry = db.Inquiries.Include("House").Single(m => m.ID == id);
@@ -95,6 +97,7 @@ namespace VacationVillaManager.Controllers
         //
         // GET: /Inquiries/Delete/5
 
+        [Authorize]
         public ActionResult Delete(int id = 0)
         {
             Inquiry inquiry = db.Inquiries.Find(id);

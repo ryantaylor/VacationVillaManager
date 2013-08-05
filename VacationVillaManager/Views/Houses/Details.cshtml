@@ -83,6 +83,8 @@
             @Html.Partial("_SendInquiry", new Inquiry())
         </div>
         <div class="modal-footer">
+            <img src="~/Content/ajaxload.gif" id="spinner" />
+            <span id="inquiry-status"></span>
             <label for="submitInquiry" class="btn-u btn-warning">Submit</label>
         </div>
     </div>
@@ -178,6 +180,10 @@
     @Styles.Render("~/Content/unity/plugins/bxslider/jquery.bxslider.css")
     @Scripts.Render("http://maps.google.com/maps/api/js?sensor=true")
     @Scripts.Render("~/Content/unity/plugins/gmap/gmap.js")
+    @Scripts.Render("~/Scripts/daterangepicker/daterangepicker.js")
+    @Styles.Render("~/Scripts/daterangepicker/daterangepicker.css")
+    @Scripts.Render("~/Scripts/daterangepicker/moment.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -188,6 +194,11 @@
             var displayYear = parseInt('@System.DateTime.Now.Year');
             var bookings = [];
             var bookingsRaw = @Html.Raw(Json.Encode(ViewData["Bookings"]))
+
+                $('#inquiry').on('hidden', function () {
+                    $('#inquiry-status').text('');
+                    $('#inquiry-status').hide();
+                });
 
             $.each(bookingsRaw, function (index, booking) {
                 var firstSplit = booking.StartDate.split("(");
@@ -206,6 +217,22 @@
 
                 var entry = [startDate, endDate];
                 bookings.push(entry);
+            });
+
+            $('#DateRange').daterangepicker({
+                // options here
+            },
+            function (start, end) {
+                if (start == null || end == null) {
+                    $('#DateRate').text("");
+                    $('#startDate').val("");
+                    $('#endDate').val("");
+                }
+                else {
+                    $('#DateRange').text(start.format('MMM D, YYYY') + " - " + end.format('MMM D, YYYY'));
+                    $('#startDate').val(start.format('MM/DD/YYYY'));
+                    $('#endDate').val(end.format('MM/DD/YYYY'));
+                }
             });
 
             $('#availability').datepicker({
@@ -228,8 +255,6 @@
                 displayYear++;
                 $('#availability').datepicker("setDate", "01/01/" + displayYear);
             });
-
-            
 
             GMaps.geocode({
                 address: address,

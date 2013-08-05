@@ -4,11 +4,15 @@
     int id = (int)ViewBag.HouseID;
     var options = new AjaxOptions()
                       {
-                          Url = Url.Action("Create", "Inquiries")
+                          Url = Url.Action("Create", "Inquiries"),
+                          UpdateTargetId = "ajax-response",
+                          LoadingElementId = "spinner",
+                          OnSuccess = "$('#inquiry-status').text('Inquiry submitted! Thanks!'); $('#inquiry-status').show();",
+                          OnFailure = "$('#inquiry-status').text('Inquiry submission failed! Try again.'); $('#inquiry-status').show();"
                       };
 }
 
-@using (Ajax.BeginForm("Create", "Inquiries", null, null, new { @class = "form-horizontal" }))
+@using (Ajax.BeginForm("Create", "Inquiries",null , options, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -52,14 +56,14 @@
     <div class="headline"><h3>Booking Information</h3></div>
     
     <div class="control-group">
-        @Html.Label("Number of Adults *", new { @class = "control-label", @for = "NumAdults" })
+        @Html.Label("Number of Adults", new { @class = "control-label", @for = "NumAdults" })
         <div class="controls">
             @Html.TextBoxFor(model => model.NumAdults, new { placeholder = "Number of Adults", @Value = "" })
         </div>
     </div>
     
     <div class="control-group">
-        @Html.Label("Number of Children *", new { @class = "control-label", @for = "NumChildren" })
+        @Html.Label("Number of Children", new { @class = "control-label", @for = "NumChildren" })
         <div class="controls">
             @Html.TextBoxFor(model => model.NumChildren, new { placeholder = "Number of Children", @Value = "" })
         </div>
@@ -69,8 +73,12 @@
         @Html.Label("Interested Dates *", new { @for = "DateRange", @class = "control-label" })
         <div class="controls">
             @Html.TextBox("DateRange", null, new { id = "DateRange", placeholder = "Click to Select" })
+            
         </div>
     </div>
+    
+    @Html.HiddenFor(model => model.StartDate, new { id = "startDate" })
+    @Html.HiddenFor(model => model.EndDate, new { id = "endDate" })
     
     <div class="control-group">
         @Html.LabelFor(model => model.Questions, new { @class = "control-label" })
@@ -78,6 +86,6 @@
             @Html.TextAreaFor(model => model.Questions, new { placeholder = "Questions/Comments", rows = "3" })
         </div>
     </div>
-    
+    @Html.Hidden("ServerResponse", null, new { id = "ajax-response" })
 }
 
