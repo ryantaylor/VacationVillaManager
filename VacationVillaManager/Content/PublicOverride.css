@@ -103,3 +103,7 @@ h5 > a:hover {
 .ad-slideshow-start:hover {
     color: green;
 }
+
+.ad-image {
+  cursor: pointer;
+}
