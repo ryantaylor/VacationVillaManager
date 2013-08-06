@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "404";
+    Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
+}
+
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-40">
+	<div class="container">
+        <h1 class="color-green pull-left">404 - Page Not Found</h1>
+        <ul class="pull-right breadcrumb">
+            <li><a href="@Url.Action("Index", "Home")">Home</a> <span class="divider">/</span></li>
+            <li><a href="">Error</a> <span class="divider">/</span></li>
+            <li class="active">404</li>
+        </ul>
+    </div><!--/container-->
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<div class="container">		
+	<div class="row-fluid page-404">
+    	<p><i>404</i> <span>The Page cannot be found</span></p>
+    </div>     
+</div>

@@ -177,6 +177,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\BootstrapBaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousesController.cs" />
     <Compile Include="Controllers\InquiriesController.cs" />
@@ -1009,6 +1010,7 @@
     <Content Include="Views\Shared\EditorTemplates\HouseManager.cshtml" />
     <Content Include="Views\Reports\_ViewTaxes.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.public.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
