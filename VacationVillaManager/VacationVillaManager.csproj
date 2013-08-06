@@ -782,6 +782,16 @@
     <Content Include="Content\unity\plugins\revolution_slider\rs-plugin\js\jquery.themepunch.revolution.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\adgallery\ad_next.png" />
+    <Content Include="Scripts\adgallery\ad_prev.png" />
+    <Content Include="Scripts\adgallery\ad_scroll_back.png" />
+    <Content Include="Scripts\adgallery\ad_scroll_forward.png" />
+    <Content Include="Scripts\adgallery\jquery.ad-gallery.css" />
+    <Content Include="Scripts\adgallery\jquery.ad-gallery.js" />
+    <Content Include="Scripts\adgallery\jquery.ad-gallery.min.js" />
+    <Content Include="Scripts\adgallery\loader.gif" />
+    <Content Include="Scripts\adgallery\opa75.png" />
+    <Content Include="Scripts\adgallery\trans.gif" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.css" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select\bootstrap-select.min.css" />

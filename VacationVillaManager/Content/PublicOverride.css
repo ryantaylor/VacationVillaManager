@@ -76,3 +76,30 @@ h5 > a:hover {
     text-shadow: none;
     font-weight: bold;
 }
+
+.ad-gallery {
+    box-shadow: 0 0 5px #EEEEEE;
+    background: none repeat scroll 0 0 #FAFAFA;
+    padding: 10px 20px !important;
+}
+
+.ad-thumbs img {
+    max-height: 50px;
+    width: auto;
+}
+
+.ad-gallery .ad-image-wrapper {
+    height: 315px !important;
+}
+
+.ad-info {
+    display: none;
+}
+
+.ad-slideshow-stop:hover {
+    color: red;
+}
+
+.ad-slideshow-start:hover {
+    color: green;
+}
