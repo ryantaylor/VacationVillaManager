@@ -145,27 +145,32 @@
             var qqupload = new qq.FileUploaderBasic({
                 button: document.getElementById('photo-button'),
                 action: '@Url.Action("PhotoUpload", "Bookings")',
-                onUpload: function (id, filename, xhr) {
-                    var toAppend = '<li class="span3"><a href="#" class="thumbnail" title="' + filename + '" data-index="' + photoID + '"><img id=photo' + photoID + ' src="/Scripts/uploader/loading.gif" /></a></li>';
+                onUpload: function (uid, filename, xhr) {
+                    var toAppend = '<li class="span3"><a href="#" class="thumbnail" title="' + filename + '" data-index="' + uid + '"><img id=photo' + uid + ' src="/Scripts/uploader/loading.gif" /></a></li>';
                     $('.thumbnails').append(toAppend);
                 },
-                onComplete: function (id, filename, responseJSON) {
+                onProgress: function (uid, filename, loaded, total) {
+                    var percent = loaded / total * 100;
+                    $('#progress-' + uid + '').text(percent.toFixed(0) + '%');
+                },
+                onComplete: function (uid, filename, responseJSON) {
+
+                    $('#progress-' + uid + '').hide();
+
                     @{Model.Photos.Add(new Photo());}
-                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].ID" value="0" />';
+                    var toAppend = '<input type="hidden" name="Photos[' + uid + '].ID" value="0" />';
                     $('#upload-info').append(toAppend);
-                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URL" value="' + responseJSON.path + '" />';
+                    var toAppend = '<input type="hidden" name="Photos[' + uid + '].URL" value="' + responseJSON.path + '" />';
                     $('#upload-info').append(toAppend);
-                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumb" value="' + responseJSON.thumb + '" />';
+                    var toAppend = '<input type="hidden" name="Photos[' + uid + '].URLThumb" value="' + responseJSON.thumb + '" />';
                     $('#upload-info').append(toAppend);
-                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumbWide" value="' + responseJSON.thumbwide + '" />';
+                    var toAppend = '<input type="hidden" name="Photos[' + uid + '].URLThumbWide" value="' + responseJSON.thumbwide + '" />';
                     $('#upload-info').append(toAppend);
-                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
+                    var toAppend = '<input type="hidden" name="Photos[' + uid + '].Name" value="' + responseJSON.name + '" />';
                     $('#upload-info').append(toAppend);
 
-                    $('#photo' + photoID + '').attr("src", "/Images/temp/" + responseJSON.thumb);
-                    $('#photo' + photoID + '').parent().attr("href", "/Images/temp/" + responseJSON.path);
-
-                    photoID++;
+                    $('#photo' + uid + '').attr("src", "/Images/temp/" + responseJSON.thumb);
+                    $('#photo' + uid + '').parent().attr("href", "/Images/temp/" + responseJSON.path);
                 },
                 params: {
                     houseID: '0'
