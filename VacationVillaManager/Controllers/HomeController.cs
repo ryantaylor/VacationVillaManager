@@ -15,6 +15,7 @@ namespace VacationVillaManager.Controllers
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
             if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
+            ViewBag.Headlines = db.Photos.Include("House").Where(m => m.IsHeadline == true).ToList();
             return View();
         }
 

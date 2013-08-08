@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Vacation Villa Manager";
     Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
+    var firstImg = true;
+    var imgClass = "item";
 }
 
 <link href="@Styles.Url("~/Content/unity/plugins/parallax-slider/css/parallax-slider.css")" rel="stylesheet" />
@@ -66,20 +68,28 @@
             <div class="headline"><h3>Our Villas</h3></div>
             <div id="myCarousel" class="carousel slide">
                 <div class="carousel-inner">
-                  <div class="item active">
-                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/v1373402453/wink5rnaivgqtfpc1wjg.jpg" alt="">
-                    <div class="carousel-caption">
-                      <p>Villa 1</p>
+
+                @foreach (var photo in ViewBag.Headlines)
+                {
+                    if (firstImg)
+                    {
+                        firstImg = false;
+                        imgClass = "item active";
+                    }
+
+                    else
+                    {
+                        imgClass = "item";
+                    }
+
+                    <div class="@imgClass">
+                        <img src="/Images/houses/@photo.URL" alt="@photo.Name" />
+                        <div class="carousel-caption">
+                            <h4>@photo.House.Name</h4>
+                        </div>
                     </div>
-                  </div>
-                  <div class="item">
-                    <img src="http://res.cloudinary.com/hmnrrn3zr/image/upload/v1373402202/gcjizbphwd2hmnnrealk.jpg" alt="">
-                    <div class="carousel-caption">
-                      <p>Villa 2</p>
-                    </div>
-                  </div>
+                }
                 </div>
-                
                 <div class="carousel-arrow">
                     <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="icon-angle-left"></i></a>
                     <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="icon-angle-right"></i></a>
