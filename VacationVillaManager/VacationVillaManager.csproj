@@ -1012,6 +1012,7 @@
     <Content Include="Views\Reports\_ViewTaxes.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.public.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Home\Services.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
