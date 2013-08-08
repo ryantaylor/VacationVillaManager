@@ -107,7 +107,7 @@
                                     @for (int i = 0; i < Model.Photos.Count; i ++)
                                     {
                                         <li class="span3" style="position: relative;">
-                                            <a href="@Model.Photos[i].URL" id="photo-link-@i" class="thumbnail" title="@Model.Photos[i].Name" data-index="@i"><img id="photo-@i" src="@Model.Photos[i].URLThumb" /></a>
+                                            <a href="/Images/houses/@Model.Photos[i].URL" id="photo-link-@i" class="thumbnail" title="@Model.Photos[i].Name" data-index="@i"><img id="photo-@i" src="/Images/houses/@Model.Photos[i].URLThumb" /></a>
                                             <div id="photo-control-@i" class="photo-controls">
                                                 <button class="btn btn-primary btn-mini photo-info" data-toggle="modal" data-target="#photo-modal-@i"><i class="icon-gear icon-large"></i></button>
                                                 <button class="btn btn-danger btn-mini photo-close"><i class="icon-remove icon-large"></i></button>
@@ -115,6 +115,7 @@
                                             @Html.HiddenFor(model => Model.Photos[i].ID)
                                             @Html.HiddenFor(model => Model.Photos[i].URL, new { id = "photo-url-" + i })
                                             @Html.HiddenFor(model => Model.Photos[i].URLThumb)
+                                            @Html.HiddenFor(model => Model.Photos[i].URLThumbWide)
 
                                             <div id="photo-modal-@i" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-header">
@@ -211,12 +212,15 @@
                     $('.thumbnails').append(toAppend);
                 },
                 onComplete: function (id, filename, responseJSON) {
+                    alert(responseJSON.message);
                     @{Model.Photos.Add(new Photo());}
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].ID" value="0" />';
                     $('#upload-info').append(toAppend);
                     var toAppend = '<input type="hidden" id="photo-url-' + photoID + '" name="Photos[' + photoID + '].URL" value="' + responseJSON.path + '" />';
                     $('#upload-info').append(toAppend);
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumb" value="' + responseJSON.thumb + '" />';
+                    $('#upload-info').append(toAppend);
+                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumbWide" value="' + responseJSON.thumbwide + '" />';
                     $('#upload-info').append(toAppend);
                     //var toAppend = '<input type="hidden" id="photo-name-' + photoID + '" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
                     //$('#upload-info').append(toAppend);
@@ -238,8 +242,8 @@
                                     '</li>';
                     $('#upload-info').append(toAppend);
 
-                    $('#photo-' + photoID + '').attr("src", responseJSON.thumb);
-                    $('#photo-' + photoID + '').parent().attr("href", responseJSON.path);
+                    $('#photo-' + photoID + '').attr("src", "/Images/temp/" + responseJSON.thumb);
+                    $('#photo-' + photoID + '').parent().attr("href", "/Images/temp/" + responseJSON.path);
 
                     photoID++;
                 },

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -294,11 +295,16 @@ namespace VacationVillaManager.Controllers
         public ActionResult PhotoUpload(string qqfile, string houseID)
         {
             // change based on image hosting solution
-            Account account = new Account("hmnrrn3zr", "422391321397551", "aKXsVxkoax0wxFp71NU_m8QtHBk");
-            Cloudinary cloudinary = new Cloudinary(account);
+            //Account account = new Account("hmnrrn3zr", "422391321397551", "aKXsVxkoax0wxFp71NU_m8QtHBk");
+            //Cloudinary cloudinary = new Cloudinary(account);
 
-            var path = "/Data/Applications/Cygwin/home/Ryan/VacationVillaManager/VacationVillaManager/App_Data/uploads/";
+            var path = Request.PhysicalApplicationPath + "/Images/temp/";
+            var randomName = Path.GetRandomFileName();
+            var extension = Path.GetExtension(qqfile);
+            var filename = randomName + extension;
             var file = string.Empty;
+
+            //System.IO.Directory.CreateDirectory(Request.PhysicalApplicationPath + path);
 
             try
             {
@@ -308,27 +314,39 @@ namespace VacationVillaManager.Controllers
                     // IE
                     HttpPostedFileBase postedFile = Request.Files[0];
                     stream = postedFile.InputStream;
-                    file = Path.Combine(path, System.IO.Path.GetFileName(Request.Files[0].FileName));
+                    file = Path.Combine(path, filename);
                 }
                 else
                 {
                     //Webkit, Mozilla
-                    file = Path.Combine(path, qqfile);
+                    file = Path.Combine(path, filename);
                 }
 
-                //var buffer = new byte[stream.Length];
-                //stream.Read(buffer, 0, buffer.Length);
-                CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
+                var buffer = new byte[stream.Length];
+                stream.Read(buffer, 0, buffer.Length);
+                /*CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
                 {
                     File = new CloudinaryDotNet.Actions.FileDescription(qqfile, stream)
-                };
+                };*/
 
-                CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
+                //CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
 
-                string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
-                string thumb = cloudinary.Api.UrlImgUp.Transform(new CloudinaryDotNet.Transformation().Width(200).Height(200).Crop("thumb")).BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
+                //string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
+                //string thumb = cloudinary.Api.UrlImgUp.Transform(new CloudinaryDotNet.Transformation().Width(200).Height(200).Crop("thumb")).BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
 
-                return Json(new { success = true, path = url, thumb = thumb, name = qqfile }, "text/html");
+                System.IO.File.WriteAllBytes(file, buffer);
+
+                Image regular = Image.FromFile(file);
+
+                Image thumb = regular.GetThumbnailImage(100, 100, () => false, IntPtr.Zero);
+                var thumbname = randomName + ".thumb" + extension;
+                thumb.Save(path + thumbname);
+
+                Image thumbwide = regular.GetThumbnailImage(regular.Width / (regular.Height / 100), 100, () => false, IntPtr.Zero);
+                var thumbwidename = randomName + ".thumbwide" + extension;
+                thumbwide.Save(path + thumbwidename);
+
+                return Json(new { success = true, path = filename, thumb = thumbname, thumbwide = thumbwidename, name = qqfile }, "text/html");
 
                 //System.IO.File.WriteAllBytes(file, buffer);
             }

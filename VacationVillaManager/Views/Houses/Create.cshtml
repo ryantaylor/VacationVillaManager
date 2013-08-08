@@ -157,11 +157,13 @@
                     $('#upload-info').append(toAppend);
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumb" value="' + responseJSON.thumb + '" />';
                     $('#upload-info').append(toAppend);
+                    var toAppend = '<input type="hidden" name="Photos[' + photoID + '].URLThumbWide" value="' + responseJSON.thumbwide + '" />';
+                    $('#upload-info').append(toAppend);
                     var toAppend = '<input type="hidden" name="Photos[' + photoID + '].Name" value="' + responseJSON.name + '" />';
                     $('#upload-info').append(toAppend);
 
-                    $('#photo' + photoID + '').attr("src", responseJSON.thumb);
-                    $('#photo' + photoID + '').parent().attr("href", responseJSON.path);
+                    $('#photo' + photoID + '').attr("src", "/Images/temp/" + responseJSON.thumb);
+                    $('#photo' + photoID + '').parent().attr("href", "/Images/temp/" + responseJSON.path);
 
                     photoID++;
                 },

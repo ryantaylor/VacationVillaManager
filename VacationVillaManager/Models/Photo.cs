@@ -16,6 +16,7 @@ namespace VacationVillaManager.Models
         public string Name { get; set; }
         public string URL { get; set; }
         public string URLThumb { get; set; }
+        public string URLThumbWide { get; set; }
         public House House { get; set; }
     }
 }
