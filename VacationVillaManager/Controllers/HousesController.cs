@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -87,6 +88,15 @@ namespace VacationVillaManager.Controllers
 
                 db.Houses.Add(house);
                 db.SaveChanges();
+
+                foreach (Photo p in house.Photos)
+                {
+                    string temp = Request.PhysicalApplicationPath + "/Images/temp/";
+                    string dest = Request.PhysicalApplicationPath + "/Images/houses/";
+                    System.IO.File.Move(temp + p.URL, dest + p.URL);
+                    System.IO.File.Move(temp + p.URLThumb, dest + p.URLThumb);
+                    System.IO.File.Move(temp + p.URLThumbWide, dest + p.URLThumbWide);
+                }
 
                 Success(house.Name + " was successfully created!");
                 return RedirectToAction("Index");
@@ -193,7 +203,13 @@ namespace VacationVillaManager.Controllers
                     if (p.ID > 0)
                     {
                         if (p.URL == null)
+                        {
                             db.Entry(p).State = EntityState.Deleted;
+                            string path = Request.PhysicalApplicationPath + "/Images/houses/";
+                            System.IO.File.Delete(path + p.URL);
+                            System.IO.File.Delete(path + p.URLThumb);
+                            System.IO.File.Delete(path + p.URLThumbWide);
+                        }
                         else
                             db.Entry(p).State = EntityState.Modified;
                     }
@@ -203,6 +219,12 @@ namespace VacationVillaManager.Controllers
                         {
                             p.House = h;
                             db.Entry(p).State = EntityState.Added;
+
+                            string temp = Request.PhysicalApplicationPath + "/Images/temp/";
+                            string dest = Request.PhysicalApplicationPath + "/Images/houses/";
+                            System.IO.File.Move(temp + p.URL, dest + p.URL);
+                            System.IO.File.Move(temp + p.URLThumb, dest + p.URLThumb);
+                            System.IO.File.Move(temp + p.URLThumbWide, dest + p.URLThumbWide);
                         }
                     }
 
