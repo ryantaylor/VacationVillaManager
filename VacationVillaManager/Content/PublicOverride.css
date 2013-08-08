@@ -107,3 +107,11 @@ h5 > a:hover {
 .ad-image {
   cursor: pointer;
 }
+
+.loginbar .icon-twitter-sign:hover {
+    color: #9AE4E8;
+}
+
+.loginbar .icon-facebook-sign:hover {
+    color: #3B5998;
+}
