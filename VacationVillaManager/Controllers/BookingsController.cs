@@ -346,6 +346,10 @@ namespace VacationVillaManager.Controllers
                 var thumbwidename = randomName + ".thumbwide" + extension;
                 thumbwide.Save(path + thumbwidename);
 
+                regular.Dispose();
+                thumb.Dispose();
+                thumbwide.Dispose();
+
                 return Json(new { success = true, path = filename, thumb = thumbname, thumbwide = thumbwidename, name = qqfile }, "text/html");
 
                 //System.IO.File.WriteAllBytes(file, buffer);

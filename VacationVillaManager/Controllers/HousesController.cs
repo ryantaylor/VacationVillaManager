@@ -204,11 +204,12 @@ namespace VacationVillaManager.Controllers
                     {
                         if (p.URL == null)
                         {
-                            db.Entry(p).State = EntityState.Deleted;
-                            string path = Request.PhysicalApplicationPath + "/Images/houses/";
+                            string path = Request.PhysicalApplicationPath + "Images\\houses\\";
+                            p.URL = p.URLThumb.Replace(".thumb", "");
                             System.IO.File.Delete(path + p.URL);
                             System.IO.File.Delete(path + p.URLThumb);
                             System.IO.File.Delete(path + p.URLThumbWide);
+                            db.Entry(p).State = EntityState.Deleted;
                         }
                         else
                             db.Entry(p).State = EntityState.Modified;
@@ -220,8 +221,8 @@ namespace VacationVillaManager.Controllers
                             p.House = h;
                             db.Entry(p).State = EntityState.Added;
 
-                            string temp = Request.PhysicalApplicationPath + "/Images/temp/";
-                            string dest = Request.PhysicalApplicationPath + "/Images/houses/";
+                            string temp = Request.PhysicalApplicationPath + "Images\\temp\\";
+                            string dest = Request.PhysicalApplicationPath + "Images\\houses\\";
                             System.IO.File.Move(temp + p.URL, dest + p.URL);
                             System.IO.File.Move(temp + p.URLThumb, dest + p.URLThumb);
                             System.IO.File.Move(temp + p.URLThumbWide, dest + p.URLThumbWide);
