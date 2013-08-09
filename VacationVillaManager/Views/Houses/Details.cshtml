@@ -24,84 +24,78 @@
 <!--=== Content Part ===-->
 <div class="container">
     <div class="row-fluid margin-bottom-20">
-        <div class="span7">
-            <!-- Carousel -->
-            <div class="ad-gallery span12">
-                <div class="ad-image-wrapper"></div>
-                <div class="ad-controls"></div>
-                <div class="ad-nav">
-                    <div class="ad-thumbs">
-                        <ul class="ad-thumb-list">
-                            @foreach (var photo in Model.Photos)
-                            {
-                                <li>
-                                    <a href="/Images/houses/@photo.URL">
-                                        <img src="/Images/houses/@photo.URLThumbWide" title="@Model.Name" alt="@photo.Name" />
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- //End Carousel -->
-            <div class="span12" style="margin-left: 0; margin-top: 35px;">
-                <div class="span3" style="margin-left: 0;">
-                    <div class="span12 pricing">
-                        <div class="pricing-head">
-                            <h3>Pricing <span>@Model.Name</span></h3>
-                            <h4><i>$</i>@Model.Rate <i>/night</i></h4>
-                        </div>
-                        <ul class="pricing-content unstyled">
-                            @foreach (var cost in Model.Costs)
-                            {
-                                var frequency = "";
-                                if (cost.CalculateDaily)
-                                {
-                                    frequency = "per day";
-                                }
-                                else
-                                {
-                                    frequency = "per booking";
-                                }
-                    
-                                <li><i class="icon-star"></i> @cost.Name - $@cost.Amount @frequency</li>
-                            }
-                        </ul>
-                        <div class="pricing-footer">
-                            <p>Prices listed subject to change, and do not include 12% Florida sales tax.</p>
-                            <a href="#" id="viewSpecials" class="btn-u btn-u-small btn-u-red">View Specials</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="availability" class="span9">
-                    <div class="headline"><h3>Availability</h3></div>
-                    <div class="bx-wrapper">
-                        <div class="bx-controls-direction">
-                            <a id="calendar-prev" class="bx-prev" href="#"></a>
-                            <a id="calendar-next" class="bx-next" href="#"></a>
-                        </div>
-                    </div>
+        <div class="ad-gallery span7">
+            <div class="ad-image-wrapper"></div>
+            <div class="ad-controls"></div>
+            <div class="ad-nav">
+                <div class="ad-thumbs">
+                    <ul class="ad-thumb-list">
+                        @foreach (var photo in Model.Photos)
+                        {
+                            <li>
+                                <a href="/Images/houses/@photo.URL">
+                                    <img src="/Images/houses/@photo.URLThumbWide" title="@Model.Name" alt="@photo.Name" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="span5">
-            <div class="span12">
-        	    <h3>@Model.Name</h3>
-                <p>@Html.Raw(Model.Description)</p>
+            <h3>@Model.Name</h3>
+            <div id="descdump">@Html.Raw(Model.Description)</div>
                         
-                <!-- Testimonial Block -->
-                <blockquote class="hero">
-                    <p>Amazing Villa! I loved it! Would definitely recommend, and will be returning soon!</p>
-                    <small>Excited Villa Guest</small>
-                </blockquote>
-	            <!--//End Testimonial Block -->
-                <p><a class="btn-u btn-u-large" href="#inquiry" role="button" data-toggle="modal">BOOKING INQUIRY</a></p>
+            <!-- Testimonial Block -->
+            <blockquote class="hero">
+                <p>Amazing Villa! I loved it! Would definitely recommend, and will be returning soon!</p>
+                <small>Excited Villa Guest</small>
+            </blockquote>
+	        <!--//End Testimonial Block -->
+            <p><a class="btn-u btn-u-large" href="#inquiry" role="button" data-toggle="modal">BOOKING INQUIRY</a></p>
+        </div>
+    </div>
+    <div class="row-fluid margin-bottom-20">
+        <div class="span2">
+            <div class="span12 pricing">
+                <div class="pricing-head">
+                    <h3>Pricing <span>@Model.Name</span></h3>
+                    <h4><i>$</i>@Model.Rate <i>/night</i></h4>
+                </div>
+                <ul class="pricing-content unstyled">
+                    @foreach (var cost in Model.Costs)
+                    {
+                        var frequency = "";
+                        if (cost.CalculateDaily)
+                        {
+                            frequency = "per day";
+                        }
+                        else
+                        {
+                            frequency = "per booking";
+                        }
+                    
+                        <li><i class="icon-star"></i> @cost.Name - $@cost.Amount @frequency</li>
+                    }
+                </ul>
+                <div class="pricing-footer">
+                    <p>Prices listed subject to change, and do not include 12% Florida sales tax.</p>
+                    <a href="#" id="viewSpecials" class="btn-u btn-u-small btn-u-red">View Specials</a>
+                </div>
             </div>
-            <div id="location" class="span12" style="margin-left: 0;">
-                <div class="headline"><h3>Location</h3></div>
-                <div id="map" class="map map-box map-box-space"></div>
+        </div>
+        <div id="availability" class="span5">
+            <div class="headline"><h3>Availability</h3></div>
+            <div class="bx-wrapper">
+                <div class="bx-controls-direction">
+                    <a id="calendar-prev" class="bx-prev" href="#"></a>
+                    <a id="calendar-next" class="bx-next" href="#"></a>
+                </div>
             </div>
+        </div>
+        <div id="location" class="span5">
+            <div class="headline"><h3>Location</h3></div>
+            <div id="map" class="map map-box map-box-space"></div>
         </div>
     </div>
 
@@ -212,7 +206,7 @@
                 beforeShowDay: showBooking
             });
 
-            $('#availability').css({ fontSize: '8.3px' });
+            $('#availability').css({ fontSize: '8.2px' });
 
             $('#calendar-prev').click(function (e) {
                 e.preventDefault();

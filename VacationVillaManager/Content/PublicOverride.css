@@ -43,7 +43,7 @@ h5 > a:hover {
 }
 
 .map-box {
-    height: 475px;
+    height: 335px;
 }
 
 .pricing:hover {
@@ -89,7 +89,7 @@ h5 > a:hover {
 }
 
 .ad-gallery .ad-image-wrapper {
-    height: 355px !important;
+    height: 360px !important;
 }
 
 .ad-info {
@@ -121,5 +121,10 @@ h5 > a:hover {
 }
 
 #availability {
+    overflow: auto;
+}
+
+#descdump {
+    max-height: 233px;
     overflow: auto;
 }
