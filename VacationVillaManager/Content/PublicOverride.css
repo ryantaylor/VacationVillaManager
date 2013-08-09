@@ -115,3 +115,11 @@ h5 > a:hover {
 .loginbar .icon-facebook-sign:hover {
     color: #3B5998;
 }
+
+.ui-datepicker-inline {
+    margin: 0 auto;
+}
+
+#availability {
+    overflow: auto;
+}
