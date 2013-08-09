@@ -121,17 +121,36 @@
 			        </div>
 
 			        <div class="span4">
-	                    <!-- Newsletter -->
-		                <div class="headline"><h3>Contact Us</h3></div>	
-                        @using (Html.BeginForm()) {
+                        <!-- Contact -->
+                        <div class="headline"><h3>Contact Us</h3></div>	
+                        <div class="span6" style="margin-left: 0;">
+                            @using (Html.BeginForm()) {
+                                <table>
+                                    <tr></tr>
+                                </table>
+                                @Html.TextBox("ContactName", null, new { placeholder = "Name", style = "width: 90%;" })
+                                @Html.TextBox("ContactEmail", null, new { placeholder = "Email Address (Required)", style = "width: 90%;" })
+                                @Html.TextArea("ContactMessage", null, new { placeholder = "Your Message", style = "width: 90%;" })<br />
+                                <button class="btn-u" style="width: 98%;">Send</button>
+                            }
+                        </div>
+                        <div class="span6" style="">
+                            <div class="headline"><h4 style="line-height: 23px;">Our Info</h4></div>
                             <table>
-                                <tr></tr>
+                                <tr>
+                                    <td style="text-align: center;"><i class="icon-user"></i></td>
+                                    <td style="padding-left: 10px;">Lisa Sedore</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;"><i class="icon-envelope"></i></td>
+                                    <td style="padding-left: 10px;"><a href="mailto:lisa@vacationvillamanager.com">Email</a></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;"><i class="icon-phone"></i></td>
+                                    <td style="padding-left: 10px;"><a href="tel:19053342458">+1-905-334-2458</a></td>
+                                </tr>
                             </table>
-                            @Html.TextBox("ContactName", null, new { placeholder = "Name", style = "width: 97%;" })
-                            @Html.TextBox("ContactEmail", null, new { placeholder = "Email Address (Required)", style = "width: 97%;" })
-                            @Html.TextArea("ContactMessage", null, new { placeholder = "Your Message", style = "width: 97%;" })<br />
-                            <button class="btn-u" style="width: 101%;">Send</button>
-                        }
+                        </div>
 			        </div>
 		        </div>	
 	        </div>
