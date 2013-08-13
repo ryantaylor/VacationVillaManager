@@ -128,3 +128,7 @@ h5 > a:hover {
     max-height: 233px;
     overflow: auto;
 }
+
+.loginbar {
+    z-index: 200;
+}
