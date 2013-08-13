@@ -78,7 +78,7 @@
                                 <li><a href="#">Specials</a></li>
                                 <li><a href="#">Blog</a></li>
                                 <!--<li>@Html.ActionLink("About", "About", "Home")</li>-->
-                                <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                                <li><a href="#contact_form" id="contact_link">Contact Us</a></li>
                                 
                             </ul>
                         </div>
@@ -123,7 +123,7 @@
 			        <div class="span4">
                         <!-- Contact -->
                         <div class="headline"><h3>Contact Us</h3></div>	
-                        <div class="span6" style="margin-left: 0;">
+                        <div class="span6" id="contact_form" style="margin-left: 0;">
                             @using (Html.BeginForm()) {
                                 <table>
                                     <tr></tr>
@@ -193,6 +193,10 @@
                     }
                 });
             }
+
+            $('#contact_link').click(function () {
+                setTimeout(function () { $('#ContactName').focus(); }, 10);
+            });
         });
     </script>
 
