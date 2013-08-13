@@ -191,6 +191,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\Cost.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Inquiry.cs" />
@@ -1013,6 +1014,7 @@
     <Content Include="Views\Shared\_BootstrapLayout.public.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\Shared\_ContactForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

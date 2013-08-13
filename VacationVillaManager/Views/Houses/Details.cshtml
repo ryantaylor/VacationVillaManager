@@ -109,9 +109,13 @@
             @Html.Partial("_SendInquiry", new Inquiry())
         </div>
         <div class="modal-footer">
-            <img src="~/Content/ajaxload.gif" id="spinner" />
-            <span id="inquiry-status"></span>
-            <label for="submitInquiry" class="btn-u btn-warning">Submit</label>
+            <!--<img src="~/Content/ajaxload.gif" id="spinner" />
+            <span id="inquiry-status"></span>-->
+            <label for="submitInquiry" class="btn-u btn-warning">
+                <i id="inquiry_spinner" class="icon-spinner icon-spin" style="display: none;"></i>
+                <i id="inquiry_success" class="icon-ok" style="display: none;"></i>
+                <i id="inquiry_failure" class="icon-remove" style="display: none;"></i>
+                Submit</label>
         </div>
     </div>
 </div>
@@ -127,7 +131,6 @@
     @Scripts.Render("~/Scripts/daterangepicker/daterangepicker.js")
     @Styles.Render("~/Scripts/daterangepicker/daterangepicker.css")
     @Scripts.Render("~/Scripts/daterangepicker/moment.js")
-    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     @Scripts.Render("~/Scripts/adgallery/jquery.ad-gallery.js")
     @Styles.Render("~/Scripts/adgallery/jquery.ad-gallery.css")
     @Scripts.Render("~/Scripts/fancybox/jquery.fancybox-1.3.4.js")

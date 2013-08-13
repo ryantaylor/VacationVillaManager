@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using VacationVillaManager.Models;
@@ -37,6 +38,25 @@ namespace VacationVillaManager.Controllers
         {
             if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
             return View();
+        }
+
+        public bool SendContact(ContactModel model)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("mail.lin.arvixe.com");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("info@vacationvillamanager.com", "webmastervvm");
+
+            mail.From = new MailAddress("info@vacationvillamanager.com");
+            mail.To.Add("ryan.taylor9@gmail.com");
+            mail.Subject = "VVM - Message from " + model.Email;
+            mail.Body = "Name: " + model.Name + "<br />" +
+                        "Email: " + model.Email + "<br />" +
+                        "Message: " + model.Message;
+            mail.IsBodyHtml = true;
+
+            SmtpServer.Send(mail);
+            mail.Dispose();
+            return true;
         }
     }
 }
