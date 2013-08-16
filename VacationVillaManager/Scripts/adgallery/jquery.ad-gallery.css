@@ -138,14 +138,14 @@
       left: -15px;
       width: 13px;
       display: block;
-      background: url(ad_scroll_back.png) 0px 22px no-repeat;
+      background: url(ad_scroll_back.png) 0px 19px no-repeat;
     }
     .ad-gallery .ad-forward {
       cursor: pointer;
       display: block;
       right: -15px;
       width: 13px;
-      background: url(ad_scroll_forward.png) 0px 22px no-repeat;
+      background: url(ad_scroll_forward.png) 0px 19px no-repeat;
     }
     .ad-gallery .ad-nav .ad-thumbs {
       overflow: hidden;
