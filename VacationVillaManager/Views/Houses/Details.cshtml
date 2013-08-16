@@ -6,6 +6,8 @@
     Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
     var firstImg = true;
     var imgClass = "item";
+    var specials = (List<Special>)ViewData["Specials"];
+    var specialsCosts = (List<Cost>)ViewData["SpecialsCosts"];
 }
 
 <!--=== Breadcrumbs ===-->
@@ -80,7 +82,7 @@
                 </ul>
                 <div class="pricing-footer">
                     <p>Prices listed subject to change, and do not include 12% Florida sales tax.</p>
-                    <a href="#" id="viewSpecials" class="btn-u btn-u-small btn-u-red">View Specials</a>
+                    <a href="#specials" id="viewSpecials" class="btn-u btn-u-small btn-u-red" data-toggle="modal">View Specials</a>
                 </div>
             </div>
         </div>
@@ -118,6 +120,83 @@
                 Submit</label>
         </div>
     </div>
+
+    <!-- Specials Modal -->
+    <div id="specials" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="inquiryLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="specials-label">Specials - @Model.Name</h3>
+        </div>
+        <div class="modal-body">
+            @if (specials.Count == 0)
+            {
+                <p>No specials! :(</p>
+            }
+            else
+            {
+                <div id="specials-acc" class="accordion acc-home">
+                    @foreach (Special special in specials)
+                    {
+                        var rateClass = "";
+                        if (special.Rate < Model.Rate)
+                        {
+                            rateClass = "success";
+                        }
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" href="#collapse-@special.ID" data-parent="#specials-acc" data-toggle="collapse">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</a>
+                            </div>
+                            <div id="collapse-@special.ID" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Expense</th>
+                                                <th>Original</th>
+                                                <th>Special</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="@rateClass">
+                                                <td>Rent</td>
+                                                <td>$@Model.Rate</td>
+                                                <td>$@special.Rate</td>
+                                            </tr>
+                                            @foreach (Cost specialCost in specialsCosts)
+                                            {
+                                                if (specialCost.Special.ID == special.ID)
+                                                {
+                                                    foreach (Cost normalCost in Model.Costs)
+                                                    {
+                                                        if (specialCost.Name.Equals(normalCost.Name))
+                                                        {
+                                                            var trClass = "";
+                                                            if (specialCost.Amount < normalCost.Amount)
+                                                            {
+                                                                trClass = "success";   
+                                                            }
+                                                            <tr class="@trClass">
+                                                                <td>@normalCost.Name</td>
+                                                                <td>$@normalCost.Amount</td>
+                                                                <td>$@specialCost.Amount</td>
+                                                            </tr>   
+                                                        }
+                                                    }
+                                                }   
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-u" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
 </div>
 
 
@@ -147,10 +226,24 @@
             var bookings = [];
             var bookingsRaw = @Html.Raw(Json.Encode(ViewData["Bookings"]))
 
-                $('#inquiry').on('hidden', function () {
-                    $('#inquiry-status').text('');
-                    $('#inquiry-status').hide();
-                });
+            $.each(bookingsRaw, function (index, booking) {
+                var firstSplit = booking.StartDate.split("(");
+                var temp = firstSplit[1];
+                var secondSplit = temp.split(")");
+                var startMilli = secondSplit[0];
+                var startDate = new Date();
+                startDate.setTime(startMilli);
+
+                var firstSplit = booking.EndDate.split("(");
+                var temp = firstSplit[1];
+                var secondSplit = temp.split(")");
+                var endMilli = secondSplit[0];
+                var endDate = new Date();
+                endDate.setTime(endMilli);
+
+                var entry = [startDate, endDate];
+                bookings.push(entry);
+            });
 
             $('.ad-gallery').adGallery({
                 effect: 'fade',
@@ -166,25 +259,6 @@
                         });
                     }
                 }
-            });
-
-            $.each(bookingsRaw, function (index, booking) {
-                var firstSplit = booking.StartDate.split("(");
-                var temp = firstSplit[1];
-                var secondSplit = temp.split(")");
-                var startMilli = secondSplit[0];
-                var startDate = new Date();
-                startDate.setTime(startMilli);
-                
-                var firstSplit = booking.EndDate.split("(");
-                var temp = firstSplit[1];
-                var secondSplit = temp.split(")");
-                var endMilli = secondSplit[0];
-                var endDate = new Date();
-                endDate.setTime(endMilli);
-
-                var entry = [startDate, endDate];
-                bookings.push(entry);
             });
 
             $('#DateRange').daterangepicker({
