@@ -189,6 +189,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AvailabilityModel.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\ContactModel.cs" />
@@ -1016,6 +1017,7 @@
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\Shared\_ContactForm.cshtml" />
     <Content Include="Views\Home\Specials.cshtml" />
+    <Content Include="Views\Houses\Availability.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

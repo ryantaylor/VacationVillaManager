@@ -61,6 +61,25 @@ namespace VacationVillaManager.Controllers
         }
 
         //
+        // GET: /House/Availability
+
+        public ActionResult Availability()
+        {
+            if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
+
+            return View();
+        }
+
+        //
+        // POST: /House/Availability
+
+        [HttpPost]
+        public PartialViewResult Availability(AvailabilityModel model)
+        {
+            return PartialView();
+        }
+
+        //
         // GET: /House/Create
 
         [Authorize]

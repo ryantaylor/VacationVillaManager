@@ -1,0 +1,59 @@
+﻿@model VacationVillaManager.Models.AvailabilityModel
+
+@{
+    ViewBag.Title = "Availability";
+    Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
+
+    var options = new AjaxOptions()
+                        {
+                            Url = Url.Action("Availability", "Houses"),
+                            LoadingElementId = "avail_spinner",
+                            OnBegin = "$('#avail_success').hide(); $('#avail_failure').hide();",
+                            OnSuccess = "$('#avail_success').show();",
+                            OnFailure = "$('#avail_failure').show();"
+                        };
+}
+
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-40">
+	<div class="container">
+        <h1 class="pull-left">Availability</h1>
+        <ul class="pull-right breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+            <li class="active">Villas</li>
+        </ul>
+    </div><!--/container-->
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<div class="container">
+    <div class="row-fluid margin-bottom-20">
+        <div class="span12">
+            <p class="lead"><em>Search through <span style="color: #72C02C;">Vacation Villa Manager</span>'s many vacation villas and find one that works for you! To view calendars of available dates, please select a villa from the Villas tab above.</em></p>
+        </div>
+        <div class="span12" style="margin-left: 0;">
+            @using (Ajax.BeginForm(options))
+            {
+                <div class="input-append" style="margin-bottom: 0;">
+                    @Html.TextBox("DateRange", null, new { placeholder = "Interested Dates" })
+                    @Html.HiddenFor(model => model.StartDate, new { id = "start-date" })
+                    @Html.HiddenFor(model => model.EndDate, new { id = "end-date" })
+                    <button id="avail_submit" class="btn-u">
+                        Search Villas
+                        <i id="avail_spinner" class="icon-spinner icon-spin" style="display: none;"></i>
+                        <i id="avail_success" class="icon-ok" style="display: none;"></i>
+                        <i id="avail_failure" class="icon-remove" style="display: none;"></i>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}
