@@ -176,3 +176,21 @@ a.btn-reserve:hover {
 	text-decoration:none;
 	box-shadow:0 0 5px #c0c2c1;
 } 
+
+.servive-block .span6 {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border-radius: 2px 2px 2px 2px;
+    margin-bottom: 20px;
+    padding: 20px 30px;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.servive-block .span6:hover {
+	border-radius:2px;
+	box-shadow:0 0 8px #ddd;
+}
+
+.servive-block .span6:hover h3 {
+    color: #72c02c;
+}
+
