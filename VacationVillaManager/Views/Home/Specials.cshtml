@@ -44,7 +44,35 @@
                                 if (special.House.ID == house.ID)
                                 {
                                     areSpecials = true;
-                                    var tip = "<span class='tip'>Test</span>";
+                                    var tip = "<span class='tip'>Rate: ";
+                                    
+                                    if (special.Rate < house.Rate)
+                                    {
+                                        tip = tip + "<strike>$" + house.Rate + "</strike> $" + special.Rate;
+                                    }
+                                    else
+                                    {
+                                        tip = tip + "$" + house.Rate + "<br />";   
+                                    }
+                                    
+                                    foreach (Cost specCost in special.Costs)
+                                    {
+                                        foreach (Cost houseCost in house.Costs)
+                                        {
+                                            if (specCost.Name.Equals(houseCost.Name))
+                                            {
+                                                if (specCost.Amount < houseCost.Amount)
+                                                {
+                                                    tip = tip + "<br />" + specCost.Name + ": <strike>$" + houseCost.Amount + "</strike> $" + specCost.Amount;   
+                                                }   
+                                                else
+                                                {
+                                                    tip = tip + "<br />" + houseCost.Name + ": $" + houseCost.Amount;   
+                                                }
+                                            }   
+                                        }
+                                    }
+                                    
             @:                        <tr class="tip_trigger">
             @:                            <td>@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
             @:                            <td><em>(Hover over for rate information)</em>@Html.Raw(tip)</td>
