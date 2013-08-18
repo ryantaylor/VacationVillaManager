@@ -67,7 +67,7 @@ namespace VacationVillaManager.Controllers
         {
             if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
 
-            return View();
+            return View(new AvailabilityModel());
         }
 
         //
@@ -76,7 +76,17 @@ namespace VacationVillaManager.Controllers
         [HttpPost]
         public PartialViewResult Availability(AvailabilityModel model)
         {
-            return PartialView();
+            List<House> activeHouses = db.Houses.Where(m => m.Active == true).ToList();
+            List<House> freeHouses = new List<House>();
+            foreach (House h in activeHouses)
+            {
+                if (House.IsAvailableInRange(model.StartDate, model.EndDate, h.ID))
+                {
+                    h.Photos = db.Photos.Where(m => m.House.ID == h.ID && m.IsHeadline == true).ToList();
+                    freeHouses.Add(h);
+                }
+            }
+            return PartialView("_AvailabilityResults", freeHouses);
         }
 
         //

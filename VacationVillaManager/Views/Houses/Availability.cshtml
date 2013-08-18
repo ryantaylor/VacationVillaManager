@@ -8,8 +8,9 @@
                         {
                             Url = Url.Action("Availability", "Houses"),
                             LoadingElementId = "avail_spinner",
-                            OnBegin = "$('#avail_success').hide(); $('#avail_failure').hide();",
-                            OnSuccess = "$('#avail_success').show();",
+                            UpdateTargetId = "resultsPane",
+                            OnBegin = "$('#avail_success').hide(); $('#avail_failure').hide(); $('#resultsPane').slideUp();",
+                            OnSuccess = "$('#avail_success').show(); $('#resultsPane').slideDown();",
                             OnFailure = "$('#avail_failure').show();"
                         };
 }
@@ -36,8 +37,8 @@
             {
                 <div class="input-append" style="margin-bottom: 0;">
                     @Html.TextBox("DateRange", null, new { placeholder = "Interested Dates" })
-                    @Html.HiddenFor(model => model.StartDate, new { id = "start-date" })
-                    @Html.HiddenFor(model => model.EndDate, new { id = "end-date" })
+                    @Html.HiddenFor(model => model.StartDate, new { id = "startDate" })
+                    @Html.HiddenFor(model => model.EndDate, new { id = "endDate" })
                     <button id="avail_submit" class="btn-u">
                         Search Villas
                         <i id="avail_spinner" class="icon-spinner icon-spin" style="display: none;"></i>
@@ -47,13 +48,33 @@
                 </div>
             }
         </div>
+        <div class="span12" id="resultsPane" style="margin-left: 0; display: none;">
+
+        </div>
     </div>
 </div>
 
 @section Scripts {
+    @Scripts.Render("~/Scripts/daterangepicker/daterangepicker.js")
+    @Styles.Render("~/Scripts/daterangepicker/daterangepicker.css")
+    @Scripts.Render("~/Scripts/daterangepicker/moment.js")
     <script type="text/javascript">
         $(document).ready(function () {
-
+            $('#DateRange').daterangepicker({
+                // options here
+            },
+            function (start, end) {
+                if (start == null || end == null) {
+                    $('#DateRange').text("");
+                    $('#startDate').val("");
+                    $('#endDate').val("");
+                }
+                else {
+                    $('#DateRange').text(start.format('MMM D, YYYY') + " - " + end.format('MMM D, YYYY'));
+                    $('#startDate').val(start.format('MM/DD/YYYY'));
+                    $('#endDate').val(end.format('MM/DD/YYYY'));
+                }
+            });
         });
     </script>
 }

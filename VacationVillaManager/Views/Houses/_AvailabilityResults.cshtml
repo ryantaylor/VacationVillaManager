@@ -1,0 +1,31 @@
+﻿@model List<House>
+@using VacationVillaManager.Models;
+
+@if (Model.Count == 0)
+{
+    <p><em>There are no villas available over those dates! Try another set of dates or check the individual villa pages for up-to-date availability information.</em></p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Villa</th>
+                <th>Rate</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (House house in Model)
+            {
+                <tr>
+                    <td><img src="/Images/houses/@house.Photos[0].URLThumbWide" /></td>
+                    <td>@house.Name</td>
+                    <td>$@house.Rate</td>
+                    <td>@Html.ActionLink("View/Reserve Villa", "Details", "Houses", new { id = house.ID }, new { @class = "btn-u btn-u-small" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>   
+}
