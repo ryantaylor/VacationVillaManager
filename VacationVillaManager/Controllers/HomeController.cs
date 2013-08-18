@@ -40,6 +40,14 @@ namespace VacationVillaManager.Controllers
             return View();
         }
 
+        public ActionResult Specials()
+        {
+            if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
+            List<Special> specials = db.Specials.Where(m => m.EndDate > DateTime.Now).OrderBy(m => m.StartDate).ToList();
+            ViewData["Houses"] = db.Houses.Where(m => m.Active == true).ToList();
+            return View(specials);
+        }
+
         public bool SendContact(ContactModel model)
         {
             MailMessage mail = new MailMessage();

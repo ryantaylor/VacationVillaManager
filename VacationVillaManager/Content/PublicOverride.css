@@ -132,3 +132,27 @@ h5 > a:hover {
 .loginbar {
     z-index: 200;
 }
+
+.specials-btn-link .btn-specials {
+    position: absolute;
+    top: -60px;
+    z-index: 500;
+    right: 0;
+}
+
+.specials-btn-link {
+    position: relative;
+}
+
+.tip {
+	background: white;
+	display:none; /*--Hides by default--*/
+	padding:5px;
+	position:absolute;	z-index:1000;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+    border: solid black;
+    font-weight: bold;
+    font-style: italic;
+}

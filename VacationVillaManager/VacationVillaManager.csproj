@@ -1015,6 +1015,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\Shared\_ContactForm.cshtml" />
+    <Content Include="Views\Home\Specials.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
