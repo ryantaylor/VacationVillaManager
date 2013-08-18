@@ -156,3 +156,23 @@ h5 > a:hover {
     font-weight: bold;
     font-style: italic;
 }
+
+a.btn-reserve {
+	color:#fff;
+	font-size:16px;
+	cursor:pointer;
+	font-weight:bold;
+	border-radius:2px;
+	background:#72c02c;
+	display:inline-block;
+	text-decoration:none;
+	padding:12px 28px 9px;
+	text-transform:uppercase;
+	text-shadow:0 1px 0 #51a00b;
+}
+a.btn-reserve:hover {
+	color:#fff;
+	background:#68af28;
+	text-decoration:none;
+	box-shadow:0 0 5px #c0c2c1;
+} 

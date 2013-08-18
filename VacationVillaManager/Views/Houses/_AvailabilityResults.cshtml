@@ -10,8 +10,8 @@ else
     <table class="table table-hover">
         <thead>
             <tr>
-                <th></th>
-                <th>Villa</th>
+                <th style="width: 0;"></th>
+                <th class="pull-left">Villa</th>
                 <th>Rate</th>
                 <th></th>
             </tr>
@@ -20,10 +20,10 @@ else
             @foreach (House house in Model)
             {
                 <tr>
-                    <td><img src="/Images/houses/@house.Photos[0].URLThumbWide" /></td>
-                    <td>@house.Name</td>
-                    <td>$@house.Rate</td>
-                    <td>@Html.ActionLink("View/Reserve Villa", "Details", "Houses", new { id = house.ID }, new { @class = "btn-u btn-u-small" })</td>
+                    <td style="text-align: center;"><img src="/Images/houses/@house.Photos[0].URLThumbWide" /></td>
+                    <td style="vertical-align: middle;"><h3>@house.Name</h3></td>
+                    <td style="vertical-align: middle;"><h3>$@house.Rate</h3></td>
+                    <td style="vertical-align: middle; text-align: center;">@Html.ActionLink("View/Reserve Villa", "Details", "Houses", new { id = house.ID }, new { @class = "btn-reserve hover-effect" })</td>
                 </tr>
             }
         </tbody>
