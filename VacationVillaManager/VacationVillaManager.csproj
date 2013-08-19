@@ -199,6 +199,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\HouseManager.cs" />
     <Compile Include="Models\ManagerContext.cs" />
+    <Compile Include="Models\NewsletterModel.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\ReportModels\ReportComeGoModel.cs" />
@@ -1019,6 +1020,7 @@
     <Content Include="Views\Home\Specials.cshtml" />
     <Content Include="Views\Houses\Availability.cshtml" />
     <Content Include="Views\Houses\_AvailabilityResults.cshtml" />
+    <Content Include="Views\Shared\_NewsletterForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

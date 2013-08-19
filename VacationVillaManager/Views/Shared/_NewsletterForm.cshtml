@@ -1,0 +1,25 @@
+﻿@model VacationVillaManager.Models.NewsletterModel
+
+@{
+    var options = new AjaxOptions()
+                        {
+                            Url = Url.Action("SendNewsletter", "Home"),
+                            LoadingElementId = "newsletter_spinner",
+                            OnBegin = "$('#newsletter_success').hide(); $('#newsletter_failure').hide();",
+                            OnSuccess = "$('#newsletter_success').show(); $('#newsletter_submit').prop('disabled', true);",
+                            OnFailure = "$('#newsletter_failure').show();"
+                        };
+}
+
+@using (Ajax.BeginForm("SendContact", "Home", null, options, new { autocomplete = "off" }))
+{
+    <div class="input-append">
+        @Html.TextBoxFor(model => model.Email, new { @class = "input-medium", placeholder = "Email Address" })
+        <button id="newsletter_submit" class="btn-u">
+            Subscribe
+            <i id="newsletter_spinner" class="icon-spinner icon-spin" style="display: none;"></i>
+            <i id="newsletter_success" class="icon-ok" style="display: none;"></i>
+            <i id="newsletter_failure" class="icon-remove" style="display: none;"></i>
+        </button>
+    </div>
+}

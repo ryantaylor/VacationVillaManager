@@ -104,20 +104,17 @@
 			
 			        <div class="span4">
                         <div class="posts">
-                            <div class="headline"><h3>Recent Blog Entries</h3></div>
-                            <p class="margin-bottom-25">Coming Soon!</p>
-                            
                             <!-- Newsletter -->
 		                    <div class="headline"><h3>Newsletter</h3></div>	
 				            <p>Subscribe to our newsletter and stay up to date with the latest news and deals!</p>
-				            <form class="form-inline">
-					            <div class="input-append">
-						            <input type="text" placeholder="Email Address" class="input-medium">
-						            <button class="btn-u">Subscribe</button>
-					            </div>
-				            </form>		
+				            @Html.Partial("_NewsletterForm", new NewsletterModel())	
+                            
+                            <div class="headline"><h3>Stay Connected</h3></div>
+                            <ul class="social-icons">
+                                <li><a class="social_facebook" data-original-title="Facebook" href="https://www.facebook.com/pages/Vacation-Villa-Manager/1396924907197483"></a></li>
+                                <li><a class="social_twitter" data-original-title="Twitter" href="https://twitter.com/VacaVillaMgr"></a></li>
+                            </ul>
                         </div>
-                        
 			        </div>
 
 			        <div class="span4">
