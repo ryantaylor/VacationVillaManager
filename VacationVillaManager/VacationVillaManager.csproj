@@ -254,6 +254,13 @@
     <Content Include="Content\font-awesome\scss\_variables.scss" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\markers\beach.png" />
+    <Content Include="Content\markers\footprint.png" />
+    <Content Include="Content\markers\golf.png" />
+    <Content Include="Content\markers\house.png" />
+    <Content Include="Content\markers\park.png" />
+    <Content Include="Content\markers\shopping.png" />
+    <Content Include="Content\markers\space.png" />
     <Content Include="Content\PublicOverride.css" />
     <Content Include="Content\reserved.png" />
     <Content Include="Content\themes\base\jquery.ui.datepicker.calendar.css" />
