@@ -169,7 +169,7 @@
 
 <script type="text/javascript">
         $(document).ready(function () {
-            /*var url = window.location.pathname;
+            var url = window.location.pathname;
             if (url == "/") { }
             else {
                 var substr = url.split('/');
@@ -182,28 +182,11 @@
                             $(this).parent().parent().parent().addClass('active');
                     }
                 });
-            }*/
+            }
 
             $('#contact_link').click(function () {
                 setTimeout(function () { $('#ContactName').focus(); }, 10);
             });
-
-            window.onfocus = function () {
-                var url = window.location.pathname;
-                if (url == "/") { }
-                else {
-                    var substr = url.split('/');
-                    var urlaspx = substr[substr.length - 1];
-                    $('.nav').find('.active').removeClass('active');
-                    $('.nav li a').each(function () {
-                        if ($(this).attr('href') == url) {
-                            $(this).parent().addClass('active');
-                            if (substr[1] == "Houses")
-                                $(this).parent().parent().parent().addClass('active');
-                        }
-                    });
-                }
-            }
         });
     </script>
 
