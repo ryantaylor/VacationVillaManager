@@ -194,3 +194,10 @@ a.btn-reserve:hover {
     color: #72c02c;
 }
 
+.attraction-label {
+    position: absolute;
+}
+
+.attractions-area a {
+    font-size: 1.4em;
+}

@@ -56,6 +56,12 @@ namespace VacationVillaManager.Controllers
             return View(specials);
         }
 
+        public ActionResult Attractions()
+        {
+            if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
+            return View();
+        }
+
         public bool SendContact(ContactModel model)
         {
             MailMessage mail = new MailMessage();

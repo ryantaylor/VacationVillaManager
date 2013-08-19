@@ -1021,6 +1021,7 @@
     <Content Include="Views\Houses\Availability.cshtml" />
     <Content Include="Views\Houses\_AvailabilityResults.cshtml" />
     <Content Include="Views\Shared\_NewsletterForm.cshtml" />
+    <Content Include="Views\Home\Attractions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
