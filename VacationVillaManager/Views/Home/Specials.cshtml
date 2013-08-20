@@ -22,71 +22,85 @@
 
 <!--=== Content Part ===-->
 <div class="container">
-    @foreach (House house in houses)
+
+    @if (houses.Count < 1)
     {
-        if (side == 0)
+        <div class="row-fluid">
+            <div class="span12">
+                <p class="lead"><em>There are currently no specials listed!</em></p>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (House house in houses)
         {
-            @:<div class="row-fluid servive-block">
-            @:    <div class="span6">
-            @:        <div class="headline"><h3 style="margin-top: -15px;">@house.Name</h3></div>
-            @:        <div class="specials-btn-link">@Html.ActionLink("View/Reserve Villa", "Details", "Houses", new { id = house.ID }, new { @class = "btn-u btn-u-small btn-specials" })</div>
-            @:        <table class="table table-hover">
-            @:            <thead>
-            @:                <tr>
-            @:                    <th>Applicable Dates</th>
-            @:                    <th>Rate</th>
-            @:                </tr>
-            @:            </thead>
-            @:            <tbody>
-                            foreach (Special special in Model)
-                            {
-                                if (special.House.ID == house.ID)
-                                {                                   
-            @:                        <tr >
-            @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
-            @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
-            @:                        </tr>   
+            if (side == 0)
+            {
+                @:<div class="row-fluid servive-block">
+                @:    <div class="span6">
+                @:        <div class="headline"><h3 style="margin-top: -15px;">@house.Name</h3></div>
+                @:        <div class="specials-btn-link">@Html.ActionLink("View/Reserve Villa", "Details", "Houses", new { id = house.ID }, new { @class = "btn-u btn-u-small btn-specials" })</div>
+                @:        <table class="table table-hover">
+                @:            <thead>
+                @:                <tr>
+                @:                    <th>Applicable Dates</th>
+                @:                    <th>Rate</th>
+                @:                </tr>
+                @:            </thead>
+                @:            <tbody>
+                                foreach (Special special in Model)
+                                {
+                                    if (special.House.ID == house.ID)
+                                    {                                   
+                @:                        <tr >
+                @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
+                @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
+                @:                        </tr>   
+                                    }
                                 }
-                            }
-            @:            </tbody>
-            @:        </table>
-            @:    </div>
-                side++;
+                @:            </tbody>
+                @:        </table>
+                @:    </div>
+                    side++;
                 
-        }
-        else if (side == 1)
-        {
-            @:    <div class="span6">
-            @:        <div class="headline"><h3 style="margin-top: -15px;">@house.Name</h3></div>
-            @:        <div class="specials-btn-link">@Html.ActionLink("View/Reserve Villa", "Details", "Houses", new { id = house.ID }, new { @class = "btn-u btn-u-small btn-specials" })</div>
-            @:        <table class="table table-hover">
-            @:            <thead>
-            @:                <tr>
-            @:                    <th>Applicable Dates</th>
-            @:                    <th></th>
-            @:                </tr>
-            @:            </thead>
-            @:            <tbody>
-                            foreach (Special special in Model)
-                            {
-                                if (special.House.ID == house.ID)
-                                {                                   
-            @:                        <tr>
-            @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
-            @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
-            @:                        </tr>   
+            }
+            else if (side == 1)
+            {
+                @:    <div class="span6">
+                @:        <div class="headline"><h3 style="margin-top: -15px;">@house.Name</h3></div>
+                @:        <div class="specials-btn-link">@Html.ActionLink("View/Reserve Villa", "Details", "Houses", new { id = house.ID }, new { @class = "btn-u btn-u-small btn-specials" })</div>
+                @:        <table class="table table-hover">
+                @:            <thead>
+                @:                <tr>
+                @:                    <th>Applicable Dates</th>
+                @:                    <th></th>
+                @:                </tr>
+                @:            </thead>
+                @:            <tbody>
+                                foreach (Special special in Model)
+                                {
+                                    if (special.House.ID == house.ID)
+                                    {                                   
+                @:                        <tr>
+                @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
+                @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
+                @:                        </tr>   
+                                    }
                                 }
-                            }
-            @:            </tbody>
-            @:        </table>
-            @:    </div>
-            @:</div>
-            side--;
+                @:            </tbody>
+                @:        </table>
+                @:    </div>
+                @:</div>
+                side--;
+            }
         }
+
+        if (side == 1)
+        {
+            @:</div>
+        }
+    
     }
 
-    @if (side == 1)
-    {
-        @:</div>
-    }
 </div>
