@@ -24,7 +24,6 @@
 <div class="container">
     @foreach (House house in houses)
     {
-        var areSpecials = false;
         if (side == 0)
         {
             @:<div class="row-fluid servive-block">
@@ -35,55 +34,19 @@
             @:            <thead>
             @:                <tr>
             @:                    <th>Applicable Dates</th>
-            @:                    <th></th>
+            @:                    <th>Rate</th>
             @:                </tr>
             @:            </thead>
             @:            <tbody>
                             foreach (Special special in Model)
                             {
                                 if (special.House.ID == house.ID)
-                                {
-                                    areSpecials = true;
-                                    var tip = "<span class='tip'>Rate: ";
-                                    
-                                    if (special.Rate < house.Rate)
-                                    {
-                                        tip = tip + "<strike>$" + house.Rate + "</strike> $" + special.Rate;
-                                    }
-                                    else
-                                    {
-                                        tip = tip + "$" + house.Rate + "<br />";   
-                                    }
-                                    
-                                    foreach (Cost specCost in special.Costs)
-                                    {
-                                        foreach (Cost houseCost in house.Costs)
-                                        {
-                                            if (specCost.Name.Equals(houseCost.Name))
-                                            {
-                                                if (specCost.Amount < houseCost.Amount)
-                                                {
-                                                    tip = tip + "<br />" + specCost.Name + ": <strike>$" + houseCost.Amount + "</strike> $" + specCost.Amount;   
-                                                }   
-                                                else
-                                                {
-                                                    tip = tip + "<br />" + houseCost.Name + ": $" + houseCost.Amount;   
-                                                }
-                                            }   
-                                        }
-                                    }
-                                    
-            @:                        <tr class="tip_trigger">
-            @:                            <td>@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
-            @:                            <td><em>(Hover over for rate information)</em>@Html.Raw(tip)</td>
+                                {                                   
+            @:                        <tr >
+            @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
+            @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
             @:                        </tr>   
                                 }
-                            }
-                            if (!areSpecials)
-                            {
-            @:                    <tr>
-            @:                        <td>No specials listed for this villa.</td>
-            @:                    </tr>
                             }
             @:            </tbody>
             @:        </table>
@@ -107,20 +70,12 @@
                             foreach (Special special in Model)
                             {
                                 if (special.House.ID == house.ID)
-                                {
-                                    areSpecials = true;
-                                    var tip = "<span class='tip'>Test</span>";
-            @:                        <tr class="tip_trigger">
-            @:                            <td>@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
-            @:                            <td><em>(Hover over for rate information)</em>@Html.Raw(tip)</td>
+                                {                                   
+            @:                        <tr>
+            @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
+            @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
             @:                        </tr>   
                                 }
-                            }
-                            if (!areSpecials)
-                            {
-            @:                    <tr>
-            @:                        <td>No specials listed for this villa.</td>
-            @:                    </tr>
                             }
             @:            </tbody>
             @:        </table>
@@ -135,34 +90,3 @@
         @:</div>
     }
 </div>
-
-@section Scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Tooltips
-            $('.tip_trigger').hover(function () {
-                tip = $(this).find('.tip');
-                tip.show(); //Show tooltip
-            }, function () {
-                tip.hide(); //Hide tooltip		  
-            }).mousemove(function (e) {
-                var mousex = e.pageX + 20; //Get X coodrinates
-                var mousey = e.pageY + 20; //Get Y coordinates
-                var tipWidth = tip.width(); //Find width of tooltip
-                var tipHeight = tip.height(); //Find height of tooltip
-
-                //Distance of element from the right edge of viewport
-                var tipVisX = $(window).width() - (mousex + tipWidth);
-                //Distance of element from the bottom of viewport
-                var tipVisY = $(window).height() - (mousey + tipHeight);
-
-                if (tipVisX < 20) { //If tooltip exceeds the X coordinate of viewport
-                    mousex = e.pageX - tipWidth - 20;
-                } if (tipVisY < 20) { //If tooltip exceeds the Y coordinate of viewport
-                    mousey = e.pageY - tipHeight - 20;
-                }
-                tip.css({ top: mousey, left: mousex });
-            });
-        });
-    </script>
-}

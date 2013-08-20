@@ -40,18 +40,25 @@ namespace VacationVillaManager.Controllers
         public ActionResult Specials()
         {
             if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
-            List<Special> specials = db.Specials.Where(m => m.EndDate > DateTime.Now).OrderBy(m => m.StartDate).ToList();
-            foreach (Special s in specials)
-            {
-                s.Costs = db.Costs.Where(m => m.Special.ID == s.ID).ToList();
-            }
 
+            List<Special> specials = db.Specials.Where(m => m.EndDate > DateTime.Now).OrderBy(m => m.StartDate).ToList();
             List<House> houses = db.Houses.Where(m => m.Active == true).ToList();
+
+            bool hasSpecials;
+            List<House> housesWithSpecials = new List<House>();
+
             foreach (House h in houses)
             {
-                h.Costs = db.Costs.Where(m => m.House.ID == h.ID).ToList();
+                hasSpecials = false;
+                foreach (Special s in specials)
+                {
+                    if (s.House.ID == h.ID)
+                        hasSpecials = true;
+                }
+                if (hasSpecials)
+                    housesWithSpecials.Add(h);
             }
-            ViewData["Houses"] = houses;
+            ViewData["Houses"] = housesWithSpecials;
 
             return View(specials);
         }
