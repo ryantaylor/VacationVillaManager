@@ -45,6 +45,7 @@ namespace VacationVillaManager.Controllers
 
             house.Photos = db.Photos.Where(m => m.House.ID == id).ToList();
             house.Costs = db.Costs.Where(m => m.House.ID == id).ToList();
+            house.GuestReviews = db.GuestReviews.Where(m => m.House.ID == id).ToList();
 
             if (house == null)
             {

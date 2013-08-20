@@ -31,6 +31,7 @@ namespace VacationVillaManager.Models
 
         public List<Cost> Costs { get; set; }
         public List<Photo> Photos { get; set; }
+        public List<GuestReview> GuestReviews { get; set; }
 
         public HouseManager Owner { get; set; }
         public HouseManager ManagementCompany { get; set; }
