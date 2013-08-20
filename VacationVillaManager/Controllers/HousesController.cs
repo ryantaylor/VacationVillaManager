@@ -40,14 +40,8 @@ namespace VacationVillaManager.Controllers
                                                     EndDate = m.EndDate
                                                 });
             List<Special> specials = db.Specials.Where(m => m.House.ID == id && m.EndDate > DateTime.Now).OrderBy(m => m.StartDate).ToList();
-            List<Cost> specialsCosts = new List<Cost>();
-            foreach (Special s in specials)
-            {
-                specialsCosts.AddRange(db.Costs.Where(m => m.Special.ID == s.ID).ToList());
-            }
 
             ViewData["Specials"] = specials;
-            ViewData["SpecialsCosts"] = specialsCosts;
 
             house.Photos = db.Photos.Where(m => m.House.ID == id).ToList();
             house.Costs = db.Costs.Where(m => m.House.ID == id).ToList();

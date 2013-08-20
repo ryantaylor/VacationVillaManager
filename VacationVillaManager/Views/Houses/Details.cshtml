@@ -4,10 +4,7 @@
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
-    var firstImg = true;
-    var imgClass = "item";
     var specials = (List<Special>)ViewData["Specials"];
-    var specialsCosts = (List<Cost>)ViewData["SpecialsCosts"];
 }
 
 <!--=== Breadcrumbs ===-->
@@ -134,63 +131,26 @@
             }
             else
             {
-                <div id="specials-acc" class="accordion acc-home">
-                    @foreach (Special special in specials)
-                    {
-                        var rateClass = "";
-                        if (special.Rate < Model.Rate)
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Applicable Dates</th>
+                            <th>Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Special special in specials)
                         {
-                            rateClass = "success";
+                            if (special.House.ID == Model.ID)
+                            {                                   
+                                <tr >
+                                    <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
+                                    <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@Model.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
+                                </tr>   
+                            }
                         }
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" href="#collapse-@special.ID" data-parent="#specials-acc" data-toggle="collapse">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</a>
-                            </div>
-                            <div id="collapse-@special.ID" class="accordion-body collapse">
-                                <div class="accordion-inner">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Expense</th>
-                                                <th>Original</th>
-                                                <th>Special</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="@rateClass">
-                                                <td>Rent</td>
-                                                <td>$@Model.Rate</td>
-                                                <td>$@special.Rate</td>
-                                            </tr>
-                                            @foreach (Cost specialCost in specialsCosts)
-                                            {
-                                                if (specialCost.Special.ID == special.ID)
-                                                {
-                                                    foreach (Cost normalCost in Model.Costs)
-                                                    {
-                                                        if (specialCost.Name.Equals(normalCost.Name))
-                                                        {
-                                                            var trClass = "";
-                                                            if (specialCost.Amount < normalCost.Amount)
-                                                            {
-                                                                trClass = "success";   
-                                                            }
-                                                            <tr class="@trClass">
-                                                                <td>@normalCost.Name</td>
-                                                                <td>$@normalCost.Amount</td>
-                                                                <td>$@specialCost.Amount</td>
-                                                            </tr>   
-                                                        }
-                                                    }
-                                                }   
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
+                    </tbody>
+                </table>
             }
         </div>
         <div class="modal-footer">
