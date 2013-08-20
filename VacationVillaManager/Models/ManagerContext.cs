@@ -25,6 +25,7 @@ namespace VacationVillaManager.Models
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<HouseManager> HouseManagers { get; set; }
+        public DbSet<GuestReview> GuestReviews { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -194,6 +194,7 @@
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\Cost.cs" />
+    <Compile Include="Models\GuestReview.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\Inquiry.cs" />
     <Compile Include="Models\Location.cs" />
