@@ -116,6 +116,7 @@
                                             @Html.HiddenFor(model => Model.Photos[i].URL, new { id = "photo-url-" + i })
                                             @Html.HiddenFor(model => Model.Photos[i].URLThumb)
                                             @Html.HiddenFor(model => Model.Photos[i].URLThumbWide)
+                                            @Html.HiddenFor(model => Model.Photos[i].IsHeadline)
 
                                             <div id="photo-modal-@i" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-header">

@@ -867,7 +867,7 @@
     create: function() {
       this.start_link = $('<span class="ad-slideshow-start pull-right">'+ this.settings.start_label +'</span>');
       this.stop_link = $('<span class="ad-slideshow-stop pull-right">'+ this.settings.stop_label +'</span>');
-      this.countdown = $('<div class="progress progress-success" style="display: inline-block; width: 100px;"><div class="bar" style="width: 0%;"></div></div>');
+      this.countdown = $('<div class="progress progress-success" style="display: inline-block; width: 100px; height: 10px;"><div class="bar" style="width: 0%;"></div></div>');
       this.controls = $('<div class="ad-slideshow-controls"></div>');
       this.controls.append(this.countdown).append(this.stop_link).append(this.start_link);
       this.countdown.hide();
