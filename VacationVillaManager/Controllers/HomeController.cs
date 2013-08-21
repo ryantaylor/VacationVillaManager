@@ -82,7 +82,7 @@ namespace VacationVillaManager.Controllers
             SmtpServer.Credentials = new System.Net.NetworkCredential("info@vacationvillamanager.com", "webmastervvm");
 
             mail.From = new MailAddress("info@vacationvillamanager.com");
-            mail.To.Add("ryan.taylor9@gmail.com");
+            mail.To.Add("lisa@vacationvillamanager.com");
             mail.Subject = "VVM - Message from " + model.Email;
             mail.Body = "Name: " + model.Name + "<br />" +
                         "Email: " + model.Email + "<br />" +
@@ -101,7 +101,7 @@ namespace VacationVillaManager.Controllers
             SmtpServer.Credentials = new System.Net.NetworkCredential("info@vacationvillamanager.com", "webmastervvm");
 
             mail.From = new MailAddress("info@vacationvillamanager.com");
-            mail.To.Add("ryan.taylor9@gmail.com");
+            mail.To.Add("lisa@vacationvillamanager.com");
             mail.Subject = "Newsletter subscription - " + model.Email;
             mail.Body = model.Email + " has asked to receive the newsletter.";
             mail.IsBodyHtml = true;
