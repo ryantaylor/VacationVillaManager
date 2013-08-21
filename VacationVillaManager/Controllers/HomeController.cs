@@ -19,6 +19,12 @@ namespace VacationVillaManager.Controllers
             return View();
         }
 
+        public ActionResult Blog()
+        {
+            if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
+            return View();
+        }
+
         /*public ActionResult About()
         {
             if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
