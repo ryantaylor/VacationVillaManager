@@ -3,10 +3,22 @@
     Layout = "~/Views/Shared/_BootstrapLayout.public.cshtml";
 }
 
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-60">
+	<div class="container">
+        <h1 class="pull-left">Blog</h1>
+        <ul class="pull-right breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+            <li class="active">Blog</li>
+        </ul>
+    </div><!--/container-->
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
 <div class="container">
     <div class="row-fluid">
         <div class="span12">
-            <p class="lead"><em>Coming Soon!</em></p>
+            <p class="lead" style="color: #72C02C;"><em>Coming Soon!</em></p>
         </div>
     </div>
 </div>
