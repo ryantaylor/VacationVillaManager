@@ -28,6 +28,7 @@ namespace VacationVillaManager.Models
 
         public double Rate { get; set; }
         public List<Cost> Costs { get; set; }
+        public string PaymentHistory { get; set; }
 
         public double Subtotal { get; set; }
         public double Deposit { get; set; }

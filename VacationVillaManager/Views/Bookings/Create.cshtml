@@ -87,11 +87,10 @@
                 <div class="span4 well well-small">
                     <fieldset>
                         <legend>Other</legend>
-                        <div class="input-prepend input-append">
-                            <span class="add-on" style="padding-left: 19px; padding-right: 20px;">Deposit</span>
+                        <div class="input-prepend">
+                            <span class="add-on">Deposit</span>
                             <span class="add-on"><i class="icon-usd"></i></span>
                             @Html.TextBoxFor(model => model.Deposit, new { id = "deposit", placeholder = "Deposit", @class = "input-mini", @Value = "" })
-                            <span id="deposit-date" class="add-on">due at time of booking</span>
                         </div><br />
                         <div class="input-prepend input-append">
                             <span class="add-on">Force Grand Total</span>
