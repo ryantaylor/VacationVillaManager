@@ -18,6 +18,7 @@ namespace VacationVillaManager.Models
         public DateTime EndDate { get; set; }
         public double Rate { get; set; }
         public List<Cost> Costs { get; set; }
+        public string Notes { get; set; }
 
         public Boolean Active { get; set; }
     }

@@ -40,6 +40,10 @@
                             <span class="add-on"><i class="icon-calendar"></i></span>
                             @Html.TextBox("DateRange", @Model.StartDate.ToString("MMM dd yyyy") + " - " + @Model.EndDate.ToString("MMM dd yyyy"), new { id = "date-range", placeholder = "Specify a date range" })
                         </div>
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-pencil"></i></span>
+                            @Html.TextBoxFor(model => model.Notes, new { placeholder = "Notes" })
+                        </div>
                         <div id="special-info">
                             <hr style="border-bottom: 1px solid #e5e5e5; border-top: 0; margin-top: 10px;" />
                             <div class="input-prepend input-append">

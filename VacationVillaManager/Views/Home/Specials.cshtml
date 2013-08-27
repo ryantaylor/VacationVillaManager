@@ -46,6 +46,7 @@
                 @:                <tr>
                 @:                    <th>Applicable Dates</th>
                 @:                    <th>Rate</th>
+                @:                    <th></th>
                 @:                </tr>
                 @:            </thead>
                 @:            <tbody>
@@ -56,6 +57,7 @@
                 @:                        <tr >
                 @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
                 @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
+                @:                            <td style="vertical-align: middle;">@special.Notes</td>
                 @:                        </tr>   
                                     }
                                 }
@@ -74,6 +76,7 @@
                 @:            <thead>
                 @:                <tr>
                 @:                    <th>Applicable Dates</th>
+                @:                    <th>Rate</th>
                 @:                    <th></th>
                 @:                </tr>
                 @:            </thead>
@@ -85,6 +88,7 @@
                 @:                        <tr>
                 @:                            <td style="vertical-align: middle;">@special.StartDate.ToString("dd MMM yyyy") thru @special.EndDate.ToString("dd MMM yyyy")</td>
                 @:                            <td style="vertical-align: middle;"><span style="text-decoration:line-through;">$@house.Rate</span> <span class="lead" style="padding-left: 5px;">$@special.Rate</span></td>
+                @:                            <td style="vertical-align: middle;">@special.Notes</td>
                 @:                        </tr>   
                                     }
                                 }
