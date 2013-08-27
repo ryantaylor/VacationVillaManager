@@ -210,7 +210,7 @@
                                         '<div id="photo-control-' + uid + '" class="photo-controls">' +
                                             '<button class="btn btn-primary btn-mini photo-info" data-toggle="modal" data-target="#photo-modal-' + uid + '"><i class="icon-gear icon-large"></i></button> ' +
                                             '<button class="btn btn-danger btn-mini photo-close"><i class="icon-remove icon-large"></i></button>' +
-                                        '</div>';
+                                        '</div></li>';
                     $('.thumbnails').append(toAppend);
                 },
                 onProgress: function (uid, filename, loaded, total) {
@@ -247,12 +247,15 @@
                                             '<div class="modal-footer">' +
                                                 '<button id="name-save-' + uid + '" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save Changes</button>' +
                                             '</div>' +
-                                        '</div>' +
-                                    '</li>';
+                                        '</div>';
+                                    //'</li>';
                     $('#upload-info').append(toAppend);
 
                     $('#photo-' + uid + '').attr("src", "/Images/temp/" + responseJSON.thumb);
                     $('#photo-' + uid + '').parent().attr("href", "/Images/temp/" + responseJSON.path);
+                },
+                onError: function (uid, filename, xhr) {
+                    alert(xhr);
                 },
                 params: {
                     houseID: '0'
