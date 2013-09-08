@@ -57,6 +57,7 @@
 	z-index: 10;
 	padding:0;
 	margin-left:-2%;
+    font-weight: bold !important;
 }
 .da-slide h2 i {
 	font-size: 36px;
@@ -64,6 +65,7 @@
 	/*background:url(../img/bg-heading-light.png) repeat;*/
 	padding:0 5px;
 	text-transform:uppercase;
+    text-shadow: 2px 2px green !important;
 }
 .da-slide p {
 	font-family: 'Open Sans', sans-serif;
