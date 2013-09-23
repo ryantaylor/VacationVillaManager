@@ -3,22 +3,34 @@
 <div class="viewPane">
     @foreach (var entry in Model.HouseBookings)
     {
-        <h3>@entry.Key</h3>
-        <table>
-            <tr>
-                <th>Client Name</th>
-                <th>Arrival Date</th>
-                <th>Departure Date</th>
-            </tr>
-
-            @foreach (var b in entry.Value)
+        <div class="headline"><h3>@entry.Key</h3></div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Arrival Date</th>
+                    <th>Departure Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (entry.Value.Count == 0)
             {
                 <tr>
-                    <td>@Html.DisplayTextFor(modelItem => b.Client.Name)</td>
-                    <td>@b.StartDate.ToString("dd MMM yyyy")</td>
-                    <td>@b.EndDate.ToString("dd MMM yyyy")</td>
+                    <td>No entries found</td>
                 </tr>
             }
+            else
+            {
+                foreach (var b in entry.Value)
+                {
+                    <tr>
+                        <td>@Html.DisplayTextFor(modelItem => b.Client.Name)</td>
+                        <td>@b.StartDate.ToString("dd MMM yyyy")</td>
+                        <td>@b.EndDate.ToString("dd MMM yyyy")</td>
+                    </tr>
+                }
+            }
+            </tbody>
         </table>
     }
 </div>
