@@ -253,8 +253,14 @@
     <Content Include="Content\font-awesome\scss\_mixins.scss" />
     <Content Include="Content\font-awesome\scss\_path.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\sort_asc.png" />
+    <Content Include="Content\images\sort_asc_disabled.png" />
+    <Content Include="Content\images\sort_both.png" />
+    <Content Include="Content\images\sort_desc.png" />
+    <Content Include="Content\images\sort_desc_disabled.png" />
     <Content Include="Content\markers\beach.png" />
     <Content Include="Content\markers\footprint.png" />
     <Content Include="Content\markers\golf.png" />
