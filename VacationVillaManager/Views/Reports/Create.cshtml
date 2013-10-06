@@ -94,12 +94,14 @@
 
                     case "4":
                         var month = $('.month').val();
+                        var email = $('.email').val();
 
                         $.ajax({
                             type: "POST",
                             url: "/Reports/GenerateComeGoReport",
                             data: {
-                                Month: month
+                                Month: month,
+                                Email: email
                             },
                             success: function ($result) {
                                 var toInject = $result;

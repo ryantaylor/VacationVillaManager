@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using VacationVillaManager.Models;
@@ -172,7 +173,7 @@ namespace VacationVillaManager.Controllers
         }
 
         //
-        // POST: /Reports/GenerateFreeHousesReport
+        // POST: /Reports/GenerateComeGoReport
 
         public PartialViewResult GenerateComeGoReport(ReportComeGoModel model)
         {
@@ -185,13 +186,40 @@ namespace VacationVillaManager.Controllers
             {
                 List<Booking> connectedBookings = new List<Booking>();
 
+                /*mail.Body += "<table>" +
+                                "<tr>" +
+                                    "<th style='width: 33%;'>Client</td>" +
+                                    "<th style='width: 33%;'>Arrival</td>" +
+                                    "<th style='width: 33%;'>Departure</td>" +
+                                "</tr>";*/
+
                 foreach (Booking b in relevantBookings)
                 {
                     if (h.ID == b.House.ID)
+                    {
                         connectedBookings.Add(b);
+                    }
                 }
 
-                model.HouseBookings.Add(h.Name, connectedBookings);
+                if (h.Name != null)
+                    model.HouseBookings.Add(h.Name, connectedBookings);
+            }
+
+            if (model.Email != null)
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("mail.lin.arvixe.com");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("info@vacationvillamanager.com", "webmastervvm");
+
+                mail.From = new MailAddress("info@vacationvillamanager.com");
+                mail.To.Add(model.Email);
+                mail.Subject = "Arrivals/Departures Report - " + model.Month.ToString("MMMM yyyy");
+                mail.IsBodyHtml = true;
+
+                mail.Body = RenderViewToString("_ViewComeGo", model);
+
+                SmtpServer.Send(mail);
+                mail.Dispose();
             }
 
             return PartialView("_ViewComeGo", model);
@@ -261,6 +289,19 @@ namespace VacationVillaManager.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public string RenderViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new System.IO.StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
         }
     }
 }

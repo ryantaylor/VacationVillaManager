@@ -3,7 +3,7 @@
 <div class="viewPane">
     @foreach (var entry in Model.HouseBookings)
     {
-        <div class="headline"><h3>@entry.Key</h3></div>
+        <h3>@entry.Key</h3>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -17,6 +17,8 @@
             {
                 <tr>
                     <td>No entries found</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             }
             else
