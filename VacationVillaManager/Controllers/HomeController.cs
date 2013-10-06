@@ -16,7 +16,7 @@ namespace VacationVillaManager.Controllers
         public ActionResult Index()
         {
             if (Session["ActiveHouses"] == null) Session["ActiveHouses"] = db.Houses.Where(m => m.Active == true);
-            ViewBag.Headlines = db.Photos.Include("House").Where(m => m.IsHeadline == true).ToList();
+            ViewBag.Headlines = db.Photos.Include("House").Where(m => m.IsHeadline == true && m.House.Active).ToList();
             return View();
         }
 
