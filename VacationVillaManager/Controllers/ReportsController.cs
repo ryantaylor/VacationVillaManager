@@ -201,6 +201,8 @@ namespace VacationVillaManager.Controllers
                     }
                 }
 
+                connectedBookings.OrderBy(m => m.StartDate);
+
                 if (h.Name != null)
                     model.HouseBookings.Add(h.Name, connectedBookings);
             }
