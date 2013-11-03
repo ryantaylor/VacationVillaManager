@@ -177,7 +177,7 @@ namespace VacationVillaManager.Controllers
 
         public PartialViewResult GenerateComeGoReport(ReportComeGoModel model)
         {
-            List<Booking> relevantBookings = db.Bookings.Include("Client").Where(m => m.StartDate.Month == model.Month.Month || m.EndDate.Month == model.Month.Month).ToList();
+            List<Booking> relevantBookings = db.Bookings.Include("Client").Where(m => m.StartDate.Month == model.Month.Month || m.EndDate.Month == model.Month.Month).OrderBy(m => m.StartDate).ToList();
             List<House> houses = db.Houses.ToList();
 
             model.HouseBookings = new Dictionary<string, List<Booking>>();
@@ -200,8 +200,6 @@ namespace VacationVillaManager.Controllers
                         connectedBookings.Add(b);
                     }
                 }
-
-                connectedBookings.OrderBy(m => m.StartDate);
 
                 if (h.Name != null)
                     model.HouseBookings.Add(h.Name, connectedBookings);
