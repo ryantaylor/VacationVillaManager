@@ -19,5 +19,6 @@ namespace VacationVillaManager.Models
         public string URLThumbWide { get; set; }
         public House House { get; set; }
         public bool IsHeadline { get; set; }
+        public int Order { get; set; }
     }
 }

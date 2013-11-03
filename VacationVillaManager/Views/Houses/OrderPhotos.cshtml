@@ -1,0 +1,84 @@
+﻿@model List<VacationVillaManager.Models.Photo>
+@using VacationVillaManager.Models;
+
+@{
+    ViewBag.Title = "Order Photos";
+}
+
+@Styles.Render("~/Content/BootstrapOverride.css")
+
+@using (Html.BeginForm("OrderPhotos", "Houses", FormMethod.Post, new { id = "order-photos" })) {
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span6">
+                    <h3><a href="@Url.Action("Index")" class="back-button"><i class="icon-circle-arrow-left"></i></a> @ViewBag.houseName</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul id="sortable">
+        @foreach (Photo p in Model)
+        {
+            <li id="@p.ID" class="well well-small"><img src="/Images/houses/@p.URLThumbWide" /> @p.Name</li>
+        }
+    </ul>
+    
+    <div class="row-fluid">
+        <div class="span12 well well-small">
+            <div class="row-fluid">
+                <div class="offset1">
+                    <label for="save-order" class="btn btn-large btn-primary"><i id="check" class="icon-ok"></i><i id="spinner" class="icon-spinner icon-spin" style="display: none;"></i>  Save</label>
+                    <input type="submit" value="Save" id="save-order" class="hidden" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui");
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            var photos;
+
+            $.extend({
+                postGo: function (url, params) {
+                    var $form = $("<form>")
+                        .attr("method", "post")
+                        .attr("action", url);
+                    $.each(params, function (name, value) {
+                        $("<input type='hidden'>")
+                            .attr("name", name)
+                            .attr("value", value)
+                            .appendTo($form);
+                    });
+                    $form.appendTo("body");
+                    $form.submit();
+                }
+            });
+
+            $('#sortable').sortable();
+
+            $('#order-photos').submit(photos, function (e) {
+                e.preventDefault();
+                $('#check').hide();
+                $('#spinner').show();
+                photos = $('#sortable').sortable('toArray');
+                $.ajax({
+                    url: '@Url.Action("OrderPhotos", "Houses")',
+                    type: 'POST',
+                    data: { photoIDs: photos },
+                    traditional: true,
+                    success: function (result) {
+                        location.href = '/Houses/OrderPhotosSuccess';
+                    }
+                });
+            });
+        });
+    </script>
+}

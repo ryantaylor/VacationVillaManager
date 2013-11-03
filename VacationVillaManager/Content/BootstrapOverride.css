@@ -235,6 +235,28 @@ a.thumbnail:hover ~ .photo-controls {
     border-bottom: 1px solid #e5e5e5;
 }
 
+#sortable {
+    list-style-type: none;
+}
+
+#sortable li {
+    height: 120px;
+    font-size: 24.5px;
+    color: #555555;
+    font-weight: normal !important;
+    margin-top: 5px;
+    text-shadow: 0 0 1px #F6F6F6;
+    font-family:'Open Sans', sans-serif; 
+}
+
+#sortable li.well {
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#sortable li img {
+    height: 100px;
+}
 
 
 

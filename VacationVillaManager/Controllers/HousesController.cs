@@ -43,7 +43,7 @@ namespace VacationVillaManager.Controllers
 
             ViewData["Specials"] = specials;
 
-            house.Photos = db.Photos.Where(m => m.House.ID == id).ToList();
+            house.Photos = db.Photos.Where(m => m.House.ID == id).OrderBy(m => m.Order).ToList();
             house.Costs = db.Costs.Where(m => m.House.ID == id).ToList();
             house.GuestReviews = db.GuestReviews.Where(m => m.House.ID == id).ToList();
 
@@ -319,6 +319,45 @@ namespace VacationVillaManager.Controllers
             }
 
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //
+        // GET: /House/OrderPhotos/5
+
+        [Authorize]
+        public ActionResult OrderPhotos(int id)
+        {
+            List<Photo> photos = db.Photos.Where(m => m.House.ID == id).OrderBy(m => m.Order).ToList();
+            ViewBag.houseName = db.Houses.First(m => m.ID == id).Name;
+            return View(photos);
+        }
+
+        //
+        // POST: /House/OrderPhotos/5
+
+        [HttpPost]
+        public bool OrderPhotos(int[] photoIDs)
+        {
+            Photo photo;
+            int id;
+            for (int i = 0; i < photoIDs.Length; i ++)
+            {
+                id = photoIDs[i];
+                photo = db.Photos.First(m => m.ID == id);
+                photo.Order = i;
+                db.SaveChanges();
+            }
+
+            return true;
+        }
+
+        //
+        // GET: /House/OrderPhotosSuccess
+
+        public ActionResult OrderPhotosSuccess()
+        {
+            Success("Changes were successfully saved!");
             return RedirectToAction("Index");
         }
 

@@ -1037,6 +1037,7 @@
     <Content Include="Views\Shared\_NewsletterForm.cshtml" />
     <Content Include="Views\Home\Attractions.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Houses\OrderPhotos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
