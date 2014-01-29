@@ -667,7 +667,8 @@
           img_container.append(img);
         };
         this.image_wrapper.prepend(img_container);
-        var size = this._getContainedImageSize(image.size.width, image.size.height);
+          //var size = this._getContainedImageSize(image.size.width, image.size.height);
+        var size = this._getContainedImageSize(img.width(), img.height());
         img.attr('width', size.width);
         img.attr('height', size.height);
         img_container.css({width: size.width +'px', height: size.height +'px'});

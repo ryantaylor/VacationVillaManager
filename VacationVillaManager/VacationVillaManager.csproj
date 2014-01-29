@@ -886,6 +886,8 @@
     <Content Include="Content\unity\plugins\revolution_slider\rs-plugin\assets\arrows.psd" />
     <Content Include="Content\unity\plugins\revolution_slider\rs-plugin\assets\bullets.psd" />
     <Content Include="Content\unity\plugins\revolution_slider\rs-plugin\assets\small_arrows.psd" />
+    <None Include="Properties\PublishProfiles\vacationvillamanager.com - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\vacationvillamanager.com - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\vacationvillamanager.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
