@@ -1,0 +1,55 @@
+﻿@model VacationVillaManager.Models.GuestReview
+
+@{
+    ViewBag.Title = "Edit Guest Review";
+}
+
+@Styles.Render("~/Content/BootstrapOverride.css")
+
+@using (Html.BeginForm()) {
+    <div class="control-group">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span6">
+                    <h3><a href="@Url.Action("Index")" class="back-button"><i class="icon-circle-arrow-left"></i></a> @Model.House.Name</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.House.ID)
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="input-prepend">
+                        <span class="add-on">Guest Name</span>
+                        @Html.TextBoxFor(model => model.GuestName, new { placeholder = "Name here!" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="row-fluid">
+                <div class="span4">
+                    @Html.TextAreaFor(model => model.Excerpt)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span4 well well-small">
+            <div class="row-fluid">
+                <div class="offset1">
+                    <label for="save-order" class="btn btn-large btn-primary"><i id="check" class="icon-ok"></i><i id="spinner" class="icon-spinner icon-spin" style="display: none;"></i>  Save</label>
+                    <input type="submit" value="Save" id="save-order" class="hidden" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

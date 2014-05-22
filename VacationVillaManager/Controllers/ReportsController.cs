@@ -177,7 +177,7 @@ namespace VacationVillaManager.Controllers
 
         public PartialViewResult GenerateComeGoReport(ReportComeGoModel model)
         {
-            List<Booking> relevantBookings = db.Bookings.Include("Client").Where(m => m.StartDate.Month == model.Month.Month || m.EndDate.Month == model.Month.Month).OrderBy(m => m.StartDate).ToList();
+            List<Booking> relevantBookings = db.Bookings.Include("Client").Where(m => (m.StartDate.Month == model.Month.Month && m.StartDate.Year == model.Month.Year) || (m.EndDate.Month == model.Month.Month && m.EndDate.Year == model.Month.Year)).OrderBy(m => m.StartDate).ToList();
             List<House> houses = db.Houses.ToList();
 
             model.HouseBookings = new Dictionary<string, List<Booking>>();

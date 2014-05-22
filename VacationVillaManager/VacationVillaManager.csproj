@@ -1040,6 +1040,7 @@
     <Content Include="Views\Home\Attractions.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Houses\OrderPhotos.cshtml" />
+    <Content Include="Views\Houses\EditReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

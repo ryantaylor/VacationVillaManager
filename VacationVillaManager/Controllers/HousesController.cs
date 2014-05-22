@@ -361,6 +361,31 @@ namespace VacationVillaManager.Controllers
             return RedirectToAction("Index");
         }
 
+        //
+        // GET: /House/EditReview/5
+
+        [Authorize]
+        public ActionResult EditReview(int id)
+        {
+            GuestReview review = db.GuestReviews.Include("House").Single(m => m.House.ID == id);
+            return View(review);
+        }
+
+        //
+        // POST: /House/EditReview/5
+
+        [HttpPost]
+        public ActionResult EditReview(GuestReview review)
+        {
+            GuestReview dbReview = db.GuestReviews.Single(m => m.House.ID == review.House.ID);
+            dbReview.GuestName = review.GuestName;
+            dbReview.Excerpt = review.Excerpt;
+            db.SaveChanges();
+
+            this.Success("Guest review was updated successfully!");
+            return RedirectToAction("Index");
+        }
+
         /*protected override void Dispose(bool disposing)
         {
             db.Dispose();
